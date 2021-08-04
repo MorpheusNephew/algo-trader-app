@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-algotraderapp-dev-212017-authRole",
+      "UnauthRoleArn": "arn:aws:iam::014477660743:role/amplify-algotraderapp-dev-212017-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::014477660743:role/amplify-algotraderapp-dev-212017-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+      "UnauthRoleName": "amplify-algotraderapp-dev-212017-unauthRole",
+      "StackName": "amplify-algotraderapp-dev-212017",
+      "StackId": "arn:aws:cloudformation:us-east-1:014477660743:stack/amplify-algotraderapp-dev-212017/24595880-f4c2-11eb-a9af-0a9fb25362c3",
+      "AmplifyAppId": "d2z6wj1fnu5msl"
+    }
+  }
+}
