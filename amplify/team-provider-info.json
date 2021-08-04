@@ -10,6 +10,11 @@
       "StackName": "amplify-algotraderapp-dev-212017",
       "StackId": "arn:aws:cloudformation:us-east-1:014477660743:stack/amplify-algotraderapp-dev-212017/24595880-f4c2-11eb-a9af-0a9fb25362c3",
       "AmplifyAppId": "d2z6wj1fnu5msl"
+    },
+    "categories": {
+      "auth": {
+        "algotraderapp195d319e": {}
+      }
     }
   }
 }
