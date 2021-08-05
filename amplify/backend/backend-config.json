@@ -1,10 +1,11 @@
 {
   "auth": {
-    "algotraderapp195d319e": {
+    "algotraderapp3f74f105": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
-  }
+  },
+  "function": {}
 }

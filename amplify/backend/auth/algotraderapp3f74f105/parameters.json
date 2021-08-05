@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "algotraderapp195d319e_identitypool_195d319e",
+    "identityPoolName": "algotraderapp3f74f105_identitypool_3f74f105",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "algotr195d319e",
-    "userPoolName": "algotraderapp195d319e_userpool_195d319e",
+    "resourceNameTruncated": "algotr3f74f105",
+    "userPoolName": "algotraderapp3f74f105_userpool_3f74f105",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -21,7 +21,9 @@
         "email"
     ],
     "aliasAttributes": [
-        "email"
+        "email",
+        "preferred_username",
+        "phone_number"
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
@@ -31,10 +33,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "algotr195d319e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "algotr3f74f105_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "195d319e",
-    "resourceName": "algotraderapp195d319e",
+    "sharedId": "3f74f105",
+    "resourceName": "algotraderapp3f74f105",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
