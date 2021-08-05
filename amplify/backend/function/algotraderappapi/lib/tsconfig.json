@@ -9,5 +9,6 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./package.json"]
+  "include": ["."],
+  "exclude": ["node_modules"]
 }

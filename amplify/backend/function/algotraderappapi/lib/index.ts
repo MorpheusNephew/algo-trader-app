@@ -9,7 +9,7 @@ exports.handler = async (_event: any) => {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "*",
     },
-    body: JSON.stringify("Hello from Lambda! Magic is happening"),
+    body: JSON.stringify("Hello from Lambda! Magic is happening and then..."),
   };
   return response;
 };
