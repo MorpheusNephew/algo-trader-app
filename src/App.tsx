@@ -8,7 +8,7 @@ function App() {
   const [response, setResponse] = useState(null);
 
   useEffect(() => {
-    API.get("algotraderappapi", "/api", null).then((data) => {
+    API.get("algoappapi", "/api", null).then((data) => {
       console.log(data);
       setResponse(data);
     });
