@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 function App() {
   const [response, setResponse] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [_currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     API.get("algoappapi", "/api", null).then((data) => {
@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((user) => {
+      console.log('Authenticated user', user);
       setCurrentUser(user);
     });
   }, []);
@@ -26,7 +27,6 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>We now have auth</h1>
-        {currentUser && <div>{currentUser}</div>}
         {response && <div>Response: {response}</div>}
       </header>
       <AmplifySignOut />
