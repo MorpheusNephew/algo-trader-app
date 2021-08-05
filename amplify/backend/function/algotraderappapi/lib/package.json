@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "scripts": {
-    "buildFunction": "rimraf ../src && tsc -p ./tsconfig.json && cd ../src && yarn"
+    "buildFunction": "rimraf ../src && tsc -p ./tsconfig.json && cd ../src && yarn --prod"
   },
   "devDependencies": {
     "@types/koa": "^2.13.4",
