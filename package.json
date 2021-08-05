@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "amplify:algotraderappapi": "cd amplify/backend/function/algotraderappapi/lib && tsc -p ./tsconfig.json && yarn && cd -"
+    "amplify:algotraderappapi": "rimraf amplify/backend/function/algotraderappapi/src && cd amplify/backend/function/algotraderappapi/lib && tsc -p ./tsconfig.json && yarn && cd -"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
   }
 }
