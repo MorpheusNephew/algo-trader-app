@@ -5,6 +5,9 @@
     "noUnusedLocals":  true,
     "noUnusedParameters":  true,
     "target":  "es2017",
-    "outDir":  "../src"
-  }
+    "outDir":  "../src",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./package.json"]
 }

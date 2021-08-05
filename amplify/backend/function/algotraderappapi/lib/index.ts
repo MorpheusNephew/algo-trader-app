@@ -1,5 +1,8 @@
+import Koa from 'koa';
+
 exports.handler = async (_event: any) => {
   // TODO implement
+  console.log('Hello there koa', Koa);
   const response = {
     statusCode: 200,
     headers: {
