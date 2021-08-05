@@ -20,6 +20,12 @@
       },
       "auth": {
         "algotraderapp7860b9f7": {}
+      },
+      "function": {
+        "algotraderappapi": {
+          "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+          "s3Key": "amplify-builds/algotraderappapi-3962436a626d596f5846-build.zip"
+        }
       }
     }
   }
