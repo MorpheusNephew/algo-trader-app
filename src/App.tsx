@@ -12,7 +12,7 @@ function App() {
       console.log(data);
       setResponse(data);
     });
-  });
+  }, []);
 
   return (
     <div className="App">
