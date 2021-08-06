@@ -5,9 +5,17 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "scripts": {
-    "buildFunction": "rimraf ../src && tsc -p ./tsconfig.json && cd ../src && yarn --prod"
+    "tsc": "tsc -p ./tsconfig.json",
+    "cleanDir": "rimraf ../src",
+    "babel": "babel . --out-dir ../src --extensions '.ts' -D",
+    "prebuild": "yarn cleanDir && yarn tsc",
+    "build": "yarn babel && cd ../src && yarn install --prod"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
     "@types/koa": "^2.13.4",
     "@types/node": "^16.4.12",
     "rimraf": "^3.0.2",

@@ -1,4 +1,4 @@
-const Koa = require('koa');
+import Koa from 'koa';
 
 exports.handler = async (_event: any) => {
   // TODO implement
