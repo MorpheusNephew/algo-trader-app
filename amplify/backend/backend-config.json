@@ -18,7 +18,16 @@
     "algotraderappapi": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "algotraderapp7860b9f7",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     }
   },
   "api": {
