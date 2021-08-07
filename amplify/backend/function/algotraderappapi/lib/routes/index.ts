@@ -1,12 +1,15 @@
+import { AppContext } from '../types';
 import Router from '@koa/router';
-import { Context, Next } from 'koa';
+import { Next } from 'koa';
 
 export const router = new Router({ prefix: "/api" }).get(
   "greeting",
   "/",
-  async (ctx: Context, next: Next) => {
+  async (ctx: AppContext, next: Next) => {
     ctx.status = 200;
-    ctx.body = JSON.stringify("Welcome to a Koa routed API");
+    ctx.body = JSON.stringify(
+      `Welcome to a Koa routed API ${ctx.state.authenticatedUsername}`
+    );
 
     await next();
   }

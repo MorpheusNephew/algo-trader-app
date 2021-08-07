@@ -1,3 +1,10 @@
 {
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "permissions": {
+    "auth": {
+      "algotraderapp7860b9f7": [
+        "read"
+      ]
+    }
+  }
 }
