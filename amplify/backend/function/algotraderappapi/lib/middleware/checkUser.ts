@@ -1,3 +1,4 @@
+import { convertToAuthenticatedUser } from '../utils';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import { Next } from 'koa';
 
@@ -7,7 +8,7 @@ const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
 
 const USER_POOL_ID = process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID;
 
-const checkUsername = async (ctx: any, next: Next) => {
+const checkUser = async (ctx: any, next: Next) => {
   const cognitoAuthenticationProvider =
     ctx.req.requestContext?.identity?.cognitoAuthenticationProvider.split(",");
 
@@ -23,15 +24,17 @@ const checkUsername = async (ctx: any, next: Next) => {
     .listUsers(request)
     .promise();
 
-  const username = response.Users[0].Username;
+  const authenticatedUser = response.Users.map(convertToAuthenticatedUser)[0];
 
-  if (!username) {
+  if (!authenticatedUser) {
     ctx.throw("User not found", 404);
   }
 
-  ctx.state.authenticatedUsername = username;
+  console.log("User", JSON.stringify(authenticatedUser));
+
+  ctx.state.authenticatedUser = authenticatedUser;
 
   await next();
 };
 
-export default checkUsername;
+export default checkUser;
