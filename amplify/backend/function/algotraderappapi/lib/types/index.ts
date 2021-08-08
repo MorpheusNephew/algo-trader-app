@@ -5,5 +5,10 @@ export interface AppContext extends Context {
 }
 
 export interface AppContextState extends DefaultState {
-    authenticatedUsername: string;
+  authenticatedUser: AuthenticatedUser;
+}
+
+export interface AuthenticatedUser {
+  username: string;
+  [key: string]: any;
 }
