@@ -1,6 +1,6 @@
 import './App.css';
-import logo from './logo.svg';
-import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react';
+import Header from './components/Header';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 
@@ -24,13 +24,12 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <Header />
+      <header>
         <h1>We now have auth</h1>
         {currentUser?.username && <div>Welcome {currentUser.username}</div>}
         {response && <div>Response: {response}</div>}
       </header>
-      <AmplifySignOut />
     </div>
   );
 }
