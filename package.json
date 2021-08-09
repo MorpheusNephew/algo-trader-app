@@ -25,7 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "amplify:algotraderappapi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -"
+    "amplify:algotraderappapi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +47,11 @@
     ]
   },
   "devDependencies": {
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^2.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "prettier --write"
   }
 }
