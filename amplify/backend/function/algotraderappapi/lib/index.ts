@@ -1,5 +1,5 @@
 import checkUser from './middleware/checkUser';
-import { router } from './routes';
+import router from './routes';
 import cors from '@koa/cors';
 import Koa from 'koa';
 import ServerlessHttp from 'serverless-http';
