@@ -26,6 +26,15 @@
           "attributes": [
             "UserPoolId"
           ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "brokerconnection",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
         }
       ]
     }

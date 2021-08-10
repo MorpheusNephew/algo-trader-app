@@ -5,6 +5,14 @@
       "algotraderapp7860b9f7": [
         "read"
       ]
+    },
+    "storage": {
+      "brokerconnection": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
     }
   }
 }

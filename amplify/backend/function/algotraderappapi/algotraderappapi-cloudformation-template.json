@@ -19,6 +19,18 @@
     "authalgotraderapp7860b9f7UserPoolId": {
       "Type": "String",
       "Default": "authalgotraderapp7860b9f7UserPoolId"
+    },
+    "storagebrokerconnectionName": {
+      "Type": "String",
+      "Default": "storagebrokerconnectionName"
+    },
+    "storagebrokerconnectionArn": {
+      "Type": "String",
+      "Default": "storagebrokerconnectionArn"
+    },
+    "storagebrokerconnectionStreamArn": {
+      "Type": "String",
+      "Default": "storagebrokerconnectionStreamArn"
     }
   },
   "Conditions": {
@@ -76,6 +88,15 @@
             },
             "AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID": {
               "Ref": "authalgotraderapp7860b9f7UserPoolId"
+            },
+            "STORAGE_BROKERCONNECTION_NAME": {
+              "Ref": "storagebrokerconnectionName"
+            },
+            "STORAGE_BROKERCONNECTION_ARN": {
+              "Ref": "storagebrokerconnectionArn"
+            },
+            "STORAGE_BROKERCONNECTION_STREAMARN": {
+              "Ref": "storagebrokerconnectionStreamArn"
             }
           }
         },
@@ -222,6 +243,39 @@
                       {
                         "Ref": "authalgotraderapp7860b9f7UserPoolId"
                       }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagebrokerconnectionArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagebrokerconnectionArn"
+                      },
+                      "index/*"
                     ]
                   ]
                 }
