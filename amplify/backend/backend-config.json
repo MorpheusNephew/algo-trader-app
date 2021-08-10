@@ -45,5 +45,11 @@
         }
       ]
     }
+  },
+  "storage": {
+    "brokerconnection": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
