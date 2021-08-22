@@ -11,7 +11,7 @@ The token refresher is what will go through and refresh refresh tokens the day b
 
 ## AlgoTrader API
 
-This [API](../amplify/backend/function/algotraderappapi/) is what the front-end application will communicate with to do things like connecting a user to a brokerage account, see account information, and adjust broker configuration
+This [API](../amplify/backend/function/algotraderappapi/README.md) is what the front-end application will communicate with to do things like connecting a user to a brokerage account, see account information, and adjust broker configuration
 
 ## Symbol Retriever
 
