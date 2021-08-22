@@ -20,17 +20,17 @@
       "Type": "String",
       "Default": "authalgotraderapp7860b9f7UserPoolId"
     },
-    "storagebrokerconnectionName": {
+    "storageAlgoTraderTableName": {
       "Type": "String",
-      "Default": "storagebrokerconnectionName"
+      "Default": "storageAlgoTraderTableName"
     },
-    "storagebrokerconnectionArn": {
+    "storageAlgoTraderTableArn": {
       "Type": "String",
-      "Default": "storagebrokerconnectionArn"
+      "Default": "storageAlgoTraderTableArn"
     },
-    "storagebrokerconnectionStreamArn": {
+    "storageAlgoTraderTableStreamArn": {
       "Type": "String",
-      "Default": "storagebrokerconnectionStreamArn"
+      "Default": "storageAlgoTraderTableStreamArn"
     }
   },
   "Conditions": {
@@ -89,14 +89,14 @@
             "AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID": {
               "Ref": "authalgotraderapp7860b9f7UserPoolId"
             },
-            "STORAGE_BROKERCONNECTION_NAME": {
-              "Ref": "storagebrokerconnectionName"
+            "STORAGE_ALGOTRADERTABLE_NAME": {
+              "Ref": "storageAlgoTraderTableName"
             },
-            "STORAGE_BROKERCONNECTION_ARN": {
-              "Ref": "storagebrokerconnectionArn"
+            "STORAGE_ALGOTRADERTABLE_ARN": {
+              "Ref": "storageAlgoTraderTableArn"
             },
-            "STORAGE_BROKERCONNECTION_STREAMARN": {
-              "Ref": "storagebrokerconnectionStreamArn"
+            "STORAGE_ALGOTRADERTABLE_STREAMARN": {
+              "Ref": "storageAlgoTraderTableStreamArn"
             }
           }
         },
@@ -266,14 +266,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagebrokerconnectionArn"
+                  "Ref": "storageAlgoTraderTableArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagebrokerconnectionArn"
+                        "Ref": "storageAlgoTraderTableArn"
                       },
                       "index/*"
                     ]

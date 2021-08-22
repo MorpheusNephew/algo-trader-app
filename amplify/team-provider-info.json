@@ -24,7 +24,7 @@
       "function": {
         "algotraderappapi": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappapi-3259745047354e7a7856-build.zip"
+          "s3Key": "amplify-builds/algotraderappapi-493135386b3045453435-build.zip"
         }
       }
     }

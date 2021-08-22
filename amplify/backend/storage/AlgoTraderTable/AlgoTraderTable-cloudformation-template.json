@@ -40,12 +40,17 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "user_sub",
+                      "AttributeName": "id",
                       "AttributeType": "S"
                   }  , 
                   
                   {
-                      "AttributeName": "username",
+                      "AttributeName": "sortName",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "type",
                       "AttributeType": "S"
                   } 
                   
@@ -53,12 +58,12 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "user_sub",
+                    "AttributeName": "id",
                     "KeyType": "HASH"
                   }  , 
                   
                   {
-                    "AttributeName": "username",
+                    "AttributeName": "sortName",
                     "KeyType": "RANGE"
                   } 
                   
@@ -93,6 +98,34 @@
                         }
                     ]
                 }
+                
+                ,"GlobalSecondaryIndexes": [
+                  
+                    {
+                        "IndexName": "TypeSortNameIndex",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "type",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "sortName",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    } 
+                  
+                ]
                 
             }
         }

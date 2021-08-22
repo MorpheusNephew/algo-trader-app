@@ -1,7 +1,0 @@
-{
-    "tableName": "brokerconnection",
-    "partitionKeyName": "user_sub",
-    "partitionKeyType": "S",
-    "sortKeyName": "username",
-    "sortKeyType": "S"
-}

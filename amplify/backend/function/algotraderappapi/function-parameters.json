@@ -7,7 +7,7 @@
       ]
     },
     "storage": {
-      "brokerconnection": [
+      "AlgoTraderTable": [
         "create",
         "read",
         "update",

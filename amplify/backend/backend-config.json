@@ -29,7 +29,7 @@
         },
         {
           "category": "storage",
-          "resourceName": "brokerconnection",
+          "resourceName": "AlgoTraderTable",
           "attributes": [
             "Name",
             "Arn",
@@ -56,7 +56,7 @@
     }
   },
   "storage": {
-    "brokerconnection": {
+    "AlgoTraderTable": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }
