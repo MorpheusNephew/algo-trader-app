@@ -7,7 +7,7 @@ const configurationRouter = new Router({ prefix: '/configuration' }).get(
   '/',
   async (ctx: AppContext, next: Next) => {
     ctx.status = 200;
-    ctx.body = 'Congratulations I guess';
+    ctx.body = JSON.stringify('Congratulations I guess');
 
     await next();
   }
