@@ -31,11 +31,11 @@ IConnection
 
 ```typescript
 interface IConnection {
-  accessToken: 'string';
-  accessTokenExpiration: 'string';
-  refreshToken: 'string';
-  refreshTokenExpiration: 'string';
-  type: 'TConnection';
+  accessToken: string;
+  accessTokenExpiration: string;
+  refreshToken: string;
+  refreshTokenExpiration: string;
+  type: TConnection;
 }
 ```
 
@@ -43,7 +43,7 @@ IConnectionResponse
 
 ```typescript
 interface IConnectionResponse {
-  id: 'string';
-  type: 'TConnection';
+  id: string;
+  type: TConnection;
 }
 ```
