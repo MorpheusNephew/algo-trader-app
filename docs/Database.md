@@ -13,15 +13,16 @@
 
 ```json
 {
-    id: string,
-    sortName: string,
-    type: string,
+    id: string, // example `username` username will be the id for all things associated with that user like connections
+    sortName: string, // td
+    type: string, // `connection:${sortName}:${id}`
     email?: string,
     accessToken?: string,
     accessTokenExpiration?: string,
     refreshToken?: string,
     refreshTokenExpiration?: string,
-    isTd?: boolean
-    isCboe?: boolean
+    isTd?: boolean,
+    isCboe?: boolean,
+    tradeSettings: object,
 }
 ```
