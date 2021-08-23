@@ -1,5 +1,6 @@
 import { AppContext } from '../types';
 import configurationRouter from './configurationRouter';
+import connectionsRouter from './connectionsRouter';
 import Router from '@koa/router';
 import { Next } from 'koa';
 
@@ -12,6 +13,7 @@ const router = new Router({ prefix: '/api' })
 
     await next();
   })
-  .use(configurationRouter.routes());
+  .use(configurationRouter.routes())
+  .use(connectionsRouter.routes());
 
 export default router;
