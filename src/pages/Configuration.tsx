@@ -1,5 +1,5 @@
 import ConnectedBrokerages from '../components/ConnectedBrokerages';
-import TdConnect from './td/Connect';
+import TdAmeritrade from './Td';
 
 const Configuration = () => (
   <div>
@@ -7,7 +7,7 @@ const Configuration = () => (
       <h1>Configuration</h1>
     </header>
     <ConnectedBrokerages>
-      <TdConnect />
+      <TdAmeritrade />
     </ConnectedBrokerages>
   </div>
 );
