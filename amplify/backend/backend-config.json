@@ -26,6 +26,15 @@
           "attributes": [
             "UserPoolId"
           ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "AlgoTraderTable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
         }
       ]
     }
@@ -44,6 +53,12 @@
           ]
         }
       ]
+    }
+  },
+  "storage": {
+    "AlgoTraderTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
     }
   }
 }
