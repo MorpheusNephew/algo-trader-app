@@ -102,7 +102,7 @@
                 ,"GlobalSecondaryIndexes": [
                   
                     {
-                        "IndexName": "TypeSortNameIndex",
+                        "IndexName": "TypeIdIndex",
                         "KeySchema": [
                             
                             {
@@ -111,7 +111,7 @@
                             }  , 
                             
                             {
-                                "AttributeName": "sortName",
+                                "AttributeName": "id",
                                 "KeyType": "RANGE"
                             } 
                             
@@ -123,7 +123,7 @@
                             "ReadCapacityUnits": "5",
                             "WriteCapacityUnits": "5"
                         }
-                    } 
+                    }
                   
                 ]
                 
