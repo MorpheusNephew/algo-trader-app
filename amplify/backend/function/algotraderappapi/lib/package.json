@@ -18,6 +18,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@types/aws-sdk": "^2.7.0",
     "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.3",
     "@types/koa__cors": "^3.0.3",
     "@types/koa__router": "^8.0.7",
     "@types/node": "^16.4.12",
@@ -29,6 +30,7 @@
     "@koa/router": "^10.1.0",
     "aws-sdk": "2.880.0",
     "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
     "serverless-http": "^2.7.0"
   }
 }
