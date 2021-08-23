@@ -1,31 +1,15 @@
-import API from '@aws-amplify/api';
-import { useEffect, useState } from 'react';
+import GetBrokerageConnections from '../hooks/GetBrokerageConnections';
 
 const ConnectedBrokerages = (props: any) => {
-  const [brokerageConnections, setBrokerageConnections] = useState(null);
-  const [loadingBrokerages, setLoadingBrokerages] = useState(true);
-
-  useEffect(() => {
-    API.get('algoappapi', '/api/configuration', null)
-      .then((data) => {
-        setBrokerageConnections(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setLoadingBrokerages(false);
-      });
-  }, []);
-
-  console.log('Brokerage connections', brokerageConnections);
+  const [brokerageConnections, loadingBrokerageConnections] =
+    GetBrokerageConnections();
 
   return (
     <div>
       <div>Connected brokerages</div>
       {brokerageConnections ? (
-        <div>Your connected brokerages here</div>
-      ) : loadingBrokerages ? (
+        <div>Your connected brokerages here: {brokerageConnections}</div>
+      ) : loadingBrokerageConnections ? (
         <div>Loading brokerages</div>
       ) : (
         props.children
