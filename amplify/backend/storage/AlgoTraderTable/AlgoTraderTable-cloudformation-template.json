@@ -102,6 +102,30 @@
                 ,"GlobalSecondaryIndexes": [
                   
                     {
+                        "IndexName": "IdTypeIndex",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "id",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "type",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    }  , 
+                  
+                    {
                         "IndexName": "TypeIdIndex",
                         "KeySchema": [
                             
@@ -123,7 +147,7 @@
                             "ReadCapacityUnits": "5",
                             "WriteCapacityUnits": "5"
                         }
-                    }
+                    } 
                   
                 ]
                 
