@@ -14,5 +14,8 @@
         "delete"
       ]
     }
-  }
+  },
+  "secretNames": [
+    "TD_CONSUMER_KEY"
+  ]
 }
