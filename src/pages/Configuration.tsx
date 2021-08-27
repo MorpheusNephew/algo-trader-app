@@ -1,4 +1,4 @@
-import TdAmeritrade from './Cool';
+import TdAmeritrade from './Td';
 
 const Configuration = () => (
   <div>
