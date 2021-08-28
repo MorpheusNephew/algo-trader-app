@@ -1,4 +1,5 @@
 import checkUser from './middleware/checkUser';
+import loadConfig from './middleware/loadConfig';
 import router from './routes';
 import cors from '@koa/cors';
 import Koa from 'koa';
@@ -8,6 +9,7 @@ import ServerlessHttp from 'serverless-http';
 const app = new Koa()
   .use(cors())
   .use(bodyParser())
+  .use(loadConfig)
   .use(checkUser)
   .use(router.routes());
 
