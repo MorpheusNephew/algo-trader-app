@@ -12,7 +12,7 @@ import {
 
 const dynamoDb = new DynamoDB();
 
-type TPutItemInput = Omit<PutItemInput, 'TableName'>;
+export type TPutItemInput = Omit<PutItemInput, 'TableName'>;
 
 export const putItem = (input: TPutItemInput) => {
   return performOperation((tableName: string) =>
@@ -25,7 +25,7 @@ export const putItem = (input: TPutItemInput) => {
   );
 };
 
-type TGetItemInput = Omit<GetItemInput, 'TableName'>;
+export type TGetItemInput = Omit<GetItemInput, 'TableName'>;
 
 export const getItem = (input: TGetItemInput) => {
   return performOperation((tableName: string) =>
@@ -33,7 +33,7 @@ export const getItem = (input: TGetItemInput) => {
   );
 };
 
-type TDeleteItemInput = Omit<DeleteItemInput, 'TableName'>;
+export type TDeleteItemInput = Omit<DeleteItemInput, 'TableName'>;
 
 export const deleteItem = (input: TDeleteItemInput) => {
   return performOperation((tableName: string) =>
