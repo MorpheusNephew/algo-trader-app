@@ -1,4 +1,4 @@
-import config from '../config';
+import Config from '../config';
 import { AuthenticatedUser } from '../types';
 import { convertToAuthenticatedUser } from '../utils';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
@@ -15,7 +15,7 @@ export const getCognitoUser = async (ctx: any): Promise<AuthenticatedUser> => {
   const userSub = userInfo[userInfo.length - 1];
 
   const request: CognitoIdentityServiceProvider.ListUsersRequest = {
-    UserPoolId: config.cognitoUserPoolId,
+    UserPoolId: ctx.state.config.cognitoUserPoolId,
     Filter: `sub = "${userSub}"`,
   };
 
