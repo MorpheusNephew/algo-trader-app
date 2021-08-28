@@ -1,7 +1,8 @@
 import { getCognitoUser } from '../services/cognito';
+import { AppContext } from '../types';
 import { Next } from 'koa';
 
-const checkUser = async (ctx: any, next: Next) => {
+const checkUser = async (ctx: AppContext, next: Next) => {
   const authenticatedUser = await getCognitoUser(ctx);
 
   if (!authenticatedUser) {
