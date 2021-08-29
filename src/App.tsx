@@ -14,7 +14,6 @@ function App() {
 
   useEffect(() => {
     API.get('algoappapi', '/api', null).then((data) => {
-      console.log(data);
       setResponse(data);
     });
   }, []);
