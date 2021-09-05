@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 export const useAuthWithTdAmeritrade = (redirectUrl: string) => {
   const [result, setResult] = useState<any>();
+  const [connected, setConnected] = useState(false);
   const [error, setError] = useState<any>();
 
   const location = useLocation();
@@ -16,7 +17,7 @@ export const useAuthWithTdAmeritrade = (redirectUrl: string) => {
 
       const params: IConnectonMethodParams = {
         method: authenticateProcess,
-        setResult,
+        setResult: () => setConnected(true),
         setError,
       };
 
@@ -34,7 +35,7 @@ export const useAuthWithTdAmeritrade = (redirectUrl: string) => {
     }
   }, [code, redirectUrl]);
 
-  return [result, error];
+  return [result, connected, error];
 };
 
 interface IConnectonMethodParams {
