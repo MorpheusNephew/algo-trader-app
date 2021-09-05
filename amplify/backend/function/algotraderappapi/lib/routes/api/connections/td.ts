@@ -1,5 +1,6 @@
 import { loadTdAmeritradeClient } from '../../../middleware/loadTdAmeritradeClient';
 import { AppContext } from '../../../types';
+import { getDateSecondsFromNow } from '../../../utils';
 import Router from '@koa/router';
 import { getAuthUrl } from '@morpheusnephew/td-ameritrade';
 import { Next } from 'koa';
@@ -17,41 +18,30 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       }
 
       if (code) {
-        console.log('Code received', code);
-
         const decodedCode = decodeURI(code as string);
 
-        console.log('Decoded code', decodedCode);
-
-        try {
-          const { status, data } =
-            await ctx.state.tdAmeritradeClient.auth.authenticate(
-              decodedCode,
-              state as string
-            );
-
-          console.log(
-            `Data has been retrieved`,
-            'data.expires_in',
-            data.expires_in,
-            'data.refresh_token_expires_in',
-            data.refresh_token_expires_in
+        const { status, data } =
+          await ctx.state.tdAmeritradeClient.auth.authenticate(
+            decodedCode,
+            state as string
           );
 
-          // Convert time etc... to appropriate time format and call it a day
+        console.log(
+          'Data has been retrieved',
+          'access_token_expiration',
+          getDateSecondsFromNow(data.expires_in),
+          'refresh_token_expiration',
+          getDateSecondsFromNow(data.refresh_token_expires_in)
+        );
 
-          ctx.status = status;
-        } catch (e) {
-          console.error(e);
-          ctx.throw(e);
-        }
+        // Convert time etc... to appropriate time format and call it a day
+
+        ctx.status = status;
       } else {
         const tdAuthUrl = getAuthUrl({
           client_id: ctx.state.config.tdConsumerKey,
           redirect_uri: redirectUrl as string,
         });
-
-        console.log('tdAuthUrl', tdAuthUrl, 'what other magic');
 
         ctx.status = 200;
         ctx.body = JSON.stringify(tdAuthUrl);
