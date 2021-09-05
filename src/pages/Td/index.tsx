@@ -5,6 +5,12 @@ const openAuthWindow = (e: any, authUrl: string) => {
   return false;
 };
 
+const ConnectButton = () => (
+  <div onClick={(e) => openAuthWindow(e, '/connect/td')}>
+    <Add />
+  </div>
+);
+
 const TdAmeritrade = () => {
   return (
     <div>
@@ -13,9 +19,7 @@ const TdAmeritrade = () => {
         This is the page that will check whether a user has a TD Ameritrade
         connection or not
       </div>
-      <div onClick={(e) => openAuthWindow(e, '/connect/td')}>
-        <Add />
-      </div>
+      <ConnectButton />
     </div>
   );
 };
