@@ -5,7 +5,7 @@ import {
   TDeleteItemInput,
   TGetItemInput,
   TPutItemInput,
-} from '../../../services/dynamodb';
+} from '../../../../services/dynamodb';
 
 export const saveConnection = async () => {
   const input: TPutItemInput = {
