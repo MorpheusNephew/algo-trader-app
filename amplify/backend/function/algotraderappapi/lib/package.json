@@ -28,6 +28,7 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.0",
+    "@morpheusnephew/td-ameritrade": "^0.4.0",
     "aws-sdk": "2.880.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",

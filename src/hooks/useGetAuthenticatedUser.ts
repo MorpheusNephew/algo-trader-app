@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 
-const GetAuthenticatedUser = () => {
+const useGetAuthenticatedUser = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
@@ -13,4 +13,4 @@ const GetAuthenticatedUser = () => {
   return currentUser;
 };
 
-export default GetAuthenticatedUser;
+export default useGetAuthenticatedUser;

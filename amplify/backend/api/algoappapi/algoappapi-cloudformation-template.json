@@ -371,7 +371,7 @@
         
         
 
-      "DeploymentAPIGWalgoappapi": {
+      "DeploymentAPIGWalgoappapi2d12563c": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",

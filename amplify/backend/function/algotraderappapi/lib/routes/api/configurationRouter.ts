@@ -1,4 +1,4 @@
-import { AppContext } from '../types';
+import { AppContext } from '../../types';
 import Router from '@koa/router';
 import { Next } from 'koa';
 

@@ -1,4 +1,3 @@
-import Config from '../config';
 import { AuthenticatedUser } from '../types';
 import { convertToAuthenticatedUser } from '../utils';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';

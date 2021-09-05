@@ -1,7 +1,7 @@
 import API from '@aws-amplify/api';
 import { useEffect, useState } from 'react';
 
-const GetBrokerageConnections = () => {
+const useGetBrokerageConnections = () => {
   const [brokerageConnections, setBrokerageConnections] = useState(null);
   const [loadingBrokerageConnections, setLoadingBrokerageConnections] =
     useState(true);
@@ -22,4 +22,4 @@ const GetBrokerageConnections = () => {
   return [brokerageConnections, loadingBrokerageConnections];
 };
 
-export default GetBrokerageConnections;
+export default useGetBrokerageConnections;
