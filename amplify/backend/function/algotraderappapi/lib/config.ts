@@ -14,7 +14,7 @@ export interface IConfig {
   tdConsumerKey: string;
 }
 
-const getConfig = async (): Promise<IConfig> => {
+const _getConfig = async (): Promise<IConfig> => {
   const config = {
     tdConsumerKey: null,
     cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
@@ -54,7 +54,7 @@ let configInstance = null;
 export default class Config {
   static async getConfig(): Promise<IConfig> {
     if (!configInstance) {
-      configInstance = await getConfig();
+      configInstance = await _getConfig();
     }
 
     return configInstance;
