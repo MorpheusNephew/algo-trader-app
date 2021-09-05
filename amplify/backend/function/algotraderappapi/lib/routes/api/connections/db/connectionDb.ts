@@ -1,3 +1,4 @@
+import { IConnection } from '../types';
 import {
   deleteItem,
   getItem,
@@ -7,9 +8,46 @@ import {
   TPutItemInput,
 } from '../../../../services/dynamodb';
 
-export const saveConnection = async () => {
+export const saveConnection = async (
+  username: string,
+  connectionToSave: IConnection
+) => {
+  const {
+    accessToken,
+    accessTokenExpiration,
+    connectionId,
+    refreshToken,
+    refreshTokenExpiration,
+    type,
+  } = connectionToSave;
+
   const input: TPutItemInput = {
-    Item: {},
+    Item: {
+      id: {
+        S: username,
+      },
+      sortName: {
+        S: type,
+      },
+      accessToken: {
+        S: accessToken,
+      },
+      accessTokenExpiration: {
+        S: accessTokenExpiration,
+      },
+      connectionId: {
+        S: connectionId,
+      },
+      refreshToken: {
+        S: refreshToken,
+      },
+      refreshTokenExpiration: {
+        S: refreshTokenExpiration,
+      },
+      type: {
+        S: `connection:${type}:${username}`,
+      },
+    },
   };
 
   return putItem(input);

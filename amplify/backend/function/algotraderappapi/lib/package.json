@@ -22,6 +22,7 @@
     "@types/koa__cors": "^3.0.3",
     "@types/koa__router": "^8.0.7",
     "@types/node": "^16.4.12",
+    "@types/uuid": "^8.3.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.3.5"
   },
@@ -32,6 +33,7 @@
     "aws-sdk": "2.880.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
-    "serverless-http": "^2.7.0"
+    "serverless-http": "^2.7.0",
+    "uuid": "^8.3.2"
   }
 }

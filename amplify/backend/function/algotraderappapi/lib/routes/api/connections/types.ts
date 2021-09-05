@@ -3,6 +3,7 @@ export type TConnection = 'td';
 export interface IConnection {
   accessToken: string;
   accessTokenExpiration: string;
+  connectionId: string;
   refreshToken: string;
   refreshTokenExpiration: string;
   type: TConnection;

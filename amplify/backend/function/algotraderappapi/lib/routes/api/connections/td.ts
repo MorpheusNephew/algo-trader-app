@@ -1,9 +1,13 @@
 import { loadTdAmeritradeClient } from '../../../middleware/loadTdAmeritradeClient';
 import { AppContext } from '../../../types';
-import { getDateSecondsFromNow } from '../../../utils';
+import { saveConnection } from './db/connectionDb';
 import Router from '@koa/router';
 import { getAuthUrl } from '@morpheusnephew/td-ameritrade';
 import { Next } from 'koa';
+import {
+  convertIConnectionToIConnectionResponse,
+  convertTokenToIConnection,
+} from './utils';
 
 const tdConnectionsRouter = new Router({ prefix: '/td' })
   .use(loadTdAmeritradeClient)
@@ -18,6 +22,9 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       }
 
       if (code) {
+        const {
+          authenticatedUser: { username },
+        } = ctx.state;
         const decodedCode = decodeURI(code as string);
 
         const { status, data } =
@@ -26,17 +33,14 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
             state as string
           );
 
-        console.log(
-          'Data has been retrieved',
-          'access_token_expiration',
-          getDateSecondsFromNow(data.expires_in),
-          'refresh_token_expiration',
-          getDateSecondsFromNow(data.refresh_token_expires_in)
-        );
+        const connectionToSave = convertTokenToIConnection(data, 'td');
 
-        // Convert time etc... to appropriate time format and call it a day
+        await saveConnection(username, connectionToSave);
 
         ctx.status = status;
+        ctx.body = JSON.stringify(
+          convertIConnectionToIConnectionResponse(connectionToSave)
+        );
       } else {
         const tdAuthUrl = getAuthUrl({
           client_id: ctx.state.config.tdConsumerKey,
