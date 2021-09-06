@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.1.1",
+    "@morpheusnephew/td-ameritrade": "^0.4.0",
+    "aws-sdk": "^2.983.0",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "serverless-http": "^2.7.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.3",
+    "@types/koa__cors": "^3.0.3",
+    "@types/koa__router": "^8.0.7",
+    "@types/node": "^16.7.10",
+    "@types/uuid": "^8.3.1",
+    "typescript": "^4.4.2"
+  }
+}

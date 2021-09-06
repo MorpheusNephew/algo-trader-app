@@ -1,5 +1,13 @@
 {
-  "lambdaLayers": [],
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappalgotraderapplayer",
+      "env": "dev",
+      "version": 1,
+      "isLatestVersionSelected": false
+    }
+  ],
   "permissions": {
     "auth": {
       "algotraderapp7860b9f7": [

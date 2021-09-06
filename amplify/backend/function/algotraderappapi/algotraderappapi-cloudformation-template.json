@@ -31,6 +31,10 @@
     "storageAlgoTraderTableStreamArn": {
       "Type": "String",
       "Default": "storageAlgoTraderTableStreamArn"
+    },
+    "functionalgotraderappalgotraderapplayerArn": {
+      "Type": "String",
+      "Default": "functionalgotraderappalgotraderapplayerArn"
     }
   },
   "Conditions": {
@@ -127,7 +131,11 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Layers": [],
+        "Layers": [
+          {
+            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:algotraderappalgotraderapplayer-dev:1"
+          }
+        ],
         "Timeout": 25
       }
     },

@@ -21,6 +21,13 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "function",
+          "resourceName": "algotraderappalgotraderapplayer",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
           "category": "auth",
           "resourceName": "algotraderapp7860b9f7",
           "attributes": [
@@ -37,6 +44,11 @@
           ]
         }
       ]
+    },
+    "algotraderappalgotraderapplayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
     }
   },
   "api": {
