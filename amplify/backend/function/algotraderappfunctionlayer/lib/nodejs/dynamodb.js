@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteItem = exports.getItem = exports.putItem = void 0;
+exports.deleteItem = exports.query = exports.getItem = exports.putItem = void 0;
 
 var _config = require("./config");
 
@@ -36,6 +36,14 @@ const getItem = input => {
 };
 
 exports.getItem = getItem;
+
+const query = input => {
+  return performOperation(tableName => dynamoDb.query(_objectSpread({
+    TableName: tableName
+  }, input)).promise());
+};
+
+exports.query = query;
 
 const deleteItem = input => {
   return performOperation(tableName => dynamoDb.deleteItem(_objectSpread({

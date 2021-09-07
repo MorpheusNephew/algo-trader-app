@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteConnection = exports.getConnection = exports.saveConnection = void 0;
+exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
 var _dynamodb = require("./dynamodb");
 
@@ -44,7 +44,7 @@ const saveConnection = /*#__PURE__*/function () {
         refreshTokenExpiration: {
           S: refreshTokenExpiration
         },
-        type: {
+        rowType: {
           S: `connection:${type}:${username}`
         }
       }
@@ -59,8 +59,45 @@ const saveConnection = /*#__PURE__*/function () {
 
 exports.saveConnection = saveConnection;
 
+const getConnections = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* (username, connectionType) {
+    let connectionAttributeValue = null;
+    let filterExpression = null;
+
+    if (connectionType) {
+      connectionAttributeValue = {
+        ':connectionType': {
+          S: `connection:${connectionType}`
+        }
+      };
+      filterExpression = 'begins_with (rowType, :connectionType)';
+    }
+
+    const input = {
+      ExpressionAttributeValues: {
+        ':id': {
+          S: username
+        },
+        ':connectionType': {
+          S: `connection:${connectionType}`
+        }
+      },
+      KeyConditionExpression: 'id = :id',
+      FilterExpression: filterExpression
+    };
+    const results = yield (0, _dynamodb.query)(input);
+    return results.Items;
+  });
+
+  return function getConnections(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.getConnections = getConnections;
+
 const getConnection = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(function* () {
+  var _ref3 = _asyncToGenerator(function* () {
     const input = {
       Key: {}
     };
@@ -68,14 +105,14 @@ const getConnection = /*#__PURE__*/function () {
   });
 
   return function getConnection() {
-    return _ref2.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 
 exports.getConnection = getConnection;
 
 const deleteConnection = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator(function* () {
+  var _ref4 = _asyncToGenerator(function* () {
     const input = {
       Key: {}
     };
@@ -83,7 +120,7 @@ const deleteConnection = /*#__PURE__*/function () {
   });
 
   return function deleteConnection() {
-    return _ref3.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
 

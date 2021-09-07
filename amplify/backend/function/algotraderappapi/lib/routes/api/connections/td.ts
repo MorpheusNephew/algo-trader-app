@@ -2,7 +2,7 @@ import { loadTdAmeritradeClient } from '../../../middleware/loadTdAmeritradeClie
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
 import { getAuthUrl } from '@morpheusnephew/td-ameritrade';
-import { saveConnection } from '/opt/nodejs/connectiondb';
+import { getConnections, saveConnection } from '/opt/nodejs/connectiondb';
 import { Next } from 'koa';
 import {
   convertIConnectionToIConnectionResponse,
@@ -56,10 +56,14 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
   )
   .get('Get connection for user', '/', async (ctx: AppContext, next: Next) => {
     // Get connections for a user
-    ctx.status = 200;
-    ctx.body = JSON.stringify(
-      `Getting all of ${ctx.state.authenticatedUser.username}'s connections`
+
+    const connections = await getConnections(
+      ctx.state.authenticatedUser.username,
+      'td'
     );
+
+    ctx.status = 200;
+    ctx.body = JSON.stringify(connections);
 
     await next();
   })
