@@ -1,4 +1,4 @@
-import Config from '../config';
+import { Config } from './config';
 import { AWSError, DynamoDB } from 'aws-sdk';
 import { PromiseResult } from 'aws-sdk/lib/request';
 import {

@@ -1,5 +1,5 @@
-import Config from '../config';
 import { AppContext } from '../types';
+import { Config } from '/opt/nodejs/config';
 import { Next } from 'koa';
 
 const loadConfig = async (ctx: AppContext, next: Next) => {

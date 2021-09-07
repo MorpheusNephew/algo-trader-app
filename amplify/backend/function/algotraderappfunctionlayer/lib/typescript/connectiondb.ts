@@ -1,4 +1,4 @@
-import { IConnection } from '../types';
+import { IConnection } from './connectionTypes';
 import {
   deleteItem,
   getItem,
@@ -6,7 +6,7 @@ import {
   TDeleteItemInput,
   TGetItemInput,
   TPutItemInput,
-} from '../../../../services/dynamodb';
+} from './dynamodb';
 
 export const saveConnection = async (
   username: string,

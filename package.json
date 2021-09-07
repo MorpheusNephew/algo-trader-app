@@ -28,9 +28,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "buildLambdas": "yarn buildApi && yarn buildLayers",
     "buildLayers": "yarn buildFunctionLayer",
     "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/lib/typescript && yarn build && cd -",
-    "amplify:algotraderappapi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
+    "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
+    "amplify:algotraderappapi": "yarn buildApi",
     "postinstall": "husky install"
   },
   "eslintConfig": {

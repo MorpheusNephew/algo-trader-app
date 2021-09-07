@@ -1,5 +1,5 @@
-import { IConfig } from '../config';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
+import { IConfig } from '/opt/nodejs/config';
 import { Context, DefaultState } from 'koa';
 
 export interface AppContext extends Context {

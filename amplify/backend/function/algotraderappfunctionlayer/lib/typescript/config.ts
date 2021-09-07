@@ -51,7 +51,7 @@ const _getConfig = async (): Promise<IConfig> => {
 
 let configInstance = null;
 
-export default class Config {
+export class Config {
   static async getConfig(): Promise<IConfig> {
     if (!configInstance) {
       configInstance = await _getConfig();

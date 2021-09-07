@@ -1,13 +1,13 @@
 import { loadTdAmeritradeClient } from '../../../middleware/loadTdAmeritradeClient';
 import { AppContext } from '../../../types';
-import { saveConnection } from './db/connectionDb';
 import Router from '@koa/router';
 import { getAuthUrl } from '@morpheusnephew/td-ameritrade';
+import { saveConnection } from '/opt/nodejs/connectiondb';
 import { Next } from 'koa';
 import {
   convertIConnectionToIConnectionResponse,
   convertTokenToIConnection,
-} from './utils';
+} from '/opt/nodejs/connectionUtils';
 
 const tdConnectionsRouter = new Router({ prefix: '/td' })
   .use(loadTdAmeritradeClient)
