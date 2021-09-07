@@ -24,11 +24,15 @@
       "function": {
         "algotraderappapi": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappapi-78306a39653445624161-build.zip"
+          "s3Key": "amplify-builds/algotraderappapi-337a45666d367532637a-build.zip"
         },
-        "algotraderappalgotraderapplayer": {
+        "algotraderappdependencieslayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappalgotraderapplayer-LambdaLayerVersion9755224d-build.zip"
+          "s3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersionfd80af12-build.zip"
+        },
+        "algotraderappfunctionlayer": {
+          "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+          "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionbb5ba75f-build.zip"
         }
       }
     }

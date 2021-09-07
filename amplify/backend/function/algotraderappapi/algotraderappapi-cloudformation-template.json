@@ -35,6 +35,14 @@
     "functionalgotraderappalgotraderapplayerArn": {
       "Type": "String",
       "Default": "functionalgotraderappalgotraderapplayerArn"
+    },
+    "functionalgotraderappdependencieslayerArn": {
+      "Type": "String",
+      "Default": "functionalgotraderappdependencieslayerArn"
+    },
+    "functionalgotraderappfunctionlayerArn": {
+      "Type": "String",
+      "Default": "functionalgotraderappfunctionlayerArn"
     }
   },
   "Conditions": {
@@ -133,7 +141,10 @@
         "Runtime": "nodejs14.x",
         "Layers": [
           {
-            "Ref": "functionalgotraderappalgotraderapplayerArn"
+            "Ref": "functionalgotraderappdependencieslayerArn"
+          },
+          {
+            "Ref": "functionalgotraderappfunctionlayerArn"
           }
         ],
         "Timeout": 25

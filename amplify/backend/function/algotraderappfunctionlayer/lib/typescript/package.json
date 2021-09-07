@@ -9,22 +9,13 @@
     "prebuild": "yarn && yarn cleanDir && yarn tsc",
     "build": "yarn babel && cd ../nodejs && yarn install --prod"
   },
-  "dependencies": {
-    "@koa/cors": "^3.1.0",
-    "@koa/router": "^10.1.1",
-    "@morpheusnephew/td-ameritrade": "^0.4.0",
-    "aws-sdk": "^2.983.0",
-    "koa": "^2.13.1",
-    "koa-bodyparser": "^4.3.0",
-    "serverless-http": "^2.7.0",
-    "uuid": "^8.3.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-typescript": "^7.15.0",
     "@types/uuid": "^8.3.1",
-    "rimraf": "^3.0.2"
+    "uuid": "^8.3.2"
   }
 }

@@ -2,7 +2,14 @@
   "lambdaLayers": [
     {
       "type": "ProjectLayer",
-      "resourceName": "algotraderappalgotraderapplayer",
+      "resourceName": "algotraderappdependencieslayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    },
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappfunctionlayer",
       "env": "dev",
       "version": "Always choose latest version",
       "isLatestVersionSelected": true

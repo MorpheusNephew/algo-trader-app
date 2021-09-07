@@ -22,7 +22,14 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "algotraderappalgotraderapplayer",
+          "resourceName": "algotraderappdependencieslayer",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappfunctionlayer",
           "attributes": [
             "Arn"
           ]
@@ -45,7 +52,12 @@
         }
       ]
     },
-    "algotraderappalgotraderapplayer": {
+    "algotraderappdependencieslayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "algotraderappfunctionlayer": {
       "providerPlugin": "awscloudformation",
       "service": "LambdaLayer",
       "build": true
