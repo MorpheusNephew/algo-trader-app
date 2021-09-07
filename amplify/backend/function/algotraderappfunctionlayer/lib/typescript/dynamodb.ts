@@ -8,6 +8,8 @@ import {
   GetItemOutput,
   PutItemInput,
   PutItemOutput,
+  QueryInput,
+  QueryOutput,
 } from 'aws-sdk/clients/dynamodb';
 
 const dynamoDb = new DynamoDB();
@@ -33,6 +35,14 @@ export const getItem = (input: TGetItemInput) => {
   );
 };
 
+export type TQueryInput = Omit<QueryInput, 'TableName'>;
+
+export const query = (input: TQueryInput) => {
+  return performOperation((tableName: string) =>
+    dynamoDb.query({ TableName: tableName, ...input }).promise()
+  );
+};
+
 export type TDeleteItemInput = Omit<DeleteItemInput, 'TableName'>;
 
 export const deleteItem = (input: TDeleteItemInput) => {
@@ -42,7 +52,7 @@ export const deleteItem = (input: TDeleteItemInput) => {
 };
 
 type TDynamoDbResponse = PromiseResult<
-  PutItemOutput | GetItemOutput | DeleteItemOutput,
+  PutItemOutput | GetItemOutput | DeleteItemOutput | QueryOutput,
   AWSError
 >;
 
