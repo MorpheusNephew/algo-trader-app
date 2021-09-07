@@ -4,8 +4,5 @@
     "module": "commonjs",
     "noEmit": true,
     "esModuleInterop": true,
-    "paths": {
-      "/opt/nodejs/*": ["../../algotraderappalgotraderapplayer/lib/typescript/*"]
-    }
   }
 }

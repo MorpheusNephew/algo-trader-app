@@ -133,7 +133,7 @@
         "Runtime": "nodejs14.x",
         "Layers": [
           {
-            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:algotraderappalgotraderapplayer-dev:1"
+            "Ref": "functionalgotraderappalgotraderapplayerArn"
           }
         ],
         "Timeout": 25

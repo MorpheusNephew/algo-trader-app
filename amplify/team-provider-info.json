@@ -24,11 +24,11 @@
       "function": {
         "algotraderappapi": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappapi-4e52437442724d416f31-build.zip"
+          "s3Key": "amplify-builds/algotraderappapi-78306a39653445624161-build.zip"
         },
         "algotraderappalgotraderapplayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappalgotraderapplayer-LambdaLayerVersion6712f98f-build.zip"
+          "s3Key": "amplify-builds/algotraderappalgotraderapplayer-LambdaLayerVersion9755224d-build.zip"
         }
       }
     }
