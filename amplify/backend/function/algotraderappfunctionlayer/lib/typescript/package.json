@@ -7,7 +7,8 @@
     "cleanDir": "rimraf ../nodejs",
     "babel": "babel . --out-dir ../nodejs --extensions '.ts' -D",
     "prebuild": "yarn && yarn cleanDir && yarn tsc",
-    "build": "yarn babel && cd ../nodejs && yarn install --prod"
+    "build": "yarn babel && cd ../nodejs && yarn install --prod",
+    "postbuild": "rimraf ../nodejs/babel.config.json && rimraf ../nodejs/tsconfig.json"
   },
   "dependencies": {},
   "devDependencies": {

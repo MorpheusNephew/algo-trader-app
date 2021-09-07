@@ -9,7 +9,8 @@
     "cleanDir": "rimraf ../src",
     "babel": "babel . --out-dir ../src --extensions '.ts' -D",
     "prebuild": "yarn && yarn cleanDir && yarn tsc",
-    "build": "yarn babel && cd ../src && yarn install --prod"
+    "build": "yarn babel && cd ../src && yarn install --prod",
+    "postbuild": "rimraf ../src/babel.config.json && rimraf ../src/tsconfig.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

@@ -10,11 +10,7 @@ import { Next } from 'koa';
 const apiRouter = new Router({ prefix: '/api' })
   .use(checkUser)
   .get('greeting', '/', async (ctx: AppContext, next: Next) => {
-    let heyRandom: string;
-
-    if (helloRandom) {
-      heyRandom = helloRandom();
-    }
+    const heyRandom = helloRandom();
 
     ctx.status = 200;
     ctx.body = JSON.stringify(
