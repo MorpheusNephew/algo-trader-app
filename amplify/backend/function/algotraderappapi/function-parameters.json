@@ -22,7 +22,7 @@
       ]
     },
     "storage": {
-      "AlgoTraderTable": [
+      "algotradertable": [
         "create",
         "read",
         "update",

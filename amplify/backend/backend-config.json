@@ -21,6 +21,22 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "auth",
+          "resourceName": "algotraderapp7860b9f7",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "algotradertable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        },
+        {
           "category": "function",
           "resourceName": "algotraderappdependencieslayer",
           "attributes": [
@@ -32,22 +48,6 @@
           "resourceName": "algotraderappfunctionlayer",
           "attributes": [
             "Arn"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "algotraderapp7860b9f7",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "storage",
-          "resourceName": "AlgoTraderTable",
-          "attributes": [
-            "Name",
-            "Arn",
-            "StreamArn"
           ]
         }
       ]
@@ -80,7 +80,7 @@
     }
   },
   "storage": {
-    "AlgoTraderTable": {
+    "algotradertable": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }

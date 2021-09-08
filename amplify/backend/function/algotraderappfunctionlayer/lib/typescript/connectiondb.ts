@@ -77,9 +77,7 @@ export const getConnections = async (
       ':id': {
         S: username,
       },
-      ':connectionType': {
-        S: `connection:${connectionType}`,
-      },
+      ...connectionAttributeValue,
     },
     KeyConditionExpression: 'id = :id',
     FilterExpression: filterExpression,
