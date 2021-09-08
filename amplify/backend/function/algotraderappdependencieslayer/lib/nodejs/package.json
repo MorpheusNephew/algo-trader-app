@@ -7,7 +7,6 @@
     "@koa/router": "^10.1.1",
     "@morpheusnephew/td-ameritrade": "^0.4.0",
     "aws-sdk": "^2.983.0",
-    "dynamoose": "^2.8.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "serverless-http": "^2.7.0",
