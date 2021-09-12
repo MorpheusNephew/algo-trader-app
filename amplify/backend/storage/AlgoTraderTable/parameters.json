@@ -1,5 +1,5 @@
 {
-    "tableName": "AlgoTraderTable",
+    "tableName": "algotradertable",
     "partitionKeyName": "id",
     "partitionKeyType": "S",
     "sortKeyName": "sortName",

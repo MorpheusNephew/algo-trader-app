@@ -29,14 +29,38 @@
         },
         {
           "category": "storage",
-          "resourceName": "AlgoTraderTable",
+          "resourceName": "algotradertable",
           "attributes": [
             "Name",
             "Arn",
             "StreamArn"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappdependencieslayer",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappfunctionlayer",
+          "attributes": [
+            "Arn"
+          ]
         }
       ]
+    },
+    "algotraderappdependencieslayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "algotraderappfunctionlayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
     }
   },
   "api": {
@@ -56,7 +80,7 @@
     }
   },
   "storage": {
-    "AlgoTraderTable": {
+    "algotradertable": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }

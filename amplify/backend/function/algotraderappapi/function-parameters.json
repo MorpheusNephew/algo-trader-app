@@ -1,5 +1,20 @@
 {
-  "lambdaLayers": [],
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappdependencieslayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    },
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappfunctionlayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ],
   "permissions": {
     "auth": {
       "algotraderapp7860b9f7": [
@@ -7,7 +22,7 @@
       ]
     },
     "storage": {
-      "AlgoTraderTable": [
+      "algotradertable": [
         "create",
         "read",
         "update",

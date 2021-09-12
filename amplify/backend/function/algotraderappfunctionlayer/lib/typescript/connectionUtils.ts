@@ -1,7 +1,11 @@
-import { getDateSecondsFromNow } from '../../../utils';
-import { IConnection, IConnectionResponse, TConnection } from './types';
+import { getDateSecondsFromNow } from './utils';
 import { Token } from '@morpheusnephew/td-ameritrade-models';
 import { v4 as uuid } from 'uuid';
+import {
+  IConnection,
+  IConnectionResponse,
+  TConnection,
+} from './connectionTypes';
 
 export const convertTokenToIConnection = (
   token: Token,

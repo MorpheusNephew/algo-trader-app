@@ -9,31 +9,31 @@
     "cleanDir": "rimraf ../src",
     "babel": "babel . --out-dir ../src --extensions '.ts' -D",
     "prebuild": "yarn && yarn cleanDir && yarn tsc",
-    "build": "yarn babel && cd ../src && yarn install --prod"
+    "build": "yarn babel && cd ../src && yarn install --prod",
+    "postbuild": "rimraf ../src/babel.config.json && rimraf ../src/tsconfig.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.1.1",
+    "@morpheusnephew/td-ameritrade": "^0.4.0",
     "@types/aws-sdk": "^2.7.0",
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.3",
     "@types/koa__cors": "^3.0.3",
     "@types/koa__router": "^8.0.7",
-    "@types/node": "^16.4.12",
+    "@types/node": "^16.7.11",
     "@types/uuid": "^8.3.1",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.3.5"
-  },
-  "dependencies": {
-    "@koa/cors": "^3.1.0",
-    "@koa/router": "^10.1.0",
-    "@morpheusnephew/td-ameritrade": "^0.4.0",
-    "aws-sdk": "2.880.0",
+    "aws-sdk": "^2.983.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
+    "rimraf": "^3.0.2",
     "serverless-http": "^2.7.0",
+    "typescript": "^4.4.2",
     "uuid": "^8.3.2"
-  }
+  },
+  "dependencies": {}
 }

@@ -20,17 +20,29 @@
       "Type": "String",
       "Default": "authalgotraderapp7860b9f7UserPoolId"
     },
-    "storageAlgoTraderTableName": {
+    "functionalgotraderappalgotraderapplayerArn": {
       "Type": "String",
-      "Default": "storageAlgoTraderTableName"
+      "Default": "functionalgotraderappalgotraderapplayerArn"
     },
-    "storageAlgoTraderTableArn": {
+    "functionalgotraderappdependencieslayerArn": {
       "Type": "String",
-      "Default": "storageAlgoTraderTableArn"
+      "Default": "functionalgotraderappdependencieslayerArn"
     },
-    "storageAlgoTraderTableStreamArn": {
+    "functionalgotraderappfunctionlayerArn": {
       "Type": "String",
-      "Default": "storageAlgoTraderTableStreamArn"
+      "Default": "functionalgotraderappfunctionlayerArn"
+    },
+    "storagealgotradertableName": {
+      "Type": "String",
+      "Default": "storagealgotradertableName"
+    },
+    "storagealgotradertableArn": {
+      "Type": "String",
+      "Default": "storagealgotradertableArn"
+    },
+    "storagealgotradertableStreamArn": {
+      "Type": "String",
+      "Default": "storagealgotradertableStreamArn"
     }
   },
   "Conditions": {
@@ -89,15 +101,6 @@
             "AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID": {
               "Ref": "authalgotraderapp7860b9f7UserPoolId"
             },
-            "STORAGE_ALGOTRADERTABLE_NAME": {
-              "Ref": "storageAlgoTraderTableName"
-            },
-            "STORAGE_ALGOTRADERTABLE_ARN": {
-              "Ref": "storageAlgoTraderTableArn"
-            },
-            "STORAGE_ALGOTRADERTABLE_STREAMARN": {
-              "Ref": "storageAlgoTraderTableStreamArn"
-            },
             "TD_CONSUMER_KEY": {
               "Fn::Join": [
                 "",
@@ -117,6 +120,15 @@
                   "TD_CONSUMER_KEY"
                 ]
               ]
+            },
+            "STORAGE_ALGOTRADERTABLE_NAME": {
+              "Ref": "storagealgotradertableName"
+            },
+            "STORAGE_ALGOTRADERTABLE_ARN": {
+              "Ref": "storagealgotradertableArn"
+            },
+            "STORAGE_ALGOTRADERTABLE_STREAMARN": {
+              "Ref": "storagealgotradertableStreamArn"
             }
           }
         },
@@ -127,7 +139,14 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Layers": [],
+        "Layers": [
+          {
+            "Ref": "functionalgotraderappdependencieslayerArn"
+          },
+          {
+            "Ref": "functionalgotraderappfunctionlayerArn"
+          }
+        ],
         "Timeout": 25
       }
     },
@@ -286,14 +305,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageAlgoTraderTableArn"
+                  "Ref": "storagealgotradertableArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageAlgoTraderTableArn"
+                        "Ref": "storagealgotradertableArn"
                       },
                       "index/*"
                     ]
