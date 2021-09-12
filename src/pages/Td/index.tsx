@@ -21,9 +21,10 @@ const TdAmeritrade = () => {
         This is the page that will check whether a user has a TD Ameritrade
         connection or not
       </div>
-      {(!loadingTdConnections && isEmpty(tdConnections) && (
-        <ConnectButton history={history} />
-      )) || <div>Td connected</div>}
+      {(loadingTdConnections && <div>Loading...</div>) ||
+        (isEmpty(tdConnections) && <ConnectButton history={history} />) || (
+          <div>Td connected</div>
+        )}
     </div>
   );
 };
