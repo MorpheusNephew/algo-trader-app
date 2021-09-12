@@ -17,8 +17,8 @@ function App() {
     <div className='App'>
       {!!!connectRoute && <Header />}
       <Switch>
-        <Route path='/configuration/' component={Configuration} />
-        <Route path='/connect/td/' component={Connect} />
+        <Route path='/configuration' component={Configuration} />
+        <Route path='/connect/td' component={Connect} />
         <Route path='/'>
           <header>
             <h1>We now have auth</h1>
