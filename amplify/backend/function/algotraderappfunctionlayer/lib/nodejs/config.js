@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = void 0;
 
-var _awsSdk = require("aws-sdk");
+var _clientSsm = require("@aws-sdk/client-ssm");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -31,12 +31,14 @@ const _getConfig = /*#__PURE__*/function () {
       algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
       algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN
     };
-    const {
-      Parameters
-    } = yield new _awsSdk.SSM().getParameters({
+    const client = new _clientSsm.SSMClient({});
+    const command = new _clientSsm.GetParametersCommand({
       Names: ssmKeys.map(secretName => process.env[secretName]),
       WithDecryption: true
-    }).promise();
+    });
+    const {
+      Parameters
+    } = yield client.send(command);
 
     const secretsReducer = (acc, curr) => {
       let name = curr.Name;
