@@ -1,7 +1,0 @@
-{
-    "tableName": "algotradertable",
-    "partitionKeyName": "id",
-    "partitionKeyType": "S",
-    "sortKeyName": "sortName",
-    "sortKeyType": "S"
-}
