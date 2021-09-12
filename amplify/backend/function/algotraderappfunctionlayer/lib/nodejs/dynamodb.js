@@ -7,7 +7,7 @@ exports.deleteItem = exports.query = exports.getItem = exports.putItem = void 0;
 
 var _config = require("./config");
 
-var _awsSdk = require("aws-sdk");
+var _clientDynamodb = require("@aws-sdk/client-dynamodb");
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -19,36 +19,48 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const dynamoDb = new _awsSdk.DynamoDB();
+const client = new _clientDynamodb.DynamoDBClient({});
 
 const putItem = input => {
-  return performOperation(tableName => dynamoDb.putItem(_objectSpread({
-    TableName: tableName
-  }, input)).promise());
+  return performOperation(tableName => {
+    const command = new _clientDynamodb.PutItemCommand(_objectSpread({
+      TableName: tableName
+    }, input));
+    return client.send(command);
+  });
 };
 
 exports.putItem = putItem;
 
 const getItem = input => {
-  return performOperation(tableName => dynamoDb.getItem(_objectSpread({
-    TableName: tableName
-  }, input)).promise());
+  return performOperation(tableName => {
+    const command = new _clientDynamodb.GetItemCommand(_objectSpread({
+      TableName: tableName
+    }, input));
+    return client.send(command);
+  });
 };
 
 exports.getItem = getItem;
 
 const query = input => {
-  return performOperation(tableName => dynamoDb.query(_objectSpread({
-    TableName: tableName
-  }, input)).promise());
+  return performOperation(tableName => {
+    const command = new _clientDynamodb.QueryCommand(_objectSpread({
+      TableName: tableName
+    }, input));
+    return client.send(command);
+  });
 };
 
 exports.query = query;
 
 const deleteItem = input => {
-  return performOperation(tableName => dynamoDb.deleteItem(_objectSpread({
-    TableName: tableName
-  }, input)).promise());
+  return performOperation(tableName => {
+    const command = new _clientDynamodb.DeleteItemCommand(_objectSpread({
+      TableName: tableName
+    }, input));
+    return client.send(command);
+  });
 };
 
 exports.deleteItem = deleteItem;

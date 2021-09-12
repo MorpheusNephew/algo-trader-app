@@ -1,4 +1,8 @@
-import { SSM } from 'aws-sdk';
+import {
+  GetParametersCommand,
+  SSMClient,
+  Parameter,
+} from '@aws-sdk/client-ssm';
 
 const tdConsumerKey = 'TD_CONSUMER_KEY';
 
@@ -25,14 +29,15 @@ const _getConfig = async (): Promise<IConfig> => {
     algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN,
   };
 
-  const { Parameters } = await new SSM()
-    .getParameters({
-      Names: ssmKeys.map((secretName) => process.env[secretName]),
-      WithDecryption: true,
-    })
-    .promise();
+  const client = new SSMClient({});
+  const command = new GetParametersCommand({
+    Names: ssmKeys.map((secretName) => process.env[secretName]),
+    WithDecryption: true,
+  });
 
-  const secretsReducer = (acc: {}, curr: SSM.Parameter) => {
+  const { Parameters } = await client.send(command);
+
+  const secretsReducer = (acc: {}, curr: Parameter) => {
     let name = curr.Name;
 
     if (name.endsWith(tdConsumerKey)) {

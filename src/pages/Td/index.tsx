@@ -1,16 +1,19 @@
 import { useGetBrokerageConnections } from '../../hooks/useGetBrokerageConnections';
 import { Add } from '@material-ui/icons';
 import { isEmpty } from 'lodash';
-import { useHistory } from 'react-router';
 
-const ConnectButton = ({ history }: { history: any }) => (
-  <div onClick={(_event) => history.push('/connect/td')}>
+const openAuthWindow = (_event: any, authUrl: string) => {
+  window.open(authUrl, 'Auth', 'width=500,height=500');
+  return false;
+};
+
+const ConnectButton = () => (
+  <div onClick={(event) => openAuthWindow(event, '/connect/td')}>
     <Add />
   </div>
 );
 
 const TdAmeritrade = () => {
-  const history = useHistory();
   const [tdConnections, loadingTdConnections] =
     useGetBrokerageConnections('td');
 
@@ -21,9 +24,10 @@ const TdAmeritrade = () => {
         This is the page that will check whether a user has a TD Ameritrade
         connection or not
       </div>
-      {(!loadingTdConnections && isEmpty(tdConnections) && (
-        <ConnectButton history={history} />
-      )) || <div>Td connected</div>}
+      {(loadingTdConnections && <div>Loading...</div>) ||
+        (isEmpty(tdConnections) && <ConnectButton />) || (
+          <div>Td connected</div>
+        )}
     </div>
   );
 };
