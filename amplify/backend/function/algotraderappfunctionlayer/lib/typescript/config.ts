@@ -1,4 +1,8 @@
-import { GetParametersCommand, SSMClient } from '@aws-sdk/client-ssm';
+import {
+  GetParametersCommand,
+  SSMClient,
+  Parameter,
+} from '@aws-sdk/client-ssm';
 
 const tdConsumerKey = 'TD_CONSUMER_KEY';
 
@@ -33,7 +37,7 @@ const _getConfig = async (): Promise<IConfig> => {
 
   const { Parameters } = await client.send(command);
 
-  const secretsReducer = (acc: {}, curr: SSM.Parameter) => {
+  const secretsReducer = (acc: {}, curr: Parameter) => {
     let name = curr.Name;
 
     if (name.endsWith(tdConsumerKey)) {
