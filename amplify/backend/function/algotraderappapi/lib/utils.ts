@@ -1,5 +1,5 @@
 import { AuthenticatedUser } from './types';
-import { UserType } from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import { UserType } from '@aws-sdk/client-cognito-identity-provider';
 
 export const convertToAuthenticatedUser = (
   user: UserType
