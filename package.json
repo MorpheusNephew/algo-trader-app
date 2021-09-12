@@ -33,7 +33,6 @@
     "buildLayers": "yarn buildFunctionLayer",
     "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/lib/typescript && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
-    "preamplify:algotraderappapi": "yarn buildFunctionLayer",
     "amplify:algotraderappapi": "yarn buildApi",
     "postinstall": "husky install"
   },
