@@ -28,6 +28,15 @@
           ]
         },
         {
+          "category": "storage",
+          "resourceName": "algotradertable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        },
+        {
           "category": "function",
           "resourceName": "algotraderappdependencieslayer",
           "attributes": [
@@ -70,5 +79,10 @@
       ]
     }
   },
-  "storage": {}
+  "storage": {
+    "algotradertable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  }
 }

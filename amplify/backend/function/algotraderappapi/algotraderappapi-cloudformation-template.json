@@ -31,6 +31,18 @@
     "functionalgotraderappfunctionlayerArn": {
       "Type": "String",
       "Default": "functionalgotraderappfunctionlayerArn"
+    },
+    "storagealgotradertableName": {
+      "Type": "String",
+      "Default": "storagealgotradertableName"
+    },
+    "storagealgotradertableArn": {
+      "Type": "String",
+      "Default": "storagealgotradertableArn"
+    },
+    "storagealgotradertableStreamArn": {
+      "Type": "String",
+      "Default": "storagealgotradertableStreamArn"
     }
   },
   "Conditions": {
@@ -108,6 +120,15 @@
                   "TD_CONSUMER_KEY"
                 ]
               ]
+            },
+            "STORAGE_ALGOTRADERTABLE_NAME": {
+              "Ref": "storagealgotradertableName"
+            },
+            "STORAGE_ALGOTRADERTABLE_ARN": {
+              "Ref": "storagealgotradertableArn"
+            },
+            "STORAGE_ALGOTRADERTABLE_STREAMARN": {
+              "Ref": "storagealgotradertableStreamArn"
             }
           }
         },
@@ -261,6 +282,39 @@
                       {
                         "Ref": "authalgotraderapp7860b9f7UserPoolId"
                       }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagealgotradertableArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagealgotradertableArn"
+                      },
+                      "index/*"
                     ]
                   ]
                 }

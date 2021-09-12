@@ -20,6 +20,14 @@
       "algotraderapp7860b9f7": [
         "read"
       ]
+    },
+    "storage": {
+      "algotradertable": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
     }
   },
   "secretNames": [
