@@ -12,6 +12,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.31.0",
     "@aws-sdk/client-ssm": "^3.31.0",
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
