@@ -13,6 +13,7 @@
     "postbuild": "rimraf ../src/babel.config.json && rimraf ../src/tsconfig.json"
   },
   "devDependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.31.0",
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",

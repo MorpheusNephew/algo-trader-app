@@ -1,10 +1,9 @@
 import { AuthenticatedUser } from '../types';
 import { convertToAuthenticatedUser } from '../utils';
-import { CognitoIdentityServiceProvider } from 'aws-sdk';
-
-const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
-  apiVersion: '2016-04-18',
-});
+import {
+  CognitoIdentityProviderClient,
+  ListUsersCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
 
 export const getCognitoUser = async (ctx: any): Promise<AuthenticatedUser> => {
   const cognitoAuthenticationProvider =
@@ -13,14 +12,13 @@ export const getCognitoUser = async (ctx: any): Promise<AuthenticatedUser> => {
   const userInfo = cognitoAuthenticationProvider[1].split(':');
   const userSub = userInfo[userInfo.length - 1];
 
-  const request: CognitoIdentityServiceProvider.ListUsersRequest = {
+  const client = new CognitoIdentityProviderClient({});
+  const command = new ListUsersCommand({
     UserPoolId: ctx.state.config.cognitoUserPoolId,
     Filter: `sub = "${userSub}"`,
-  };
+  });
 
-  const response = await cognitoIdentityServiceProvider
-    .listUsers(request)
-    .promise();
+  const { Users } = await client.send(command);
 
-  return response.Users.map(convertToAuthenticatedUser)[0];
+  return Users?.map(convertToAuthenticatedUser)[0];
 };
