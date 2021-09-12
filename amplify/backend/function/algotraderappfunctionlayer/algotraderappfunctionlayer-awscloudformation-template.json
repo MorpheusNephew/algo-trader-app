@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion52aa82cf": {
+    "LambdaLayerVersion19c1fcb8": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": {
@@ -51,19 +51,19 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate52aa82cf": {
+    "LambdaLayerPermissionPrivate19c1fcb8": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
         "LayerVersionArn": {
-          "Ref": "LambdaLayerVersion52aa82cf"
+          "Ref": "LambdaLayerVersion19c1fcb8"
         },
         "Principal": {
           "Ref": "AWS::AccountId"
         }
       }
     },
-    "LambdaLayerVersionf6336ba0": {
+    "LambdaLayerVersion2beeb16b": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -73,9 +73,9 @@
           "S3Bucket": {
             "Ref": "deploymentBucketName"
           },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionf6336ba0-build.zip"
+          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion2beeb16b-build.zip"
         },
-        "Description": "Updated layer version 2021-09-07T13:09:16.735Z",
+        "Description": "Updated layer version 2021-09-12T17:12:26.250Z",
         "LayerName": {
           "Fn::Sub": [
             "algotraderappfunctionlayer-${env}",
@@ -90,233 +90,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivatef6336ba0": {
+    "LambdaLayerPermissionPrivate2beeb16b": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:7",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersionc38c5130": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionc38c5130-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T12:55:04.579Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivatec38c5130": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:6",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersione2a22664": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersione2a22664-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T12:05:05.207Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivatee2a22664": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:5",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersion4a345202": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion4a345202-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T11:42:14.603Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivate4a345202": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:4",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersion27d574b8": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion27d574b8-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T10:57:51.119Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivate27d574b8": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:3",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersion2bdfb82e": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion2bdfb82e-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T10:38:23.298Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivate2bdfb82e": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:2",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersionbb5ba75f": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": [
-          "nodejs14.x"
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionbb5ba75f-build.zip"
-        },
-        "Description": "Updated layer version 2021-09-07T10:00:03.312Z",
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappfunctionlayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivatebb5ba75f": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:1",
+        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:17",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -326,7 +104,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion52aa82cf"
+        "Ref": "LambdaLayerVersion19c1fcb8"
       }
     }
   }
