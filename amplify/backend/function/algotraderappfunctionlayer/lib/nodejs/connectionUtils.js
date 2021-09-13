@@ -9,22 +9,32 @@ var _utils = require("./utils");
 
 var _uuid = require("uuid");
 
-const convertTokenToIConnection = (token, type) => {
-  const {
-    access_token,
-    expires_in,
-    refresh_token,
-    refresh_token_expires_in
-  } = token;
-  return {
-    accessToken: access_token,
-    refreshToken: refresh_token,
-    connectionId: (0, _uuid.v4)(),
-    accessTokenExpiration: (0, _utils.getDateSecondsFromNow)(expires_in),
-    refreshTokenExpiration: (0, _utils.getDateSecondsFromNow)(refresh_token_expires_in),
-    type
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+const convertTokenToIConnection = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(function* (token, type) {
+    const {
+      access_token,
+      expires_in,
+      refresh_token,
+      refresh_token_expires_in
+    } = token;
+    return {
+      accessToken: yield (0, _utils.encryptItem)(access_token),
+      refreshToken: yield (0, _utils.encryptItem)(refresh_token),
+      connectionId: (0, _uuid.v4)(),
+      accessTokenExpiration: (0, _utils.getDateSecondsFromNow)(expires_in),
+      refreshTokenExpiration: (0, _utils.getDateSecondsFromNow)(refresh_token_expires_in),
+      type
+    };
+  });
+
+  return function convertTokenToIConnection(_x, _x2) {
+    return _ref.apply(this, arguments);
   };
-};
+}();
 
 exports.convertTokenToIConnection = convertTokenToIConnection;
 
