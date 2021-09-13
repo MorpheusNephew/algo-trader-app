@@ -1,4 +1,5 @@
 import { IConnection, TConnection } from './connectionTypes';
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import {
   deleteItem,
   getItem,
@@ -24,32 +25,16 @@ export const saveConnection = async (
   } = connectionToSave;
 
   const input: TPutItemInput = {
-    Item: {
-      id: {
-        S: username,
-      },
-      sortName: {
-        S: type,
-      },
-      accessToken: {
-        S: accessToken,
-      },
-      accessTokenExpiration: {
-        S: accessTokenExpiration,
-      },
-      connectionId: {
-        S: connectionId,
-      },
-      refreshToken: {
-        S: refreshToken,
-      },
-      refreshTokenExpiration: {
-        S: refreshTokenExpiration,
-      },
-      rowType: {
-        S: `connection:${type}:${username}`,
-      },
-    },
+    Item: marshall({
+      id: username,
+      sortName: type,
+      accessToken,
+      accessTokenExpiration,
+      connectionId,
+      refreshToken,
+      refreshTokenExpiration,
+      rowType: `connection:${type}:${username}`,
+    }),
   };
 
   return putItem(input);
@@ -64,28 +49,24 @@ export const getConnections = async (
 
   if (connectionType) {
     connectionAttributeValue = {
-      ':connectionType': {
-        S: `connection:${connectionType}`,
-      },
+      ':connectionType': `connection:${connectionType}`,
     };
 
     filterExpression = 'begins_with (rowType, :connectionType)';
   }
 
   const input: TQueryInput = {
-    ExpressionAttributeValues: {
-      ':id': {
-        S: username,
-      },
+    ExpressionAttributeValues: marshall({
+      ':id': username,
       ...connectionAttributeValue,
-    },
+    }),
     KeyConditionExpression: 'id = :id',
     FilterExpression: filterExpression,
   };
 
-  const results = await query(input);
+  const { Items } = await query(input);
 
-  return results.Items;
+  return Items?.map((Item) => unmarshall(Item));
 };
 
 export const getConnection = async () => {
@@ -93,7 +74,9 @@ export const getConnection = async () => {
     Key: {},
   };
 
-  return getItem(input);
+  const { Item } = await getItem(input);
+
+  return unmarshall(Item);
 };
 
 export const deleteConnection = async () => {

@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
+var _utilDynamodb = require("@aws-sdk/util-dynamodb");
+
 var _dynamodb = require("./dynamodb");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -28,32 +30,16 @@ const saveConnection = /*#__PURE__*/function () {
       type
     } = connectionToSave;
     const input = {
-      Item: {
-        id: {
-          S: username
-        },
-        sortName: {
-          S: type
-        },
-        accessToken: {
-          S: accessToken
-        },
-        accessTokenExpiration: {
-          S: accessTokenExpiration
-        },
-        connectionId: {
-          S: connectionId
-        },
-        refreshToken: {
-          S: refreshToken
-        },
-        refreshTokenExpiration: {
-          S: refreshTokenExpiration
-        },
-        rowType: {
-          S: `connection:${type}:${username}`
-        }
-      }
+      Item: (0, _utilDynamodb.marshall)({
+        id: username,
+        sortName: type,
+        accessToken,
+        accessTokenExpiration,
+        connectionId,
+        refreshToken,
+        refreshTokenExpiration,
+        rowType: `connection:${type}:${username}`
+      })
     };
     return (0, _dynamodb.putItem)(input);
   });
@@ -72,24 +58,22 @@ const getConnections = /*#__PURE__*/function () {
 
     if (connectionType) {
       connectionAttributeValue = {
-        ':connectionType': {
-          S: `connection:${connectionType}`
-        }
+        ':connectionType': `connection:${connectionType}`
       };
       filterExpression = 'begins_with (rowType, :connectionType)';
     }
 
     const input = {
-      ExpressionAttributeValues: _objectSpread({
-        ':id': {
-          S: username
-        }
-      }, connectionAttributeValue),
+      ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread({
+        ':id': username
+      }, connectionAttributeValue)),
       KeyConditionExpression: 'id = :id',
       FilterExpression: filterExpression
     };
-    const results = yield (0, _dynamodb.query)(input);
-    return results.Items;
+    const {
+      Items
+    } = yield (0, _dynamodb.query)(input);
+    return Items === null || Items === void 0 ? void 0 : Items.map(Item => (0, _utilDynamodb.unmarshall)(Item));
   });
 
   return function getConnections(_x3, _x4) {
@@ -104,7 +88,10 @@ const getConnection = /*#__PURE__*/function () {
     const input = {
       Key: {}
     };
-    return (0, _dynamodb.getItem)(input);
+    const {
+      Item
+    } = yield (0, _dynamodb.getItem)(input);
+    return (0, _utilDynamodb.unmarshall)(Item);
   });
 
   return function getConnection() {
