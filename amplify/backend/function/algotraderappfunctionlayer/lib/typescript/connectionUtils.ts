@@ -1,4 +1,4 @@
-import { getDateSecondsFromNow } from './utils';
+import { encryptItem, getDateSecondsFromNow } from './utils';
 import { Token } from '@morpheusnephew/td-ameritrade-models';
 import { v4 as uuid } from 'uuid';
 import {
@@ -7,16 +7,16 @@ import {
   TConnection,
 } from './connectionTypes';
 
-export const convertTokenToIConnection = (
+export const convertTokenToIConnection = async (
   token: Token,
   type: TConnection
-): IConnection => {
+): Promise<IConnection> => {
   const { access_token, expires_in, refresh_token, refresh_token_expires_in } =
     token;
 
   return {
-    accessToken: access_token,
-    refreshToken: refresh_token,
+    accessToken: await encryptItem(access_token),
+    refreshToken: await encryptItem(refresh_token),
     connectionId: uuid(),
     accessTokenExpiration: getDateSecondsFromNow(expires_in),
     refreshTokenExpiration: getDateSecondsFromNow(refresh_token_expires_in),

@@ -33,7 +33,7 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
             state as string
           );
 
-        const connectionToSave = convertTokenToIConnection(data, 'td');
+        const connectionToSave = await convertTokenToIConnection(data, 'td');
 
         await saveConnection(username, connectionToSave);
 
