@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion19c1fcb8": {
+    "LambdaLayerVersionfe2b2163": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": {
@@ -51,19 +51,19 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate19c1fcb8": {
+    "LambdaLayerPermissionPrivatefe2b2163": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
         "LayerVersionArn": {
-          "Ref": "LambdaLayerVersion19c1fcb8"
+          "Ref": "LambdaLayerVersionfe2b2163"
         },
         "Principal": {
           "Ref": "AWS::AccountId"
         }
       }
     },
-    "LambdaLayerVersion2beeb16b": {
+    "LambdaLayerVersion05f98386": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -73,9 +73,9 @@
           "S3Bucket": {
             "Ref": "deploymentBucketName"
           },
-          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion2beeb16b-build.zip"
+          "S3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion05f98386-build.zip"
         },
-        "Description": "Updated layer version 2021-09-12T17:12:26.250Z",
+        "Description": "Updated layer version 2021-09-12T19:35:29.192Z",
         "LayerName": {
           "Fn::Sub": [
             "algotraderappfunctionlayer-${env}",
@@ -90,11 +90,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate2beeb16b": {
+    "LambdaLayerPermissionPrivate05f98386": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:17",
+        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:19",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -104,7 +104,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion19c1fcb8"
+        "Ref": "LambdaLayerVersionfe2b2163"
       }
     }
   }
