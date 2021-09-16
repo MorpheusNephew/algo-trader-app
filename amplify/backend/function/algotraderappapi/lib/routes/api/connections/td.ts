@@ -1,8 +1,10 @@
 import { loadTdAmeritradeClient } from '../../../middleware/loadTdAmeritradeClient';
+import { loadTdConnection } from '../../../middleware/loadTdConnection';
+import { loadTdConnections } from '../../../middleware/loadTdConnections';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
 import { getAuthUrl } from '@morpheusnephew/td-ameritrade';
-import { getConnections, saveConnection } from '/opt/nodejs/connectiondb';
+import { deleteConnection, saveConnection } from '/opt/nodejs/connectiondb';
 import { Next } from 'koa';
 import {
   convertIConnectionToIConnectionResponse,
@@ -54,45 +56,43 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       await next();
     }
   )
-  .get('Get connection for user', '/', async (ctx: AppContext, next: Next) => {
-    // Get connections for a user
+  .get(
+    'Get connections for user',
+    '/',
+    loadTdConnections,
+    async (ctx: AppContext, next: Next) => {
+      const { connections } = ctx.state;
 
-    const connections = await getConnections(
-      ctx.state.authenticatedUser.username,
-      'td'
-    );
+      ctx.status = 200;
+      ctx.body = JSON.stringify(connections);
 
-    ctx.status = 200;
-    ctx.body = JSON.stringify(connections);
+      await next();
+    }
+  )
+  .get(
+    'Get connection for user',
+    '/:connectionId',
+    loadTdConnection,
+    async (ctx: AppContext, next: Next) => {
+      const { connection } = ctx.state;
 
-    await next();
-  })
-  .post('Creating connection', '/', async (ctx: AppContext, next: Next) => {
-    // Get `IConnection` from ctx.request.body
+      ctx.status = 200;
+      ctx.body = JSON.stringify(connection);
 
-    // Construct id and sortname
-
-    // save connection
-
-    // get saved connection
-
-    // return `IConnectionResponse`
-    ctx.status = 201;
-    ctx.body = JSON.stringify(
-      `Creating connection for ${ctx.state.authenticatedUser.username}`
-    );
-
-    await next();
-  })
+      await next();
+    }
+  )
   .del(
     'Delete connection for user',
-    '/',
+    '/:connectionId',
+    loadTdConnection,
     async (ctx: AppContext, next: Next) => {
-      // Get connection to delete
+      const {
+        authenticatedUser: { username },
+        connection: { connectionId },
+      } = ctx.state;
 
-      // if connection doesn't exist return a 404
-
-      // if it does continue to delete
+      await deleteConnection(username, connectionId);
 
       ctx.status = 204;
 
