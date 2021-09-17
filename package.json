@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildLambdas": "yarn buildApi && yarn buildLayers",
+    "buildLambdas": "yarn buildApi && yarn buildTdRefreshTokenRefresher && yarn buildLayers",
     "buildLayers": "yarn buildFunctionLayer",
     "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/lib/typescript && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
