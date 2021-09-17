@@ -1,20 +1,23 @@
 import { IConnection, TConnection } from './connectionTypes';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { isEmpty } from 'lodash';
 import {
   deleteItem,
-  getItem,
   putItem,
   query,
   TDeleteItemInput,
-  TGetItemInput,
   TPutItemInput,
   TQueryInput,
 } from './dynamodb';
+import {
+  DeleteItemCommandOutput,
+  PutItemCommandOutput,
+} from '@aws-sdk/client-dynamodb';
 
 export const saveConnection = async (
   username: string,
   connectionToSave: IConnection
-) => {
+): Promise<PutItemCommandOutput> => {
   const {
     accessToken,
     accessTokenExpiration,
@@ -40,10 +43,10 @@ export const saveConnection = async (
   return putItem(input);
 };
 
-export const getConnections = async (
+export const queryConnections = async (
   username: string,
   connectionType?: TConnection
-) => {
+): Promise<IConnection[]> => {
   let connectionAttributeValue: any = null;
   let filterExpression: string = null;
 
@@ -66,23 +69,49 @@ export const getConnections = async (
 
   const { Items } = await query(input);
 
-  return Items?.map((Item) => unmarshall(Item));
+  return Items?.map((Item) => convertDbConnectionToIConnection(Item));
 };
 
-export const getConnection = async () => {
-  const input: TGetItemInput = {
-    Key: {},
+export const getConnection = async (
+  username: string,
+  connectionId: string
+): Promise<IConnection> => {
+  const input: TQueryInput = {
+    ExpressionAttributeValues: marshall({
+      ':connectionId': connectionId,
+      ':username': username,
+    }),
+    KeyConditionExpression: 'connectionId = :connectionId',
+    FilterExpression: 'username = :username',
   };
 
-  const { Item } = await getItem(input);
+  const { Items } = await query(input);
 
-  return unmarshall(Item);
+  if (isEmpty(Items)) {
+    return null;
+  }
+
+  return convertDbConnectionToIConnection(Items[0]);
 };
 
-export const deleteConnection = async () => {
+export const deleteConnection = async (
+  username: string,
+  connectionId: string
+): Promise<DeleteItemCommandOutput> => {
   const input: TDeleteItemInput = {
-    Key: {},
+    Key: marshall({ id: username }),
+    ExpressionAttributeValues: marshall({ ':connectionId': connectionId }),
+    ConditionExpression: 'connectionId = :connectionId',
   };
 
   return deleteItem(input);
+};
+
+const convertDbConnectionToIConnection = (dbConnection: any): IConnection => {
+  const result = unmarshall(dbConnection);
+
+  return {
+    ...result,
+    type: result?.rowType?.split(':')[1] as TConnection,
+  } as IConnection;
 };
