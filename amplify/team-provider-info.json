@@ -33,6 +33,9 @@
         "algotraderappfunctionlayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
           "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionfe2b2163-build.zip"
+        },
+        "tdrefreshtokenrefresher": {
+          "secretsPathAmplifyAppId": "d2z6wj1fnu5msl"
         }
       }
     }
