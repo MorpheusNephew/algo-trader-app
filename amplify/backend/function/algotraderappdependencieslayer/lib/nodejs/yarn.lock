@@ -712,10 +712,10 @@
   resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.5.tgz#90d56aba2668b3b0e178669c5e7f00bbfa5bb537"
   integrity sha512-LBKiSzQXdtSYcbNzlPGsDVPJVBvrninfgcjYd4/Cqcsp5tM90uHqRGlC01qbhuWKuX1a1b2Zi99EV0ij2V0lJw==
 
-"@morpheusnephew/td-ameritrade@0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.1.tgz#382d58610b33ec2a619c201b78e53bd1bcff72fe"
-  integrity sha512-N+C0OhiruWL6e3OyG+/03Ge02bp751RhXPIqhPF0RU4b5uYaxQf+YZ1j/85Xh9W4fih8gYeN2yE58HayGn13zQ==
+"@morpheusnephew/td-ameritrade@0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.2.tgz#87bbbc249bd906e3deb16d1a8c068bcb2232c98a"
+  integrity sha512-dH2VfCn4faUQL+wEHouSs4xghvGQrNJcLkO85k1PMQ/OMM19lngOO4f65LIzHmUlhWmOuHr9F8LhfrjJLhA5UA==
   dependencies:
     "@morpheusnephew/td-ameritrade-models" "0.12.5"
     axios "^0.21.1"
