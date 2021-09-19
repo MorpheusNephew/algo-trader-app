@@ -1,5 +1,5 @@
 import { AppContext } from '../types';
-import { queryConnections } from '/opt/nodejs/connectiondb';
+import { getConnections } from '/opt/nodejs/connectiondb';
 import { Next } from 'koa';
 
 export const loadTdConnections = async (ctx: AppContext, next: Next) => {
@@ -7,7 +7,10 @@ export const loadTdConnections = async (ctx: AppContext, next: Next) => {
     authenticatedUser: { username },
   } = ctx.state;
 
-  const connections = await queryConnections(username, 'td');
+  const connections = await getConnections({
+    username,
+    connectionType: 'td',
+  });
 
   ctx.state.connections = connections ?? [];
 
