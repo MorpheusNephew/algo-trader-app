@@ -43,34 +43,44 @@ export const saveConnection = async (
   return putItem(input);
 };
 
-export const queryConnections = async (
-  username: string,
-  connectionType?: TConnection
+export interface IQueryConnectionsOptions {
+  username?: string;
+  connectionType?: TConnection;
+}
+
+export const getConnections = async (
+  params?: IQueryConnectionsOptions
 ): Promise<IConnection[]> => {
-  let connectionAttributeValue: any = null;
-  let filterExpression: string = null;
+  const username = params?.username;
+  const connectionType = params?.connectionType;
+
+  let connectionAttributeValue: any = { ':connectionType': 'connection' };
+  const filterExpression = 'begins_with (rowType, :connectionType)';
 
   if (connectionType) {
     connectionAttributeValue = {
       ':connectionType': `connection:${connectionType}`,
     };
-
-    filterExpression = 'begins_with (rowType, :connectionType)';
   }
 
   const input: TQueryInput = {
     ExpressionAttributeValues: marshall({
-      ':id': username,
+      ...(username && { ':id': username }),
       ...connectionAttributeValue,
     }),
-    KeyConditionExpression: 'id = :id',
-    FilterExpression: filterExpression,
+    IndexName: username ? null : 'RowTypeIndex',
+    KeyConditionExpression: username ? 'id = :id' : filterExpression,
+    FilterExpression: username ? filterExpression : null,
   };
 
   const { Items } = await query(input);
 
   return Items?.map((Item) => convertDbConnectionToIConnection(Item));
 };
+
+const queryConnections = async () => {};
+
+const scanConnections = async () => {};
 
 export const getConnection = async (
   username: string,

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteConnection = exports.getConnection = exports.queryConnections = exports.saveConnection = void 0;
+exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
 var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 
@@ -53,24 +53,28 @@ const saveConnection = /*#__PURE__*/function () {
 
 exports.saveConnection = saveConnection;
 
-const queryConnections = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(function* (username, connectionType) {
-    let connectionAttributeValue = null;
-    let filterExpression = null;
+const getConnections = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* (params) {
+    const username = params === null || params === void 0 ? void 0 : params.username;
+    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    let connectionAttributeValue = {
+      ':connectionType': 'connection'
+    };
+    const filterExpression = 'begins_with (rowType, :connectionType)';
 
     if (connectionType) {
       connectionAttributeValue = {
         ':connectionType': `connection:${connectionType}`
       };
-      filterExpression = 'begins_with (rowType, :connectionType)';
     }
 
     const input = {
-      ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread({
+      ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread(_objectSpread({}, username && {
         ':id': username
-      }, connectionAttributeValue)),
-      KeyConditionExpression: 'id = :id',
-      FilterExpression: filterExpression
+      }), connectionAttributeValue)),
+      IndexName: username ? null : 'RowTypeIndex',
+      KeyConditionExpression: username ? 'id = :id' : filterExpression,
+      FilterExpression: username ? filterExpression : null
     };
     const {
       Items
@@ -78,15 +82,31 @@ const queryConnections = /*#__PURE__*/function () {
     return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
   });
 
-  return function queryConnections(_x3, _x4) {
+  return function getConnections(_x3) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-exports.queryConnections = queryConnections;
+exports.getConnections = getConnections;
+
+const queryConnections = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator(function* () {});
+
+  return function queryConnections() {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+const scanConnections = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator(function* () {});
+
+  return function scanConnections() {
+    return _ref4.apply(this, arguments);
+  };
+}();
 
 const getConnection = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator(function* (username, connectionId) {
+  var _ref5 = _asyncToGenerator(function* (username, connectionId) {
     const input = {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
         ':connectionId': connectionId,
@@ -106,15 +126,15 @@ const getConnection = /*#__PURE__*/function () {
     return convertDbConnectionToIConnection(Items[0]);
   });
 
-  return function getConnection(_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function getConnection(_x4, _x5) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
 exports.getConnection = getConnection;
 
 const deleteConnection = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator(function* (username, connectionId) {
+  var _ref6 = _asyncToGenerator(function* (username, connectionId) {
     const input = {
       Key: (0, _utilDynamodb.marshall)({
         id: username
@@ -127,8 +147,8 @@ const deleteConnection = /*#__PURE__*/function () {
     return (0, _dynamodb.deleteItem)(input);
   });
 
-  return function deleteConnection(_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function deleteConnection(_x6, _x7) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
