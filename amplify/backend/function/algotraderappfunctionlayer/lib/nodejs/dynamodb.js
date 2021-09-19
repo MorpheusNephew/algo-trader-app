@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteItem = exports.query = exports.getItem = exports.putItem = void 0;
+exports.scan = exports.deleteItem = exports.query = exports.getItem = exports.putItem = void 0;
 
 var _config = require("./config");
 
@@ -22,48 +22,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 const client = new _clientDynamodb.DynamoDBClient({});
 
 const putItem = input => {
-  return performOperation(tableName => {
-    const command = new _clientDynamodb.PutItemCommand(_objectSpread({
-      TableName: tableName
-    }, input));
-    return client.send(command);
-  });
+  return runCommand(tableName => new _clientDynamodb.PutItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
 };
 
 exports.putItem = putItem;
 
 const getItem = input => {
-  return performOperation(tableName => {
-    const command = new _clientDynamodb.GetItemCommand(_objectSpread({
-      TableName: tableName
-    }, input));
-    return client.send(command);
-  });
+  return runCommand(tableName => new _clientDynamodb.GetItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
 };
 
 exports.getItem = getItem;
 
 const query = input => {
-  return performOperation(tableName => {
-    const command = new _clientDynamodb.QueryCommand(_objectSpread({
-      TableName: tableName
-    }, input));
-    return client.send(command);
-  });
+  return runCommand(tableName => new _clientDynamodb.QueryCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
 };
 
 exports.query = query;
 
 const deleteItem = input => {
-  return performOperation(tableName => {
-    const command = new _clientDynamodb.DeleteItemCommand(_objectSpread({
-      TableName: tableName
-    }, input));
-    return client.send(command);
-  });
+  return runCommand(tableName => new _clientDynamodb.DeleteItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
 };
 
 exports.deleteItem = deleteItem;
+
+const scan = input => {
+  return runCommand(tableName => new _clientDynamodb.ScanCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.scan = scan;
 
 const performOperation = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* (operation) {
@@ -75,5 +71,18 @@ const performOperation = /*#__PURE__*/function () {
 
   return function performOperation(_x) {
     return _ref.apply(this, arguments);
+  };
+}();
+
+const runCommand = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* (generateCommand) {
+    return performOperation(tableName => {
+      const command = generateCommand(tableName);
+      return client.send(command);
+    });
+  });
+
+  return function runCommand(_x2) {
+    return _ref2.apply(this, arguments);
   };
 }();
