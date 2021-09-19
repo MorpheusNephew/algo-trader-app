@@ -58,9 +58,9 @@ export const deleteItem = (
   );
 };
 
-export type TScanCommandInput = Omit<ScanCommandInput, 'TableName'>;
+export type TScanInput = Omit<ScanCommandInput, 'TableName'>;
 
-export const scan = (input: TScanCommandInput): Promise<ScanCommandOutput> => {
+export const scan = (input: TScanInput): Promise<ScanCommandOutput> => {
   return runCommand(
     (tableName) => new ScanCommand({ TableName: tableName, ...input })
   );
