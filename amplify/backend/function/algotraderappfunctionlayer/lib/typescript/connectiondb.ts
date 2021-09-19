@@ -5,9 +5,11 @@ import {
   deleteItem,
   putItem,
   query,
+  scan,
   TDeleteItemInput,
   TPutItemInput,
   TQueryInput,
+  TScanInput,
 } from './dynamodb';
 import {
   DeleteItemCommandOutput,
@@ -43,6 +45,10 @@ export const saveConnection = async (
   return putItem(input);
 };
 
+export interface IScanConnectionsOptions {
+  connectionType?: TConnection;
+}
+
 export interface IQueryConnectionsOptions {
   username?: string;
   connectionType?: TConnection;
@@ -52,6 +58,12 @@ export const getConnections = async (
   params?: IQueryConnectionsOptions
 ): Promise<IConnection[]> => {
   const username = params?.username;
+
+  return username ? queryConnections(params) : scanConnections(params);
+};
+
+const queryConnections = async (params: IQueryConnectionsOptions) => {
+  const username = params!.username;
   const connectionType = params?.connectionType;
 
   let connectionAttributeValue: any = { ':connectionType': 'connection' };
@@ -68,9 +80,8 @@ export const getConnections = async (
       ...(username && { ':id': username }),
       ...connectionAttributeValue,
     }),
-    IndexName: username ? null : 'RowTypeIndex',
-    KeyConditionExpression: username ? 'id = :id' : filterExpression,
-    FilterExpression: username ? filterExpression : null,
+    KeyConditionExpression: 'id = :id',
+    FilterExpression: filterExpression,
   };
 
   const { Items } = await query(input);
@@ -78,9 +89,24 @@ export const getConnections = async (
   return Items?.map((Item) => convertDbConnectionToIConnection(Item));
 };
 
-const queryConnections = async () => {};
+const scanConnections = async (params: IScanConnectionsOptions) => {
+  const connectionType = params?.connectionType;
 
-const scanConnections = async () => {};
+  let input: TScanInput = null;
+
+  if (connectionType) {
+    input = {
+      ExpressionAttributeValues: marshall({
+        ':sortName': connectionType,
+      }),
+      FilterExpression: 'sortName = :sortName',
+    };
+  }
+
+  const { Items } = await scan(input);
+
+  return Items?.map((Item) => convertDbConnectionToIConnection(Item));
+};
 
 export const getConnection = async (
   username: string,

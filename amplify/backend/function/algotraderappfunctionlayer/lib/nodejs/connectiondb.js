@@ -56,6 +56,19 @@ exports.saveConnection = saveConnection;
 const getConnections = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(function* (params) {
     const username = params === null || params === void 0 ? void 0 : params.username;
+    return username ? queryConnections(params) : scanConnections(params);
+  });
+
+  return function getConnections(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.getConnections = getConnections;
+
+const queryConnections = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator(function* (params) {
+    const username = params.username;
     const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
     let connectionAttributeValue = {
       ':connectionType': 'connection'
@@ -72,9 +85,8 @@ const getConnections = /*#__PURE__*/function () {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread(_objectSpread({}, username && {
         ':id': username
       }), connectionAttributeValue)),
-      IndexName: username ? null : 'RowTypeIndex',
-      KeyConditionExpression: username ? 'id = :id' : filterExpression,
-      FilterExpression: username ? filterExpression : null
+      KeyConditionExpression: 'id = :id',
+      FilterExpression: filterExpression
     };
     const {
       Items
@@ -82,25 +94,32 @@ const getConnections = /*#__PURE__*/function () {
     return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
   });
 
-  return function getConnections(_x3) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-exports.getConnections = getConnections;
-
-const queryConnections = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator(function* () {});
-
-  return function queryConnections() {
+  return function queryConnections(_x4) {
     return _ref3.apply(this, arguments);
   };
 }();
 
 const scanConnections = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator(function* () {});
+  var _ref4 = _asyncToGenerator(function* (params) {
+    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    let input = null;
 
-  return function scanConnections() {
+    if (connectionType) {
+      input = {
+        ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
+          ':sortName': connectionType
+        }),
+        FilterExpression: 'sortName = :sortName'
+      };
+    }
+
+    const {
+      Items
+    } = yield (0, _dynamodb.scan)(input);
+    return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
+  });
+
+  return function scanConnections(_x5) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -126,7 +145,7 @@ const getConnection = /*#__PURE__*/function () {
     return convertDbConnectionToIConnection(Items[0]);
   });
 
-  return function getConnection(_x4, _x5) {
+  return function getConnection(_x6, _x7) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -147,7 +166,7 @@ const deleteConnection = /*#__PURE__*/function () {
     return (0, _dynamodb.deleteItem)(input);
   });
 
-  return function deleteConnection(_x6, _x7) {
+  return function deleteConnection(_x8, _x9) {
     return _ref6.apply(this, arguments);
   };
 }();
