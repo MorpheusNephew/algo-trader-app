@@ -82,16 +82,16 @@ const queryConnections = /*#__PURE__*/function () {
     }
 
     const input = {
-      ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread(_objectSpread({}, username && {
+      ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread({
         ':id': username
-      }), connectionAttributeValue)),
+      }, connectionAttributeValue)),
       KeyConditionExpression: 'id = :id',
       FilterExpression: filterExpression
     };
     const {
       Items
     } = yield (0, _dynamodb.query)(input);
-    return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
+    return (Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
   });
 
   return function queryConnections(_x4) {
@@ -116,7 +116,7 @@ const scanConnections = /*#__PURE__*/function () {
     const {
       Items
     } = yield (0, _dynamodb.scan)(input);
-    return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
+    return (Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
   });
 
   return function scanConnections(_x5) {
@@ -129,10 +129,10 @@ const getConnection = /*#__PURE__*/function () {
     const input = {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
         ':connectionId': connectionId,
-        ':username': username
+        ':id': username
       }),
-      KeyConditionExpression: 'connectionId = :connectionId',
-      FilterExpression: 'username = :username'
+      KeyConditionExpression: 'id = :id',
+      FilterExpression: 'connectionId = :connectionId'
     };
     const {
       Items

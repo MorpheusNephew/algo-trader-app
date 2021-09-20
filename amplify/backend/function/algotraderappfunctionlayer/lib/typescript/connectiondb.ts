@@ -77,7 +77,7 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
 
   const input: TQueryInput = {
     ExpressionAttributeValues: marshall({
-      ...(username && { ':id': username }),
+      ':id': username,
       ...connectionAttributeValue,
     }),
     KeyConditionExpression: 'id = :id',
@@ -86,7 +86,7 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
 
   const { Items } = await query(input);
 
-  return Items?.map((Item) => convertDbConnectionToIConnection(Item));
+  return Items?.map((Item) => convertDbConnectionToIConnection(Item)) ?? [];
 };
 
 const scanConnections = async (params: IScanConnectionsOptions) => {
@@ -105,7 +105,7 @@ const scanConnections = async (params: IScanConnectionsOptions) => {
 
   const { Items } = await scan(input);
 
-  return Items?.map((Item) => convertDbConnectionToIConnection(Item));
+  return Items?.map((Item) => convertDbConnectionToIConnection(Item)) ?? [];
 };
 
 export const getConnection = async (
@@ -115,10 +115,10 @@ export const getConnection = async (
   const input: TQueryInput = {
     ExpressionAttributeValues: marshall({
       ':connectionId': connectionId,
-      ':username': username,
+      ':id': username,
     }),
-    KeyConditionExpression: 'connectionId = :connectionId',
-    FilterExpression: 'username = :username',
+    KeyConditionExpression: 'id = :id',
+    FilterExpression: 'connectionId = :connectionId',
   };
 
   const { Items } = await query(input);
