@@ -62,7 +62,9 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       const { connections } = ctx.state;
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(connections);
+      ctx.body = JSON.stringify(
+        connections.map(convertIConnectionToIConnectionResponse)
+      );
     }
   )
   .get(
@@ -73,7 +75,9 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       const { connection } = ctx.state;
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(connection);
+      ctx.body = JSON.stringify(
+        convertIConnectionToIConnectionResponse(connection)
+      );
     }
   )
   .del(
