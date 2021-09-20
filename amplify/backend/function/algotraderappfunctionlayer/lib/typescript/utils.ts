@@ -1,11 +1,12 @@
 import { Config } from './config';
+import { IConnection } from './connectionTypes';
 import Cryptr from 'cryptr';
+import { addSeconds, formatISO } from 'date-fns';
 
 export const getDateSecondsFromNow = (seconds: number): string => {
-  const currentDate = new Date();
-  currentDate.setSeconds(currentDate.getSeconds() + seconds);
+  const currentDate = addSeconds(new Date(), seconds);
 
-  return currentDate.toISOString();
+  return formatISO(currentDate);
 };
 
 const getCryptr = async () => {
