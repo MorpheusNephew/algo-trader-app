@@ -33,18 +33,17 @@ const saveConnection = /*#__PURE__*/function () {
       refreshTokenExpiration,
       type
     } = connectionToSave;
-    const item = (0, _utilDynamodb.marshall)({
-      id: username,
-      sortName: type,
-      accessToken: yield (0, _utils.encryptItem)(accessToken),
-      accessTokenExpiration,
-      connectionId,
-      refreshToken: yield (0, _utils.encryptItem)(refreshToken),
-      refreshTokenExpiration,
-      rowType: `connection:${type}:${username}`
-    });
     const input = {
-      Item: item
+      Item: (0, _utilDynamodb.marshall)({
+        id: username,
+        sortName: type,
+        accessToken: yield (0, _utils.encryptItem)(accessToken),
+        accessTokenExpiration,
+        connectionId,
+        refreshToken: yield (0, _utils.encryptItem)(refreshToken),
+        refreshTokenExpiration,
+        rowType: `connection:${type}:${username}`
+      })
     };
     return (0, _dynamodb.putItem)(input);
   });
