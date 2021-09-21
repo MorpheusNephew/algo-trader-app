@@ -7,6 +7,7 @@ export interface IConnection {
   refreshToken: string;
   refreshTokenExpiration: string;
   type: TConnection;
+  username?: string;
 }
 
 export interface IConnectionResponse {
