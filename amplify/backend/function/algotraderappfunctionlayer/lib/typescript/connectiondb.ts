@@ -1,4 +1,5 @@
 import { IConnection, TConnection } from './connectionTypes';
+import { decryptItem, encryptItem } from './utils';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEmpty } from 'lodash';
 import {
@@ -33,10 +34,10 @@ export const saveConnection = async (
     Item: marshall({
       id: username,
       sortName: type,
-      accessToken,
+      accessToken: await encryptItem(accessToken),
       accessTokenExpiration,
       connectionId,
-      refreshToken,
+      refreshToken: await encryptItem(refreshToken),
       refreshTokenExpiration,
       rowType: `connection:${type}:${username}`,
     }),
@@ -86,7 +87,10 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
 
   const { Items } = await query(input);
 
-  return Items?.map((Item) => convertDbConnectionToIConnection(Item)) ?? [];
+  return (
+    Promise.all(Items?.map((Item) => convertDbConnectionToIConnection(Item))) ??
+    []
+  );
 };
 
 const scanConnections = async (params: IScanConnectionsOptions) => {
@@ -105,7 +109,10 @@ const scanConnections = async (params: IScanConnectionsOptions) => {
 
   const { Items } = await scan(input);
 
-  return Items?.map((Item) => convertDbConnectionToIConnection(Item)) ?? [];
+  return (
+    Promise.all(Items?.map((Item) => convertDbConnectionToIConnection(Item))) ??
+    []
+  );
 };
 
 export const getConnection = async (
@@ -143,11 +150,16 @@ export const deleteConnection = async (
   return deleteItem(input);
 };
 
-const convertDbConnectionToIConnection = (dbConnection: any): IConnection => {
+const convertDbConnectionToIConnection = async (
+  dbConnection: any
+): Promise<IConnection> => {
   const result = unmarshall(dbConnection);
 
   return {
     ...result,
+    username: result.id,
+    accessToken: await decryptItem(result.accessToken),
+    refreshToken: await decryptItem(result.refreshToken),
     type: result?.rowType?.split(':')[1] as TConnection,
   } as IConnection;
 };

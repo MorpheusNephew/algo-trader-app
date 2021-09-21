@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
+var _utils = require("./utils");
+
 var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 
 var _lodash = require("lodash");
@@ -31,17 +33,18 @@ const saveConnection = /*#__PURE__*/function () {
       refreshTokenExpiration,
       type
     } = connectionToSave;
+    const item = (0, _utilDynamodb.marshall)({
+      id: username,
+      sortName: type,
+      accessToken: yield (0, _utils.encryptItem)(accessToken),
+      accessTokenExpiration,
+      connectionId,
+      refreshToken: yield (0, _utils.encryptItem)(refreshToken),
+      refreshTokenExpiration,
+      rowType: `connection:${type}:${username}`
+    });
     const input = {
-      Item: (0, _utilDynamodb.marshall)({
-        id: username,
-        sortName: type,
-        accessToken,
-        accessTokenExpiration,
-        connectionId,
-        refreshToken,
-        refreshTokenExpiration,
-        rowType: `connection:${type}:${username}`
-      })
+      Item: item
     };
     return (0, _dynamodb.putItem)(input);
   });
@@ -91,7 +94,7 @@ const queryConnections = /*#__PURE__*/function () {
     const {
       Items
     } = yield (0, _dynamodb.query)(input);
-    return (Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
+    return Promise.all(Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
   });
 
   return function queryConnections(_x4) {
@@ -116,7 +119,7 @@ const scanConnections = /*#__PURE__*/function () {
     const {
       Items
     } = yield (0, _dynamodb.scan)(input);
-    return (Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
+    return Promise.all(Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
   });
 
   return function scanConnections(_x5) {
@@ -173,11 +176,20 @@ const deleteConnection = /*#__PURE__*/function () {
 
 exports.deleteConnection = deleteConnection;
 
-const convertDbConnectionToIConnection = dbConnection => {
-  var _result$rowType;
+const convertDbConnectionToIConnection = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator(function* (dbConnection) {
+    var _result$rowType;
 
-  const result = (0, _utilDynamodb.unmarshall)(dbConnection);
-  return _objectSpread(_objectSpread({}, result), {}, {
-    type: result === null || result === void 0 ? void 0 : (_result$rowType = result.rowType) === null || _result$rowType === void 0 ? void 0 : _result$rowType.split(':')[1]
+    const result = (0, _utilDynamodb.unmarshall)(dbConnection);
+    return _objectSpread(_objectSpread({}, result), {}, {
+      username: result.id,
+      accessToken: yield (0, _utils.decryptItem)(result.accessToken),
+      refreshToken: yield (0, _utils.decryptItem)(result.refreshToken),
+      type: result === null || result === void 0 ? void 0 : (_result$rowType = result.rowType) === null || _result$rowType === void 0 ? void 0 : _result$rowType.split(':')[1]
+    });
   });
-};
+
+  return function convertDbConnectionToIConnection(_x10) {
+    return _ref7.apply(this, arguments);
+  };
+}();
