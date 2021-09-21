@@ -68,6 +68,13 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "auth",
+          "resourceName": "algotraderapp7860b9f7",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
           "category": "storage",
           "resourceName": "algotradertable",
           "attributes": [
