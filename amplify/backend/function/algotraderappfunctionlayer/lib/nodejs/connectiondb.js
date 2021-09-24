@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
+exports.updateConnectionTokens = exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
 var _utils = require("./utils");
 
@@ -175,8 +175,42 @@ const deleteConnection = /*#__PURE__*/function () {
 
 exports.deleteConnection = deleteConnection;
 
+const updateConnectionTokens = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator(function* (username, connectionId, tokensInformation) {
+    const {
+      accessToken,
+      accessTokenExpiration,
+      refreshToken,
+      refreshTokenExpiration,
+      type
+    } = tokensInformation;
+    const input = {
+      Key: (0, _utilDynamodb.marshall)({
+        id: username,
+        sortName: type
+      }),
+      ConditionExpression: 'connectionId = :connectionId',
+      ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
+        ':connectionId': connectionId,
+        ':accessToken': yield (0, _utils.encryptItem)(accessToken),
+        ':accessTokenExpiration': accessTokenExpiration,
+        ':refreshToken': yield (0, _utils.encryptItem)(refreshToken),
+        ':refreshTokenExpiration': refreshTokenExpiration
+      }),
+      UpdateExpression: 'SET accessToken = :accessToken, accessTokenExpiration = :accessTokenExpiration, refreshToken = :refreshToken, refreshTokenExpiration = :refreshTokenExpiration'
+    };
+    return (0, _dynamodb.updateItem)(input);
+  });
+
+  return function updateConnectionTokens(_x10, _x11, _x12) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+
+exports.updateConnectionTokens = updateConnectionTokens;
+
 const convertDbConnectionToIConnection = /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator(function* (dbConnection) {
+  var _ref8 = _asyncToGenerator(function* (dbConnection) {
     var _result$rowType;
 
     const result = (0, _utilDynamodb.unmarshall)(dbConnection);
@@ -188,7 +222,7 @@ const convertDbConnectionToIConnection = /*#__PURE__*/function () {
     });
   });
 
-  return function convertDbConnectionToIConnection(_x10) {
-    return _ref7.apply(this, arguments);
+  return function convertDbConnectionToIConnection(_x13) {
+    return _ref8.apply(this, arguments);
   };
 }();

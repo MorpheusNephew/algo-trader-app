@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scan = exports.deleteItem = exports.query = exports.getItem = exports.putItem = void 0;
+exports.scan = exports.deleteItem = exports.query = exports.updateItem = exports.getItem = exports.putItem = void 0;
 
 var _config = require("./config");
 
@@ -36,6 +36,14 @@ const getItem = input => {
 };
 
 exports.getItem = getItem;
+
+const updateItem = input => {
+  return runCommand(tableName => new _clientDynamodb.UpdateItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.updateItem = updateItem;
 
 const query = input => {
   return runCommand(tableName => new _clientDynamodb.QueryCommand(_objectSpread({
