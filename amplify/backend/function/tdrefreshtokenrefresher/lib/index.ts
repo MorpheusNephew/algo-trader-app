@@ -11,7 +11,6 @@ export const handler = async (_event: any) => {
   const connections = await getConnections({ connectionType });
 
   const mapper = async (connection: IConnection) => {
-    console.log('connection', JSON.stringify(connection));
     const currentDate = new Date();
     const tokenExpirationDate = parseISO(connection.refreshTokenExpiration);
 
@@ -21,11 +20,12 @@ export const handler = async (_event: any) => {
       const { tdConsumerKey } = await Config.getConfig();
       const { connectionId, refreshToken, username } = connection;
 
-      console.log('Refresh the refresh token');
       const client = new TdAmeritradeClient({
         refreshToken: refreshToken,
         clientId: tdConsumerKey,
       });
+
+      console.log(`Updating refresh token for: ${username}`);
 
       const { data: tokenResponse } = await client.auth.refreshRefreshToken();
 
@@ -35,9 +35,9 @@ export const handler = async (_event: any) => {
         connectionId
       );
 
-      console.log('connectionToSave', JSON.stringify(connectionToSave));
-
       await saveConnection(username, connectionToSave);
+
+      console.log(`Refresh token for ${username} has been updated`);
     }
 
     return true;
