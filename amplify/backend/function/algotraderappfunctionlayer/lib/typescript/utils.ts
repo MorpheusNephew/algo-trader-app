@@ -4,9 +4,9 @@ import Cryptr from 'cryptr';
 import { addSeconds, formatISO } from 'date-fns';
 
 export const getDateSecondsFromNow = (seconds: number): string => {
-  const currentDate = addSeconds(new Date(), seconds);
+  const futureDate = addSeconds(new Date(), seconds);
 
-  return formatISO(currentDate);
+  return formatISO(futureDate);
 };
 
 const getCryptr = async () => {
