@@ -1,4 +1,4 @@
-import loadConfig from './middleware/loadConfig';
+import { loadConfig } from './middleware/loadConfig';
 import router from './routes';
 import cors from '@koa/cors';
 import Koa from 'koa';
