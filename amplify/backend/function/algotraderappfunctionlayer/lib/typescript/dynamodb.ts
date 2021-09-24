@@ -16,6 +16,9 @@ import {
   DeleteItemCommand,
   DeleteItemCommandInput,
   DeleteItemCommandOutput,
+  UpdateItemCommandInput,
+  UpdateItemCommandOutput,
+  UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 
 const client = new DynamoDBClient({});
@@ -37,6 +40,16 @@ export const getItem = (
 ): Promise<GetItemCommandOutput> => {
   return runCommand(
     (tableName) => new GetItemCommand({ TableName: tableName, ...input })
+  );
+};
+
+export type TUpdateItemInput = Omit<UpdateItemCommandInput, 'TableName'>;
+
+export const updateItem = (
+  input: TUpdateItemInput
+): Promise<UpdateItemCommandOutput> => {
+  return runCommand(
+    (tableName) => new UpdateItemCommand({ TableName: tableName, ...input })
   );
 };
 
@@ -71,7 +84,8 @@ type TDynamoDbResponse =
   | GetItemCommandOutput
   | QueryCommandOutput
   | DeleteItemCommandOutput
-  | ScanCommandOutput;
+  | ScanCommandOutput
+  | UpdateItemCommandOutput;
 
 type TDynamoDbFunction = (tableName: string) => Promise<TDynamoDbResponse>;
 

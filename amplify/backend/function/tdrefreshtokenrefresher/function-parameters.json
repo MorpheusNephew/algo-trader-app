@@ -7,8 +7,8 @@
     },
     "storage": {
       "algotradertable": [
-        "create",
-        "read"
+        "read",
+        "update"
       ]
     }
   },

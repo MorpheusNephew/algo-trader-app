@@ -1,9 +1,12 @@
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
 import { Config } from '/opt/nodejs/config';
-import { getConnections, saveConnection } from '/opt/nodejs/connectiondb';
 import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
+import {
+  getConnections,
+  updateConnectionTokens,
+} from '/opt/nodejs/connectiondb';
 
 const connectionType: TConnection = 'td';
 
@@ -29,13 +32,13 @@ export const handler = async (_event: any) => {
 
       const { data: tokenResponse } = await client.auth.refreshRefreshToken();
 
-      const connectionToSave = await convertTokenToIConnection(
+      const connectionToUpdate = await convertTokenToIConnection(
         tokenResponse,
         connectionType,
         connectionId
       );
 
-      await saveConnection(username, connectionToSave);
+      await updateConnectionTokens(username, connectionId, connectionToUpdate);
 
       console.log(`Refresh token for ${username} has been updated`);
     }

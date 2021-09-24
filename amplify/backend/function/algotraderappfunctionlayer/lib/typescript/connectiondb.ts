@@ -11,6 +11,8 @@ import {
   TPutItemInput,
   TQueryInput,
   TScanInput,
+  TUpdateItemInput,
+  updateItem,
 } from './dynamodb';
 import {
   DeleteItemCommandOutput,
@@ -148,6 +150,44 @@ export const deleteConnection = async (
   };
 
   return deleteItem(input);
+};
+
+export interface IConnectionTokens {
+  accessToken: string;
+  accessTokenExpiration: string;
+  refreshToken: string;
+  refreshTokenExpiration: string;
+  type: TConnection;
+}
+
+export const updateConnectionTokens = async (
+  username: string,
+  connectionId: string,
+  tokensInformation: IConnectionTokens
+) => {
+  const {
+    accessToken,
+    accessTokenExpiration,
+    refreshToken,
+    refreshTokenExpiration,
+    type,
+  } = tokensInformation;
+
+  const input: TUpdateItemInput = {
+    Key: marshall({ id: username, sortName: type }),
+    ConditionExpression: 'connectionId = :connectionId',
+    ExpressionAttributeValues: marshall({
+      ':connectionId': connectionId,
+      ':accessToken': await encryptItem(accessToken),
+      ':accessTokenExpiration': accessTokenExpiration,
+      ':refreshToken': await encryptItem(refreshToken),
+      ':refreshTokenExpiration': refreshTokenExpiration,
+    }),
+    UpdateExpression:
+      'SET accessToken = :accessToken, accessTokenExpiration = :accessTokenExpiration, refreshToken = :refreshToken, refreshTokenExpiration = :refreshTokenExpiration',
+  };
+
+  return updateItem(input);
 };
 
 const convertDbConnectionToIConnection = async (
