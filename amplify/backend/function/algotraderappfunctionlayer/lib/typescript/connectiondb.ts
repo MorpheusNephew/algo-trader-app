@@ -1,13 +1,16 @@
 import { IConnection, TConnection } from './connectionTypes';
+import { decryptItem, encryptItem } from './utils';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEmpty } from 'lodash';
 import {
   deleteItem,
   putItem,
   query,
+  scan,
   TDeleteItemInput,
   TPutItemInput,
   TQueryInput,
+  TScanInput,
 } from './dynamodb';
 import {
   DeleteItemCommandOutput,
@@ -31,10 +34,10 @@ export const saveConnection = async (
     Item: marshall({
       id: username,
       sortName: type,
-      accessToken,
+      accessToken: await encryptItem(accessToken),
       accessTokenExpiration,
       connectionId,
-      refreshToken,
+      refreshToken: await encryptItem(refreshToken),
       refreshTokenExpiration,
       rowType: `connection:${type}:${username}`,
     }),
@@ -43,19 +46,34 @@ export const saveConnection = async (
   return putItem(input);
 };
 
-export const queryConnections = async (
-  username: string,
-  connectionType?: TConnection
+export interface IScanConnectionsOptions {
+  connectionType?: TConnection;
+}
+
+export interface IQueryConnectionsOptions {
+  username?: string;
+  connectionType?: TConnection;
+}
+
+export const getConnections = async (
+  params?: IQueryConnectionsOptions
 ): Promise<IConnection[]> => {
-  let connectionAttributeValue: any = null;
-  let filterExpression: string = null;
+  const username = params?.username;
+
+  return username ? queryConnections(params) : scanConnections(params);
+};
+
+const queryConnections = async (params: IQueryConnectionsOptions) => {
+  const username = params!.username;
+  const connectionType = params?.connectionType;
+
+  let connectionAttributeValue: any = { ':connectionType': 'connection' };
+  const filterExpression = 'begins_with (rowType, :connectionType)';
 
   if (connectionType) {
     connectionAttributeValue = {
       ':connectionType': `connection:${connectionType}`,
     };
-
-    filterExpression = 'begins_with (rowType, :connectionType)';
   }
 
   const input: TQueryInput = {
@@ -69,7 +87,32 @@ export const queryConnections = async (
 
   const { Items } = await query(input);
 
-  return Items?.map((Item) => convertDbConnectionToIConnection(Item));
+  return (
+    Promise.all(Items?.map((Item) => convertDbConnectionToIConnection(Item))) ??
+    []
+  );
+};
+
+const scanConnections = async (params: IScanConnectionsOptions) => {
+  const connectionType = params?.connectionType;
+
+  let input: TScanInput = null;
+
+  if (connectionType) {
+    input = {
+      ExpressionAttributeValues: marshall({
+        ':sortName': connectionType,
+      }),
+      FilterExpression: 'sortName = :sortName',
+    };
+  }
+
+  const { Items } = await scan(input);
+
+  return (
+    Promise.all(Items?.map((Item) => convertDbConnectionToIConnection(Item))) ??
+    []
+  );
 };
 
 export const getConnection = async (
@@ -79,10 +122,10 @@ export const getConnection = async (
   const input: TQueryInput = {
     ExpressionAttributeValues: marshall({
       ':connectionId': connectionId,
-      ':username': username,
+      ':id': username,
     }),
-    KeyConditionExpression: 'connectionId = :connectionId',
-    FilterExpression: 'username = :username',
+    KeyConditionExpression: 'id = :id',
+    FilterExpression: 'connectionId = :connectionId',
   };
 
   const { Items } = await query(input);
@@ -107,11 +150,16 @@ export const deleteConnection = async (
   return deleteItem(input);
 };
 
-const convertDbConnectionToIConnection = (dbConnection: any): IConnection => {
+const convertDbConnectionToIConnection = async (
+  dbConnection: any
+): Promise<IConnection> => {
   const result = unmarshall(dbConnection);
 
   return {
     ...result,
+    username: result.id,
+    accessToken: await decryptItem(result.accessToken),
+    refreshToken: await decryptItem(result.refreshToken),
     type: result?.rowType?.split(':')[1] as TConnection,
   } as IConnection;
 };

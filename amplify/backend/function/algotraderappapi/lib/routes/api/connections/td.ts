@@ -16,7 +16,7 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
   .get(
     'Connect which might take over create connection',
     '/connect',
-    async (ctx: AppContext, next: Next) => {
+    async (ctx: AppContext, _next: Next) => {
       const { code, redirectUrl, state } = ctx.query;
 
       if (!!!redirectUrl && !!!code) {
@@ -52,41 +52,39 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
         ctx.status = 200;
         ctx.body = JSON.stringify(tdAuthUrl);
       }
-
-      await next();
     }
   )
   .get(
     'Get connections for user',
     '/',
     loadTdConnections,
-    async (ctx: AppContext, next: Next) => {
+    async (ctx: AppContext, _next: Next) => {
       const { connections } = ctx.state;
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(connections);
-
-      await next();
+      ctx.body = JSON.stringify(
+        connections.map(convertIConnectionToIConnectionResponse)
+      );
     }
   )
   .get(
     'Get connection for user',
     '/:connectionId',
     loadTdConnection,
-    async (ctx: AppContext, next: Next) => {
+    async (ctx: AppContext, _next: Next) => {
       const { connection } = ctx.state;
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(connection);
-
-      await next();
+      ctx.body = JSON.stringify(
+        convertIConnectionToIConnectionResponse(connection)
+      );
     }
   )
   .del(
     'Delete connection for user',
     '/:connectionId',
     loadTdConnection,
-    async (ctx: AppContext, next: Next) => {
+    async (ctx: AppContext, _next: Next) => {
       const {
         authenticatedUser: { username },
         connection: { connectionId },
@@ -95,8 +93,6 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       await deleteConnection(username, connectionId);
 
       ctx.status = 204;
-
-      await next();
     }
   );
 

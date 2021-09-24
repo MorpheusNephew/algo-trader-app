@@ -9,8 +9,6 @@ const checkUser = async (ctx: AppContext, next: Next) => {
     ctx.throw('User not found', 404);
   }
 
-  console.log('User', JSON.stringify(authenticatedUser));
-
   ctx.state.authenticatedUser = authenticatedUser;
 
   await next();

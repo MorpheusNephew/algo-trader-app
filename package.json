@@ -6,7 +6,7 @@
     "@aws-amplify/ui-react": "^1.2.8",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
-    "@morpheusnephew/td-ameritrade": "^0.4.0",
+    "@morpheusnephew/td-ameritrade": "0.4.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -29,11 +29,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildLambdas": "yarn buildApi && yarn buildLayers",
+    "buildLambdas": "yarn buildApi && yarn buildTdRefreshTokenRefresher && yarn buildLayers",
     "buildLayers": "yarn buildFunctionLayer",
     "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/lib/typescript && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
+    "buildTdRefreshTokenRefresher": "cd amplify/backend/function/tdrefreshtokenrefresher/lib && yarn build && cd -",
     "amplify:algotraderappapi": "yarn buildApi",
+    "amplify:tdrefreshtokenrefresher": "yarn buildTdRefreshTokenRefresher",
     "postinstall": "husky install"
   },
   "eslintConfig": {

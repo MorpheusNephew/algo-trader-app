@@ -14,24 +14,24 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 const convertTokenToIConnection = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator(function* (token, type) {
+  var _ref = _asyncToGenerator(function* (token, type, connectionId) {
     const {
-      access_token,
+      access_token: accessToken,
       expires_in,
-      refresh_token,
+      refresh_token: refreshToken,
       refresh_token_expires_in
     } = token;
     return {
-      accessToken: yield (0, _utils.encryptItem)(access_token),
-      refreshToken: yield (0, _utils.encryptItem)(refresh_token),
-      connectionId: (0, _uuid.v4)(),
+      accessToken,
+      refreshToken,
+      connectionId: connectionId ?? (0, _uuid.v4)(),
       accessTokenExpiration: (0, _utils.getDateSecondsFromNow)(expires_in),
       refreshTokenExpiration: (0, _utils.getDateSecondsFromNow)(refresh_token_expires_in),
       type
     };
   });
 
-  return function convertTokenToIConnection(_x, _x2) {
+  return function convertTokenToIConnection(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();

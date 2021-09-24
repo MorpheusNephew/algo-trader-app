@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteConnection = exports.getConnection = exports.queryConnections = exports.saveConnection = void 0;
+exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
+
+var _utils = require("./utils");
 
 var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 
@@ -35,10 +37,10 @@ const saveConnection = /*#__PURE__*/function () {
       Item: (0, _utilDynamodb.marshall)({
         id: username,
         sortName: type,
-        accessToken,
+        accessToken: yield (0, _utils.encryptItem)(accessToken),
         accessTokenExpiration,
         connectionId,
-        refreshToken,
+        refreshToken: yield (0, _utils.encryptItem)(refreshToken),
         refreshTokenExpiration,
         rowType: `connection:${type}:${username}`
       })
@@ -53,16 +55,32 @@ const saveConnection = /*#__PURE__*/function () {
 
 exports.saveConnection = saveConnection;
 
+const getConnections = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* (params) {
+    const username = params === null || params === void 0 ? void 0 : params.username;
+    return username ? queryConnections(params) : scanConnections(params);
+  });
+
+  return function getConnections(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.getConnections = getConnections;
+
 const queryConnections = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(function* (username, connectionType) {
-    let connectionAttributeValue = null;
-    let filterExpression = null;
+  var _ref3 = _asyncToGenerator(function* (params) {
+    const username = params.username;
+    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    let connectionAttributeValue = {
+      ':connectionType': 'connection'
+    };
+    const filterExpression = 'begins_with (rowType, :connectionType)';
 
     if (connectionType) {
       connectionAttributeValue = {
         ':connectionType': `connection:${connectionType}`
       };
-      filterExpression = 'begins_with (rowType, :connectionType)';
     }
 
     const input = {
@@ -75,25 +93,48 @@ const queryConnections = /*#__PURE__*/function () {
     const {
       Items
     } = yield (0, _dynamodb.query)(input);
-    return Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item));
+    return Promise.all(Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
   });
 
-  return function queryConnections(_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function queryConnections(_x4) {
+    return _ref3.apply(this, arguments);
   };
 }();
 
-exports.queryConnections = queryConnections;
+const scanConnections = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator(function* (params) {
+    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    let input = null;
+
+    if (connectionType) {
+      input = {
+        ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
+          ':sortName': connectionType
+        }),
+        FilterExpression: 'sortName = :sortName'
+      };
+    }
+
+    const {
+      Items
+    } = yield (0, _dynamodb.scan)(input);
+    return Promise.all(Items === null || Items === void 0 ? void 0 : Items.map(Item => convertDbConnectionToIConnection(Item))) ?? [];
+  });
+
+  return function scanConnections(_x5) {
+    return _ref4.apply(this, arguments);
+  };
+}();
 
 const getConnection = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator(function* (username, connectionId) {
+  var _ref5 = _asyncToGenerator(function* (username, connectionId) {
     const input = {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
         ':connectionId': connectionId,
-        ':username': username
+        ':id': username
       }),
-      KeyConditionExpression: 'connectionId = :connectionId',
-      FilterExpression: 'username = :username'
+      KeyConditionExpression: 'id = :id',
+      FilterExpression: 'connectionId = :connectionId'
     };
     const {
       Items
@@ -106,15 +147,15 @@ const getConnection = /*#__PURE__*/function () {
     return convertDbConnectionToIConnection(Items[0]);
   });
 
-  return function getConnection(_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function getConnection(_x6, _x7) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
 exports.getConnection = getConnection;
 
 const deleteConnection = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator(function* (username, connectionId) {
+  var _ref6 = _asyncToGenerator(function* (username, connectionId) {
     const input = {
       Key: (0, _utilDynamodb.marshall)({
         id: username
@@ -127,18 +168,27 @@ const deleteConnection = /*#__PURE__*/function () {
     return (0, _dynamodb.deleteItem)(input);
   });
 
-  return function deleteConnection(_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function deleteConnection(_x8, _x9) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
 exports.deleteConnection = deleteConnection;
 
-const convertDbConnectionToIConnection = dbConnection => {
-  var _result$rowType;
+const convertDbConnectionToIConnection = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator(function* (dbConnection) {
+    var _result$rowType;
 
-  const result = (0, _utilDynamodb.unmarshall)(dbConnection);
-  return _objectSpread(_objectSpread({}, result), {}, {
-    type: result === null || result === void 0 ? void 0 : (_result$rowType = result.rowType) === null || _result$rowType === void 0 ? void 0 : _result$rowType.split(':')[1]
+    const result = (0, _utilDynamodb.unmarshall)(dbConnection);
+    return _objectSpread(_objectSpread({}, result), {}, {
+      username: result.id,
+      accessToken: yield (0, _utils.decryptItem)(result.accessToken),
+      refreshToken: yield (0, _utils.decryptItem)(result.refreshToken),
+      type: result === null || result === void 0 ? void 0 : (_result$rowType = result.rowType) === null || _result$rowType === void 0 ? void 0 : _result$rowType.split(':')[1]
+    });
   });
-};
+
+  return function convertDbConnectionToIConnection(_x10) {
+    return _ref7.apply(this, arguments);
+  };
+}();
