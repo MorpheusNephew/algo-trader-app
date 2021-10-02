@@ -2,7 +2,7 @@ import checkUser from '../../middleware/checkUser';
 import { AppContext } from '../../types';
 import configurationRouter from './configurationRouter';
 import connectionsRouter from './connections';
-import tdRouter from './td';
+import { tdRouter } from './td';
 import Router from '@koa/router';
 import { Next } from 'koa';
 
