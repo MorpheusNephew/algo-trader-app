@@ -5,8 +5,10 @@ import connectionsRouter from './connections';
 import { tdRouter } from './td';
 import Router from '@koa/router';
 import { Next } from 'koa';
+import bodyParser from 'koa-bodyparser';
 
 const apiRouter = new Router({ prefix: '/api' })
+  .use(bodyParser())
   .use(checkUser)
   .get('greeting', '/', async (ctx: AppContext, next: Next) => {
     ctx.status = 200;
