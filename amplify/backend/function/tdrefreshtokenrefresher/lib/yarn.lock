@@ -909,17 +909,17 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@morpheusnephew/td-ameritrade-models@0.12.5":
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.5.tgz#90d56aba2668b3b0e178669c5e7f00bbfa5bb537"
-  integrity sha512-LBKiSzQXdtSYcbNzlPGsDVPJVBvrninfgcjYd4/Cqcsp5tM90uHqRGlC01qbhuWKuX1a1b2Zi99EV0ij2V0lJw==
+"@morpheusnephew/td-ameritrade-models@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.8.tgz#956927f688f9dcc22799282c9a2bff4167daaf93"
+  integrity sha512-d4ft2pY+gOQGOBrKAoK28WCiP3sOQ0+GFUi/HLTPAgR/hEtkY+xLxuY4OR3Ad3GO7FjcfcZ4vN47s33qqpVigQ==
 
-"@morpheusnephew/td-ameritrade@0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.2.tgz#87bbbc249bd906e3deb16d1a8c068bcb2232c98a"
-  integrity sha512-dH2VfCn4faUQL+wEHouSs4xghvGQrNJcLkO85k1PMQ/OMM19lngOO4f65LIzHmUlhWmOuHr9F8LhfrjJLhA5UA==
+"@morpheusnephew/td-ameritrade@0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.5.tgz#5ac96568c4af36f84cf7b35e90426b4786ac8bb9"
+  integrity sha512-dpAYg6fBdtV5a6x+5ULPdrpaXcxCk1ALqspyFFpN14nr/2Y/P/1rPfWLPY73Mg5AzRdRv/NMQ4MvQuotF28g3w==
   dependencies:
-    "@morpheusnephew/td-ameritrade-models" "0.12.5"
+    "@morpheusnephew/td-ameritrade-models" "0.12.8"
     axios "^0.21.1"
     qs "^6.9.4"
 
