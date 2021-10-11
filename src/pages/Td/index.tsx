@@ -1,4 +1,6 @@
+import { AccountInformation } from '../../components/td/AccountInformation';
 import { useGetBrokerageConnections } from '../../hooks/useGetBrokerageConnections';
+import { Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { isEmpty } from 'lodash';
 
@@ -19,15 +21,18 @@ const TdAmeritrade = () => {
 
   return (
     <div>
-      <h2>TD AmeriTrade</h2>
-      <div>
+      <Typography variant='h5' component='div'>
+        TD AmeriTrade
+      </Typography>
+      <Typography>
         This is the page that will check whether a user has a TD Ameritrade
         connection or not
-      </div>
+      </Typography>
       {(loadingTdConnections && <div>Loading...</div>) ||
         (isEmpty(tdConnections) && <ConnectButton />) || (
           <div>Td connected</div>
         )}
+      <AccountInformation hasConnection={!isEmpty(tdConnections)} />
     </div>
   );
 };

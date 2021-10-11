@@ -1,4 +1,4 @@
-import { useAuthWithTdAmeritrade } from '../../hooks/useAuthWithTdAmeritrade';
+import { useAuthWithTdAmeritrade } from '../../hooks/td/useAuthWithTdAmeritrade';
 
 const Connect = () => {
   let subText = 'Connecting...';
