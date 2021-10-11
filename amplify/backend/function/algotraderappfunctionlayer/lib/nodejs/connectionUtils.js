@@ -26,7 +26,7 @@ const convertTokenToIConnection = /*#__PURE__*/function () {
       refreshToken,
       connectionId: connectionId ?? (0, _uuid.v4)(),
       accessTokenExpiration: (0, _utils.getDateSecondsFromNow)(expires_in),
-      refreshTokenExpiration: (0, _utils.getDateSecondsFromNow)(refresh_token_expires_in),
+      refreshTokenExpiration: refresh_token_expires_in && (0, _utils.getDateSecondsFromNow)(refresh_token_expires_in),
       type
     };
   });

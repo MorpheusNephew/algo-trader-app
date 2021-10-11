@@ -24,7 +24,9 @@ export const convertTokenToIConnection = async (
     refreshToken,
     connectionId: connectionId ?? uuid(),
     accessTokenExpiration: getDateSecondsFromNow(expires_in),
-    refreshTokenExpiration: getDateSecondsFromNow(refresh_token_expires_in),
+    refreshTokenExpiration:
+      refresh_token_expires_in &&
+      getDateSecondsFromNow(refresh_token_expires_in),
     type,
   };
 };
