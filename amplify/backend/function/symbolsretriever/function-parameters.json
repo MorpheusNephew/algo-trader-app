@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "storage": {
+      "algotradertable": [
+        "create"
+      ]
+    }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappdependencieslayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    },
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappfunctionlayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ],
+  "secretNames": [
+    "CBOE_ID",
+    "CBOE_SECRET"
+  ]
+}

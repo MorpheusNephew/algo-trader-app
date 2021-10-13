@@ -17,13 +17,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-const tdConsumerKey = 'TD_CONSUMER_KEY';
-const ssmKeys = [tdConsumerKey];
+const secretKeys = {
+  TD_CONSUMER_KEY: 'tdConsumerKey',
+  CBOE_ID: 'cboeId',
+  CBOE_SECRET: 'cboeSecret'
+};
+const ssmKeys = Object.keys(secretKeys);
 
 const _getConfig = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
     const config = {
       tdConsumerKey: null,
+      cboeId: null,
+      cboeSecret: null,
       cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
       lambdaEnv: process.env.ENV,
       lambdaRegion: process.env.REGION,
@@ -43,8 +49,11 @@ const _getConfig = /*#__PURE__*/function () {
     const secretsReducer = (acc, curr) => {
       let name = curr.Name;
 
-      if (name.endsWith(tdConsumerKey)) {
-        name = 'tdConsumerKey';
+      for (const key in secretKeys) {
+        if (name.endsWith(key)) {
+          name = secretKeys[key];
+          break;
+        }
       }
 
       acc[name] = curr.Value;

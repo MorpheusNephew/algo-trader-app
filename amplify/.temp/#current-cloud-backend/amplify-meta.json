@@ -1,0 +1,256 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-algotraderapp-dev-212017-authRole",
+      "UnauthRoleArn": "arn:aws:iam::014477660743:role/amplify-algotraderapp-dev-212017-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::014477660743:role/amplify-algotraderapp-dev-212017-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+      "UnauthRoleName": "amplify-algotraderapp-dev-212017-unauthRole",
+      "StackName": "amplify-algotraderapp-dev-212017",
+      "StackId": "arn:aws:cloudformation:us-east-1:014477660743:stack/amplify-algotraderapp-dev-212017/24595880-f4c2-11eb-a9af-0a9fb25362c3",
+      "AmplifyAppId": "d2z6wj1fnu5msl",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "type": "cicd",
+      "lastPushTimeStamp": "2021-08-05T00:21:21.923Z"
+    }
+  },
+  "auth": {
+    "algotraderapp7860b9f7": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "output": {
+        "UserPoolId": "us-east-1_YP6lwWUby",
+        "AppClientIDWeb": "5pcf002rlkfair7aps96ja1t31",
+        "AppClientID": "3vt2ivmr2g3jrdiggrg64nh6uh",
+        "IdentityPoolId": "us-east-1:60d33723-b9ba-46df-b90e-c693d2e286da",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:014477660743:userpool/us-east-1_YP6lwWUby",
+        "IdentityPoolName": "algotraderapp7860b9f7_identitypool_7860b9f7__dev",
+        "UserPoolName": "algotraderapp7860b9f7_userpool_7860b9f7"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:01.736Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/auth/algotraderapp7860b9f7-cloudformation-template.yml",
+        "logicalId": "authalgotraderapp7860b9f7"
+      },
+      "lastPushDirHash": "waFouacYmGIjHwz52AWhaV+Pz04="
+    }
+  },
+  "function": {
+    "algotraderappapi": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "algotraderapp7860b9f7",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "algotradertable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappdependencieslayer",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappfunctionlayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:014477660743:function:algotraderappapi-dev",
+        "Name": "algotraderappapi-dev",
+        "LambdaExecutionRole": "algotraderappLambdaRoled50be05d-dev"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:28.925Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/function/algotraderappapi-cloudformation-template.json",
+        "logicalId": "functionalgotraderappapi"
+      },
+      "lastBuildTimeStamp": "2021-10-11T06:41:50.909Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2021-10-11T06:41:53.095Z",
+      "distZipFilename": "algotraderappapi-42674e59307a61623653-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+        "s3Key": "amplify-builds/algotraderappapi-42674e59307a61623653-build.zip"
+      },
+      "lastPushDirHash": "ZTpe92IDvyaARujznDwfuGqcujk="
+    },
+    "algotraderappdependencieslayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true,
+      "output": {
+        "Arn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappdependencieslayer-dev:41"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:01.741Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/function/algotraderappdependencieslayer-awscloudformation-template.json",
+        "logicalId": "functionalgotraderappdependencieslayer"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+        "s3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersion2384d95b-build.zip"
+      },
+      "lastBuildTimeStamp": "2021-10-10T02:47:27.764Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2021-10-10T02:48:07.845Z",
+      "distZipFilename": "algotraderappdependencieslayer-LambdaLayerVersion2384d95b-build.zip",
+      "latestPushedVersionHash": "fc2db6975829cb566107d23516aa0f58af665eb2257d7ae5721e3acb5cbdcfef"
+    },
+    "algotraderappfunctionlayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true,
+      "output": {
+        "Arn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappfunctionlayer-dev:70"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:28.925Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/function/algotraderappfunctionlayer-awscloudformation-template.json",
+        "logicalId": "functionalgotraderappfunctionlayer"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+        "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersiond68e9f65-build.zip"
+      },
+      "lastBuildTimeStamp": "2021-10-11T06:41:50.911Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2021-10-11T06:42:08.932Z",
+      "distZipFilename": "algotraderappfunctionlayer-LambdaLayerVersiond68e9f65-build.zip",
+      "latestPushedVersionHash": "9a0d56ea2c2d77c21e9293343c0f2c8937f4139ed8734e4e6e23b2480ba55874"
+    },
+    "tdrefreshtokenrefresher": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "algotraderapp7860b9f7",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "algotradertable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappdependencieslayer",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "algotraderappfunctionlayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "Region": "us-east-1",
+        "CloudWatchEventRule": "amplify-algotraderapp-dev-212017-f-CloudWatchEvent-MZZT9WUMP6JB",
+        "Arn": "arn:aws:lambda:us-east-1:014477660743:function:tdrefreshtokenrefresher-dev",
+        "Name": "tdrefreshtokenrefresher-dev",
+        "LambdaExecutionRole": "algotraderappLambdaRole3e960d2c-dev"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:01.746Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/function/tdrefreshtokenrefresher-cloudformation-template.json",
+        "logicalId": "functiontdrefreshtokenrefresher"
+      },
+      "lastBuildTimeStamp": "2021-09-24T03:47:26.157Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2021-09-24T03:47:31.285Z",
+      "distZipFilename": "tdrefreshtokenrefresher-42614e70374c47363474-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
+        "s3Key": "amplify-builds/tdrefreshtokenrefresher-42614e70374c47363474-build.zip"
+      },
+      "lastPushDirHash": "8o+pBFkrPAUveE5D6Kz3fqI56so="
+    }
+  },
+  "api": {
+    "algoappapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "algotraderappapi",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "ApiName": "algoappapi",
+        "RootUrl": "https://1evdm6cli2.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "1evdm6cli2"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:01.748Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/api/algoappapi-cloudformation-template.json",
+        "logicalId": "apialgoappapi"
+      },
+      "lastPushDirHash": "X/J75jsgkuHohOHmnGBOTzABeGc="
+    }
+  },
+  "storage": {
+    "algotradertable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "PartitionKeyName": "id",
+        "SortKeyName": "sortName",
+        "SortKeyType": "S",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:dynamodb:us-east-1:014477660743:table/algotradertable-dev",
+        "StreamArn": "arn:aws:dynamodb:us-east-1:014477660743:table/algotradertable-dev/stream/2021-09-12T15:52:08.692",
+        "PartitionKeyType": "S",
+        "Name": "algotradertable-dev"
+      },
+      "lastPushTimeStamp": "2021-10-11T06:45:01.750Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/storage/algotradertable-cloudformation-template.json",
+        "logicalId": "storagealgotradertable"
+      },
+      "lastPushDirHash": "zfuv3RyqNARO6to4wEmRnUHLHc0="
+    }
+  }
+}
