@@ -7,9 +7,11 @@ exports.scan = exports.deleteItem = exports.query = exports.updateItem = exports
 
 var _config = require("./config");
 
-var _logger = require("./logger");
+var _logger = _interopRequireDefault(require("./logger"));
 
 var _clientDynamodb = require("@aws-sdk/client-dynamodb");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -22,7 +24,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const client = new _clientDynamodb.DynamoDBClient({});
-const logger = (0, _logger.getLogger)();
+
+const logger = _logger.default.getLogger();
 
 const putItem = input => {
   logger.info('putItem', {
