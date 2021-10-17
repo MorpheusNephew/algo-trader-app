@@ -4,9 +4,11 @@ import {
   Parameter,
 } from '@aws-sdk/client-ssm';
 
-const tdConsumerKey = 'TD_CONSUMER_KEY';
+const secretKeys = {
+  TD_CONSUMER_KEY: 'tdConsumerKey',
+};
 
-const ssmKeys = [tdConsumerKey];
+const ssmKeys = Object.keys(secretKeys);
 
 export interface IConfig {
   algoTraderTableDbArn: string;
@@ -40,8 +42,11 @@ const _getConfig = async (): Promise<IConfig> => {
   const secretsReducer = (acc: {}, curr: Parameter) => {
     let name = curr.Name;
 
-    if (name.endsWith(tdConsumerKey)) {
-      name = 'tdConsumerKey';
+    for (const key in secretKeys) {
+      if (name.endsWith(key)) {
+        name = secretKeys[key];
+        break;
+      }
     }
 
     acc[name] = curr.Value;

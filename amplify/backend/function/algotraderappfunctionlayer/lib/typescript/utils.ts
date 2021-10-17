@@ -1,5 +1,4 @@
 import { Config } from './config';
-import { IConnection } from './connectionTypes';
 import Cryptr from 'cryptr';
 import { addSeconds, formatISO } from 'date-fns';
 

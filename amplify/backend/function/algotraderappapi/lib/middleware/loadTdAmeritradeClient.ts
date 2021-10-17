@@ -47,7 +47,12 @@ const getUserTdConnection = async (
 
   const connection = connections[0];
 
-  const { accessTokenExpiration, refreshToken, connectionId } = connection;
+  const {
+    accessTokenExpiration,
+    refreshToken,
+    refreshTokenExpiration,
+    connectionId,
+  } = connection;
   let { accessToken } = connection;
 
   const now = new Date();
@@ -68,7 +73,11 @@ const getUserTdConnection = async (
     connectionId
   );
 
-  await updateConnectionTokens(username, connectionId, connectionToUpdate);
+  await updateConnectionTokens(username, connectionId, {
+    ...connectionToUpdate,
+    refreshToken,
+    refreshTokenExpiration,
+  });
 
   return connectionToUpdate;
 };
