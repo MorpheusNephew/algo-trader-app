@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-export const getLogger = (lambda: string = 'dependencies') => {
+export const getLogger = (lambda: string = 'function-layer') => {
   const logger = winston.createLogger({
     defaultMeta: { lambda },
     transports: [new winston.transports.Console()],
