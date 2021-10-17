@@ -3,14 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logger = void 0;
+exports.getLogger = void 0;
 
 var _winston = _interopRequireDefault(require("winston"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const logger = _winston.default.createLogger({
-  transports: [new _winston.default.transports.Console()]
-});
+const getLogger = (lambda = 'function-layer') => {
+  const logger = _winston.default.createLogger({
+    defaultMeta: {
+      lambda
+    },
+    transports: [new _winston.default.transports.Console()],
+    exceptionHandlers: [new _winston.default.transports.Console()]
+  });
 
-exports.logger = logger;
+  return logger;
+};
+
+exports.getLogger = getLogger;

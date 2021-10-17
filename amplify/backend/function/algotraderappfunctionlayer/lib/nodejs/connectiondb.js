@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateConnectionTokens = exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
+var _logger = require("./logger");
+
 var _utils = require("./utils");
 
 var _utilDynamodb = require("@aws-sdk/util-dynamodb");
@@ -23,8 +25,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+const logger = (0, _logger.getLogger)();
+
 const saveConnection = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* (username, connectionToSave) {
+    logger.info('Save connection for user', {
+      username
+    });
     const {
       accessToken,
       accessTokenExpiration,
@@ -70,6 +77,9 @@ exports.getConnections = getConnections;
 
 const queryConnections = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator(function* (params) {
+    logger.info('Query connections', {
+      params
+    });
     const username = params.username;
     const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
     let connectionAttributeValue = {
@@ -103,6 +113,9 @@ const queryConnections = /*#__PURE__*/function () {
 
 const scanConnections = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator(function* (params) {
+    logger.info('Scan connections', {
+      params
+    });
     const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
     let input = null;
 
@@ -128,6 +141,10 @@ const scanConnections = /*#__PURE__*/function () {
 
 const getConnection = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator(function* (username, connectionId) {
+    logger.info('Get connection', {
+      username,
+      connectionId
+    });
     const input = {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
         ':connectionId': connectionId,
@@ -156,6 +173,10 @@ exports.getConnection = getConnection;
 
 const deleteConnection = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator(function* (username, connectionId) {
+    logger.info('Delete connection', {
+      username,
+      connectionId
+    });
     const input = {
       Key: (0, _utilDynamodb.marshall)({
         id: username
@@ -177,6 +198,10 @@ exports.deleteConnection = deleteConnection;
 
 const updateConnectionTokens = /*#__PURE__*/function () {
   var _ref7 = _asyncToGenerator(function* (username, connectionId, tokensInformation) {
+    logger.info('Update connection token', {
+      username,
+      connectionId
+    });
     const {
       accessToken,
       accessTokenExpiration,
