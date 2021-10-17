@@ -1,6 +1,11 @@
 import winston from 'winston';
 
-export const logger = winston.createLogger({
-  transports: [new winston.transports.Console()],
-  exceptionHandlers: [new winston.transports.Console()],
-});
+export const getLogger = (lambda: string = 'dependencies') => {
+  const logger = winston.createLogger({
+    defaultMeta: { lambda },
+    transports: [new winston.transports.Console()],
+    exceptionHandlers: [new winston.transports.Console()],
+  });
+
+  return logger;
+};
