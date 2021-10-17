@@ -1,3 +1,4 @@
+import Logger from './logger';
 import {
   GetParametersCommand,
   SSMClient,
@@ -9,6 +10,7 @@ const secretKeys = {
 };
 
 const ssmKeys = Object.keys(secretKeys);
+const logger = Logger.getLogger();
 
 export interface IConfig {
   algoTraderTableDbArn: string;
@@ -64,6 +66,7 @@ let configInstance = null;
 export class Config {
   static async getConfig(): Promise<IConfig> {
     if (!configInstance) {
+      logger.info('Initialize config');
       configInstance = await _getConfig();
     }
 
