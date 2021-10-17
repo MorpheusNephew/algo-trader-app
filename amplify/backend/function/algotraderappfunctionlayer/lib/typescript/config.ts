@@ -6,8 +6,6 @@ import {
 
 const secretKeys = {
   TD_CONSUMER_KEY: 'tdConsumerKey',
-  CBOE_ID: 'cboeId',
-  CBOE_SECRET: 'cboeSecret',
 };
 
 const ssmKeys = Object.keys(secretKeys);
@@ -16,8 +14,6 @@ export interface IConfig {
   algoTraderTableDbArn: string;
   algoTraderTableDbName: string;
   algoTraderTableDbStreamArn: string;
-  cboeId: string;
-  cboeSecret: string;
   cognitoUserPoolId: string;
   lambdaEnv: string;
   lambdaRegion: string;
@@ -27,8 +23,6 @@ export interface IConfig {
 const _getConfig = async (): Promise<IConfig> => {
   const config = {
     tdConsumerKey: null,
-    cboeId: null,
-    cboeSecret: null,
     cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
     lambdaEnv: process.env.ENV,
     lambdaRegion: process.env.REGION,

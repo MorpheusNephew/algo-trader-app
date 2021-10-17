@@ -105,15 +105,6 @@
       "service": "Lambda",
       "dependsOn": [
         {
-          "category": "storage",
-          "resourceName": "algotradertable",
-          "attributes": [
-            "Name",
-            "Arn",
-            "StreamArn"
-          ]
-        },
-        {
           "category": "function",
           "resourceName": "algotraderappdependencieslayer",
           "attributes": [
@@ -125,6 +116,15 @@
           "resourceName": "algotraderappfunctionlayer",
           "attributes": [
             "Arn"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "algotradertable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
           ]
         }
       ]
