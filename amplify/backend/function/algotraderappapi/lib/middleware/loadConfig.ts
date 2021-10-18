@@ -7,9 +7,10 @@ const loggerOptions = {
 };
 
 export const loadConfig = async (ctx: AppContext, next: Next) => {
-  ctx.state.logger.info('Loading config', loggerOptions);
+  const { logger } = ctx.state;
+  logger.info('Loading config', loggerOptions);
   ctx.state.config = await Config.getConfig();
-  ctx.state.logger.info('Config loaded', loggerOptions);
+  logger.info('Config loaded', loggerOptions);
 
   await next();
 };
