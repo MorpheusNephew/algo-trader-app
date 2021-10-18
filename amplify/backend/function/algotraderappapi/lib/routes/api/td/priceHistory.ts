@@ -1,3 +1,4 @@
+import { loadLoggerOptions } from '../../../middleware/loadLoggerOptions';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
 import { PriceHistoryOptions } from '@morpheusnephew/td-ameritrade/dist/clients/price-history-client';
@@ -5,20 +6,35 @@ import { Next } from 'koa';
 
 export const tdPriceHistoryRouter = new Router({
   prefix: '/price-history',
-}).get(
-  'Get price history',
-  '/:symbol',
-  async (ctx: AppContext, _next: Next) => {
-    const { symbol } = ctx.params;
-    const options = ctx.query as unknown as PriceHistoryOptions;
+})
+  .use(loadLoggerOptions('td/priceHistory.ts'))
+  .get(
+    'Get price history',
+    '/:symbol',
+    async (ctx: AppContext, _next: Next) => {
+      const {
+        params: { symbol },
+        state: { logger, loggerOptions },
+      } = ctx;
+      const priceHistoryOptions = ctx.query as unknown as PriceHistoryOptions;
 
-    const { data, status } =
-      await ctx.state.tdAmeritradeClient.priceHistory.getPriceHistory(
+      const updatedLoggerOptions = {
+        ...loggerOptions,
         symbol,
-        options
-      );
+        priceHistoryOptions,
+      };
 
-    ctx.status = status;
-    ctx.body = JSON.stringify(data);
-  }
-);
+      logger.info('Getting price history for symbol', updatedLoggerOptions);
+
+      const { data, status } =
+        await ctx.state.tdAmeritradeClient.priceHistory.getPriceHistory(
+          symbol,
+          priceHistoryOptions
+        );
+
+      ctx.status = status;
+      ctx.body = JSON.stringify(data);
+
+      logger.info('Price history for symbol retrieved', updatedLoggerOptions);
+    }
+  );

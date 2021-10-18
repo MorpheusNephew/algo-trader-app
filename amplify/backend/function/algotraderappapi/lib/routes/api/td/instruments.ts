@@ -1,10 +1,21 @@
+import { loadLoggerOptions } from '../../../middleware/loadLoggerOptions';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
 import { Next } from 'koa';
 
 export const tdInstrumentsRouter = new Router({ prefix: '/instruments' })
+  .use(loadLoggerOptions('td/instruments.ts'))
   .get('Get instruments', '/', async (ctx: AppContext, _next: Next) => {
-    const { symbol, projection } = ctx.query;
+    const {
+      query: { symbol, projection },
+      state: { logger, loggerOptions },
+    } = ctx;
+
+    logger.info('Getting instruments for symbol', {
+      ...loggerOptions,
+      projection,
+      symbol,
+    });
 
     const { data, status } =
       await ctx.state.tdAmeritradeClient.instruments.getInstruments(
@@ -14,13 +25,32 @@ export const tdInstrumentsRouter = new Router({ prefix: '/instruments' })
 
     ctx.status = status;
     ctx.body = JSON.stringify(data);
+
+    logger.info('Instruments for symbol retrieved', {
+      ...loggerOptions,
+      projection,
+      symbol,
+    });
   })
   .get('Get instrument', '/:cusip', async (ctx: AppContext, _next: Next) => {
-    const { cusip } = ctx.params;
+    const {
+      params: { cusip },
+      state: { logger, loggerOptions },
+    } = ctx;
+
+    logger.info('Getting instrument by cusip', {
+      ...loggerOptions,
+      cusip,
+    });
 
     const { data, status } =
       await ctx.state.tdAmeritradeClient.instruments.getInstrument(cusip);
 
     ctx.status = status;
     ctx.body = JSON.stringify(data);
+
+    logger.info('Instrument for cusip retrieved', {
+      ...loggerOptions,
+      cusip,
+    });
   });
