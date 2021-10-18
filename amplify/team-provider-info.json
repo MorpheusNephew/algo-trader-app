@@ -24,7 +24,7 @@
       "function": {
         "algotraderappapi": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappapi-4b41775158314e396133-build.zip"
+          "s3Key": "amplify-builds/algotraderappapi-4e7554366465306e4262-build.zip"
         },
         "algotraderappdependencieslayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
@@ -32,16 +32,16 @@
         },
         "algotraderappfunctionlayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion74c00ee3-build.zip"
+          "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionc31cf7e7-build.zip"
         },
         "tdrefreshtokenrefresher": {
           "secretsPathAmplifyAppId": "d2z6wj1fnu5msl",
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/tdrefreshtokenrefresher-6b737876457444526c54-build.zip"
+          "s3Key": "amplify-builds/tdrefreshtokenrefresher-5937316461334c544364-build.zip"
         },
         "symbolsretriever": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/symbolsretriever-7076533649465a694d6d-build.zip"
+          "s3Key": "amplify-builds/symbolsretriever-7a4b7964626a4d484535-build.zip"
         }
       }
     }
