@@ -7,9 +7,11 @@ exports.scan = exports.deleteItem = exports.query = exports.updateItem = exports
 
 var _config = require("./config");
 
-var _logger = require("./logger");
+var _logger = _interopRequireDefault(require("./logger"));
 
 var _clientDynamodb = require("@aws-sdk/client-dynamodb");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -22,12 +24,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const client = new _clientDynamodb.DynamoDBClient({});
-const logger = (0, _logger.getLogger)();
 
 const putItem = input => {
-  logger.info('putItem', {
+  _logger.default.info('putItem', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.PutItemCommand(_objectSpread({
     TableName: tableName
   }, input)));
@@ -36,9 +38,10 @@ const putItem = input => {
 exports.putItem = putItem;
 
 const getItem = input => {
-  logger.info('getItem', {
+  _logger.default.info('getItem', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.GetItemCommand(_objectSpread({
     TableName: tableName
   }, input)));
@@ -47,9 +50,10 @@ const getItem = input => {
 exports.getItem = getItem;
 
 const updateItem = input => {
-  logger.info('updateItem', {
+  _logger.default.info('updateItem', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.UpdateItemCommand(_objectSpread({
     TableName: tableName
   }, input)));
@@ -58,9 +62,10 @@ const updateItem = input => {
 exports.updateItem = updateItem;
 
 const query = input => {
-  logger.info('query', {
+  _logger.default.info('query', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.QueryCommand(_objectSpread({
     TableName: tableName
   }, input)));
@@ -69,9 +74,10 @@ const query = input => {
 exports.query = query;
 
 const deleteItem = input => {
-  logger.info('deleteItem', {
+  _logger.default.info('deleteItem', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.DeleteItemCommand(_objectSpread({
     TableName: tableName
   }, input)));
@@ -80,9 +86,10 @@ const deleteItem = input => {
 exports.deleteItem = deleteItem;
 
 const scan = input => {
-  logger.info('scan', {
+  _logger.default.info('scan', {
     input
   });
+
   return runCommand(tableName => new _clientDynamodb.ScanCommand(_objectSpread({
     TableName: tableName
   }, input)));

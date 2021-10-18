@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-const _getLogger = (lambda: string) => {
+export const getLoggerInternal = (lambda: string) => {
   return winston.createLogger({
     defaultMeta: { lambda },
     transports: [new winston.transports.Console()],
@@ -8,18 +8,6 @@ const _getLogger = (lambda: string) => {
   });
 };
 
-let _loggerInstance: winston.Logger = null;
+const logger = getLoggerInternal('function-layer');
 
-export default class Logger {
-  static getLogger(lambda: string = 'function-layer') {
-    if (!_loggerInstance) {
-      _loggerInstance = _getLogger(lambda);
-    }
-
-    return _loggerInstance;
-  }
-}
-
-export const getLogger = () => {
-  return Logger.getLogger();
-};
+export default logger;

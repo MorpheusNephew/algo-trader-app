@@ -1,9 +1,7 @@
+import logger from '../logger';
 import { CompanyInfo, CompanyInfoResponse } from '../nasdaq/types';
-import Logger from '/opt/nodejs/logger';
 import chromium from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
-
-const logger = Logger.getLogger('symbols-retriever');
 
 const getBrowser = async () => {
   logger.info('Getting browser');

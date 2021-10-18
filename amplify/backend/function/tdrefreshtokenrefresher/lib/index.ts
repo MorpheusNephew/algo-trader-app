@@ -1,4 +1,4 @@
-import { getLogger } from './logger';
+import logger from './logger';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
 import { Config } from '/opt/nodejs/config';
 import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
@@ -8,8 +8,6 @@ import {
   getConnections,
   updateConnectionTokens,
 } from '/opt/nodejs/connectiondb';
-
-const logger = getLogger();
 
 const connectionType: TConnection = 'td';
 
