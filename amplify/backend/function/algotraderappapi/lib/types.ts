@@ -14,6 +14,7 @@ export interface AppContextState extends DefaultState {
   connection: IConnection;
   connections: IConnection[];
   logger: winston.Logger;
+  loggerOptions: any;
   tdAmeritradeClient: TdAmeritradeClient;
 }
 
