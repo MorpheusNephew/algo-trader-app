@@ -1,5 +1,5 @@
 import { Config } from './config';
-import { getLogger } from './logger';
+import logger from './logger';
 import {
   DynamoDBClient,
   GetItemCommand,
@@ -23,8 +23,6 @@ import {
 } from '@aws-sdk/client-dynamodb';
 
 const client = new DynamoDBClient({});
-
-const logger = getLogger();
 
 export type TPutItemInput = Omit<PutItemCommandInput, 'TableName'>;
 

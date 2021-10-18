@@ -1,14 +1,30 @@
+import { loadLoggerOptions } from '../../../middleware/loadLoggerOptions';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
 import { Next } from 'koa';
 
 export const tdTransactionsRouter = new Router({ prefix: '/transactions' })
+  .use(loadLoggerOptions('td/transactions.ts'))
   .get(
     'Get transactions',
     '/:accountId',
     async (ctx: AppContext, _next: Next) => {
-      const { accountId } = ctx.params;
-      const { type, symbol, startDate, endDate } = ctx.query;
+      const {
+        params: { accountId },
+        query: { type, symbol, startDate, endDate },
+        state: { logger, loggerOptions },
+      } = ctx;
+
+      const updatedLoggerOptions = {
+        ...loggerOptions,
+        accountId,
+        type,
+        symbol,
+        startDate,
+        endDate,
+      };
+
+      logger.info('Getting transactions for account', updatedLoggerOptions);
 
       const { data, status } =
         await ctx.state.tdAmeritradeClient.transactionHistory.getTransactions(
@@ -21,13 +37,26 @@ export const tdTransactionsRouter = new Router({ prefix: '/transactions' })
 
       ctx.status = status;
       ctx.body = JSON.stringify(data);
+
+      logger.info('Account transactions retrieved', updatedLoggerOptions);
     }
   )
   .get(
     'Get transaction',
     '/:accountId/:transactionId',
     async (ctx: AppContext, _next: Next) => {
-      const { accountId, transactionId } = ctx.params;
+      const {
+        params: { accountId, transactionId },
+        state: { logger, loggerOptions },
+      } = ctx;
+
+      const updatedLoggerOptions = {
+        ...loggerOptions,
+        accountId,
+        transactionId,
+      };
+
+      logger.info('Getting transaction', updatedLoggerOptions);
 
       const { data, status } =
         await ctx.state.tdAmeritradeClient.transactionHistory.getTransaction(
@@ -37,5 +66,7 @@ export const tdTransactionsRouter = new Router({ prefix: '/transactions' })
 
       ctx.status = status;
       ctx.body = JSON.stringify(data);
+
+      logger.info('Transaction retrieved', updatedLoggerOptions);
     }
   );

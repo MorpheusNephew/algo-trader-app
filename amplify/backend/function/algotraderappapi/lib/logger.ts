@@ -1,5 +1,5 @@
-import Logger from '/opt/nodejs/logger';
+import { getLoggerInternal } from '/opt/nodejs/logger';
 
-export const getLogger = () => {
-  return Logger.getLogger('algo-trader-api');
-};
+const logger = getLoggerInternal('algo-trader-api');
+
+export default logger;

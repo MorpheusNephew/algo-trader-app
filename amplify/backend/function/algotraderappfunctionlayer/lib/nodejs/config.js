@@ -5,9 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = void 0;
 
-var _logger = require("./logger");
+var _logger = _interopRequireDefault(require("./logger"));
 
 var _clientSsm = require("@aws-sdk/client-ssm");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -23,7 +25,6 @@ const secretKeys = {
   TD_CONSUMER_KEY: 'tdConsumerKey'
 };
 const ssmKeys = Object.keys(secretKeys);
-const logger = (0, _logger.getLogger)();
 
 const _getConfig = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
@@ -74,7 +75,8 @@ class Config {
   static getConfig() {
     return _asyncToGenerator(function* () {
       if (!configInstance) {
-        logger.info('Initialize config');
+        _logger.default.info('Initialize config');
+
         configInstance = yield _getConfig();
       }
 

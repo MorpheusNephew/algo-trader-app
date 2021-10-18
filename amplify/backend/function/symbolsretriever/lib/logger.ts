@@ -1,5 +1,5 @@
-import Logger from '/opt/nodejs/logger';
+import { getLoggerInternal } from '/opt/nodejs/logger';
 
-export const getLogger = () => {
-  return Logger.getLogger('symbols-retriever');
-};
+const logger = getLoggerInternal('symbols-retriever');
+
+export default logger;

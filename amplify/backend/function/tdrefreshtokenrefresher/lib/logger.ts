@@ -1,5 +1,5 @@
-import Logger from '/opt/nodejs/logger';
+import { getLoggerInternal } from '/opt/nodejs/logger';
 
-export const getLogger = () => {
-  return Logger.getLogger('refresh-token-refresher');
-};
+const logger = getLoggerInternal('refresh-token-refresher');
+
+export default logger;
