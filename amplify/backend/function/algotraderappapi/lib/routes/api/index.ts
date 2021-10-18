@@ -1,6 +1,5 @@
 import { loadUser } from '../../middleware/loadUser';
 import { AppContext } from '../../types';
-import configurationRouter from './configurationRouter';
 import connectionsRouter from './connections';
 import { tdRouter } from './td';
 import Router from '@koa/router';
@@ -16,7 +15,6 @@ const apiRouter = new Router({ prefix: '/api' })
 
     await next();
   })
-  .use(configurationRouter.routes())
   .use(connectionsRouter.routes())
   .use(tdRouter.routes());
 
