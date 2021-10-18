@@ -11,23 +11,43 @@ import {
   convertTokenToIConnection,
 } from '/opt/nodejs/connectionUtils';
 
+const getLoggerOptions = ({ method, path }: AppContext) => {
+  return { fileName: 'connection/td.ts', method, path };
+};
+
 const tdConnectionsRouter = new Router({ prefix: '/td' })
   .use(loadTdAmeritradeClient)
   .get(
     'Connect which might take over create connection',
     '/connect',
     async (ctx: AppContext, _next: Next) => {
-      const { code, redirectUrl, state } = ctx.query;
+      const {
+        state: { logger },
+        query: { code, redirectUrl, state },
+      } = ctx;
+
+      const loggerOptions = getLoggerOptions(ctx);
+
+      logger.info('Connecting TD Connection', loggerOptions);
 
       if (!!!redirectUrl && !!!code) {
-        ctx.throw(400, 'Query parameter `redirectUrl` required');
+        const message = 'Query parameter `redirectUrl` required';
+        logger.error(message, loggerOptions);
+        ctx.throw(400, message);
       }
 
       if (code) {
+        logger.info('Retrieving code', loggerOptions);
+
         const {
           authenticatedUser: { username },
         } = ctx.state;
         const decodedCode = decodeURI(code as string);
+
+        logger.info('Authenticating with TD Ameritrade for user', {
+          ...loggerOptions,
+          username,
+        });
 
         const { status, data } =
           await ctx.state.tdAmeritradeClient.auth.authenticate(
@@ -37,7 +57,11 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
 
         const connectionToSave = await convertTokenToIConnection(data, 'td');
 
+        logger.info('Saving connection', loggerOptions);
+
         await saveConnection(username, connectionToSave);
+
+        logger.info('Connection saved', loggerOptions);
 
         ctx.status = status;
         ctx.body = JSON.stringify(
@@ -51,6 +75,8 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
 
         ctx.status = 200;
         ctx.body = JSON.stringify(tdAuthUrl);
+
+        logger.info('Returning authentication url', loggerOptions);
       }
     }
   )
@@ -59,12 +85,23 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
     '/',
     loadTdConnections,
     async (ctx: AppContext, _next: Next) => {
-      const { connections } = ctx.state;
+      const {
+        connections,
+        logger,
+        authenticatedUser: { username },
+      } = ctx.state;
+
+      const loggerOptions = getLoggerOptions(ctx);
 
       ctx.status = 200;
       ctx.body = JSON.stringify(
         connections.map(convertIConnectionToIConnectionResponse)
       );
+
+      logger.info('Returning TD connections for user', {
+        ...loggerOptions,
+        username,
+      });
     }
   )
   .get(
@@ -88,11 +125,26 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       const {
         authenticatedUser: { username },
         connection: { connectionId },
+        logger,
       } = ctx.state;
+
+      const loggerOptions = getLoggerOptions(ctx);
+
+      logger.info('Deleting connection for user', {
+        ...loggerOptions,
+        username,
+        connectionId,
+      });
 
       await deleteConnection(username, connectionId);
 
       ctx.status = 204;
+
+      logger.info('Connection deleted for user', {
+        ...loggerOptions,
+        username,
+        connectionId,
+      });
     }
   );
 
