@@ -1,4 +1,4 @@
-import Logger from './logger';
+import { getLogger } from './logger';
 import {
   GetParametersCommand,
   SSMClient,
@@ -10,7 +10,7 @@ const secretKeys = {
 };
 
 const ssmKeys = Object.keys(secretKeys);
-const logger = Logger.getLogger();
+const logger = getLogger();
 
 export interface IConfig {
   algoTraderTableDbArn: string;
