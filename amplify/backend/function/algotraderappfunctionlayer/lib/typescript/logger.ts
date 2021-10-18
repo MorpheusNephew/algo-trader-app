@@ -19,3 +19,7 @@ export default class Logger {
     return _loggerInstance;
   }
 }
+
+export const getLogger = () => {
+  return Logger.getLogger();
+};

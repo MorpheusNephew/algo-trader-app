@@ -1,9 +1,9 @@
+import { getLogger } from './logger';
 import { CompanyInfo } from './nasdaq/types';
 import { getSymbolsUrl } from './nasdaq/urls';
 import { getCompanyInfo } from './puppeteer';
-import Logger from '/opt/nodejs/logger';
 
-const logger = Logger.getLogger('symbols-retriever');
+const logger = getLogger();
 
 export const handler = async (_event: any) => {
   logger.info('Getting ready to fill company symbols');

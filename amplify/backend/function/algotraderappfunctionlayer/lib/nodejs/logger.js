@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.getLogger = exports.default = void 0;
 
 var _winston = _interopRequireDefault(require("winston"));
 
@@ -33,3 +33,9 @@ class Logger {
 }
 
 exports.default = Logger;
+
+const getLogger = () => {
+  return Logger.getLogger();
+};
+
+exports.getLogger = getLogger;

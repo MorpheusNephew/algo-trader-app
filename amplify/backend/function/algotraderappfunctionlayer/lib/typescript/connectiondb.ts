@@ -1,5 +1,5 @@
 import { IConnection, TConnection } from './connectionTypes';
-import Logger from './logger';
+import { getLogger } from './logger';
 import { decryptItem, encryptItem } from './utils';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEmpty } from 'lodash';
@@ -20,7 +20,7 @@ import {
   PutItemCommandOutput,
 } from '@aws-sdk/client-dynamodb';
 
-const logger = Logger.getLogger();
+const logger = getLogger();
 
 export const saveConnection = async (
   username: string,

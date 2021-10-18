@@ -1,15 +1,15 @@
+import { getLogger } from './logger';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
 import { Config } from '/opt/nodejs/config';
 import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
-import Logger from '/opt/nodejs/logger';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
 import {
   getConnections,
   updateConnectionTokens,
 } from '/opt/nodejs/connectiondb';
 
-const logger = Logger.getLogger('refresh-token-refresher');
+const logger = getLogger();
 
 const connectionType: TConnection = 'td';
 

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateConnectionTokens = exports.deleteConnection = exports.getConnection = exports.getConnections = exports.saveConnection = void 0;
 
-var _logger = _interopRequireDefault(require("./logger"));
+var _logger = require("./logger");
 
 var _utils = require("./utils");
 
@@ -14,8 +14,6 @@ var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 var _lodash = require("lodash");
 
 var _dynamodb = require("./dynamodb");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -27,7 +25,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-const logger = _logger.default.getLogger();
+const logger = (0, _logger.getLogger)();
 
 const saveConnection = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* (username, connectionToSave) {
