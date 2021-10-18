@@ -13,7 +13,7 @@ export const handler = async (_event: any) => {
     .map(({ symbol }: CompanyInfo) => symbol)
     .filter((symbol) => !(symbol.includes('^') || symbol.includes('/')));
 
-  logger.info('Company symbols', JSON.stringify(symbols));
+  logger.info('Company symbols', { symbols: JSON.stringify(symbols) });
 
   return;
 };
