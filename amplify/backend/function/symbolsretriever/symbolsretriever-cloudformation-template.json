@@ -118,7 +118,10 @@
           }
         ],
         "Timeout": 60,
-        "MemorySize": 512
+        "MemorySize": 512,
+        "TracingConfig": {
+          "Mode": "Active"
+        }
       }
     },
     "LambdaExecutionRole": {
@@ -240,6 +243,19 @@
                     ]
                   ]
                 }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+              ],
+              "Resource": [
+                "*"
               ]
             }
           ]
