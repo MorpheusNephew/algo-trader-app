@@ -1,4 +1,5 @@
 import logger from './logger';
+import { captureAWSv3Client } from 'aws-xray-sdk';
 import {
   GetParametersCommand,
   SSMClient,
@@ -10,6 +11,8 @@ const secretKeys = {
 };
 
 const ssmKeys = Object.keys(secretKeys);
+
+const client = captureAWSv3Client(new SSMClient({}));
 
 export interface IConfig {
   algoTraderTableDbArn: string;
@@ -32,7 +35,6 @@ const _getConfig = async (): Promise<IConfig> => {
     algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN,
   };
 
-  const client = new SSMClient({});
   const command = new GetParametersCommand({
     Names: ssmKeys.map((secretName) => process.env[secretName]),
     WithDecryption: true,

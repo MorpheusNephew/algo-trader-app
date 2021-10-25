@@ -9,6 +9,8 @@ var _config = require("./config");
 
 var _logger = _interopRequireDefault(require("./logger"));
 
+var _awsXraySdk = require("aws-xray-sdk");
+
 var _clientDynamodb = require("@aws-sdk/client-dynamodb");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -23,7 +25,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const client = new _clientDynamodb.DynamoDBClient({});
+const client = (0, _awsXraySdk.captureAWSv3Client)(new _clientDynamodb.DynamoDBClient({}));
 
 const putItem = input => {
   _logger.default.info('putItem', {
