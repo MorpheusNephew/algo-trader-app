@@ -9,7 +9,7 @@
     "@aws-sdk/lib-dynamodb": "^3.31.0",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.1",
-    "@morpheusnephew/td-ameritrade": "0.4.5",
+    "@morpheusnephew/td-ameritrade": "0.4.6",
     "axios": "^0.23.0",
     "chrome-aws-lambda": "^10.1.0",
     "cryptr": "^6.0.2",
