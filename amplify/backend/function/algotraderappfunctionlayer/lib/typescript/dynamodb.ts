@@ -1,5 +1,6 @@
 import { Config } from './config';
 import logger from './logger';
+import { captureAWSv3Client } from 'aws-xray-sdk';
 import {
   DynamoDBClient,
   GetItemCommand,
@@ -22,7 +23,7 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 
-const client = new DynamoDBClient({});
+const client = captureAWSv3Client(new DynamoDBClient({}));
 
 export type TPutItemInput = Omit<PutItemCommandInput, 'TableName'>;
 

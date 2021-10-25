@@ -7,6 +7,8 @@ exports.Config = void 0;
 
 var _logger = _interopRequireDefault(require("./logger"));
 
+var _awsXraySdk = require("aws-xray-sdk");
+
 var _clientSsm = require("@aws-sdk/client-ssm");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -25,6 +27,7 @@ const secretKeys = {
   TD_CONSUMER_KEY: 'tdConsumerKey'
 };
 const ssmKeys = Object.keys(secretKeys);
+const client = (0, _awsXraySdk.captureAWSv3Client)(new _clientSsm.SSMClient({}));
 
 const _getConfig = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
@@ -37,7 +40,6 @@ const _getConfig = /*#__PURE__*/function () {
       algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
       algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN
     };
-    const client = new _clientSsm.SSMClient({});
     const command = new _clientSsm.GetParametersCommand({
       Names: ssmKeys.map(secretName => process.env[secretName]),
       WithDecryption: true
