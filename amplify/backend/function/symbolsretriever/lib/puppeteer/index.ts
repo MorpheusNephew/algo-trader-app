@@ -15,7 +15,7 @@ const getBrowser = async () => {
   });
 };
 
-export const getCompanyInfo = async (
+export const getCompaniesInfo = async (
   pageUrl: string
 ): Promise<CompanyInfo[]> => {
   const browser = await getBrowser();
@@ -33,7 +33,7 @@ export const getCompanyInfo = async (
 
   const {
     data: {
-      table: { rows },
+      table: { rows: companies },
     },
   }: CompanyInfoResponse = await response.json();
 
@@ -41,5 +41,5 @@ export const getCompanyInfo = async (
 
   await browser.close();
 
-  return rows;
+  return companies.map(({ name, symbol }) => ({ name, symbol }));
 };

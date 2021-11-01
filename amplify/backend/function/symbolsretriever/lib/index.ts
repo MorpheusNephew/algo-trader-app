@@ -1,17 +1,14 @@
 import logger from './logger';
-import { CompanyInfo } from './nasdaq/types';
 import { getSymbolsUrl } from './nasdaq/urls';
-import { getCompanyInfo } from './puppeteer';
+import { getCompaniesInfo } from './puppeteer';
 
 export const handler = async (_event: any) => {
   logger.info('Getting ready to fill company symbols');
-  const companyInfo = await getCompanyInfo(getSymbolsUrl());
+  const companiesInfo = await getCompaniesInfo(getSymbolsUrl());
 
-  const symbols = companyInfo
-    .map(({ symbol }: CompanyInfo) => symbol)
-    .filter((symbol) => !(symbol.includes('^') || symbol.includes('/')));
-
-  logger.info('Company symbols', { symbols: JSON.stringify(symbols) });
+  logger.info('Companies info', {
+    companiesInfo: JSON.stringify(companiesInfo),
+  });
 
   return;
 };
