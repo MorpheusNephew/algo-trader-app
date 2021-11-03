@@ -19,7 +19,7 @@
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-typescript": "^7.15.0",
-    "@morpheusnephew/td-ameritrade": "0.4.6",
+    "@morpheusnephew/td-ameritrade": "0.4.7",
     "@types/cryptr": "^4.0.1",
     "@types/uuid": "^8.3.1",
     "aws-xray-sdk": "^3.3.3",
