@@ -8,8 +8,8 @@ export const upsertCompanyInfo = async () => {
   const input: TPutItemInput = {
     Item: marshall({
       id: 'company',
-      sortName: '',
-      companyName: '',
+      sortName: 'Symbol',
+      companyName: 'Company Name',
     }),
   };
 
