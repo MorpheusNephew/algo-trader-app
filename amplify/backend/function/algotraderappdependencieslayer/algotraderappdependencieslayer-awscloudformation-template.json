@@ -20,50 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion8300624b": {
-      "Type": "AWS::Lambda::LayerVersion",
-      "Properties": {
-        "CompatibleRuntimes": {
-          "Ref": "runtimes"
-        },
-        "Content": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
-          }
-        },
-        "Description": {
-          "Ref": "description"
-        },
-        "LayerName": {
-          "Fn::Sub": [
-            "algotraderappdependencieslayer-${env}",
-            {
-              "env": {
-                "Ref": "env"
-              }
-            }
-          ]
-        }
-      },
-      "DeletionPolicy": "Delete",
-      "UpdateReplacePolicy": "Retain"
-    },
-    "LambdaLayerPermissionPrivate8300624b": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": {
-          "Ref": "LambdaLayerVersion8300624b"
-        },
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerVersioneab742d2": {
+    "LambdaLayerVersionf2171a53": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -73,9 +30,9 @@
           "S3Bucket": {
             "Ref": "deploymentBucketName"
           },
-          "S3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersioneab742d2-build.zip"
+          "S3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersionf2171a53-build.zip"
         },
-        "Description": "Updated layer version 2021-10-18T06:26:13.227Z",
+        "Description": "Updated layer version 2021-10-25T04:17:00.153Z",
         "LayerName": {
           "Fn::Sub": [
             "algotraderappdependencieslayer-${env}",
@@ -90,11 +47,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivateeab742d2": {
+    "LambdaLayerPermissionPrivatef2171a53": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappdependencieslayer-dev:52",
+        "LayerVersionArn": "arn:aws:lambda:us-east-1:014477660743:layer:algotraderappdependencieslayer-dev:54",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -104,7 +61,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion8300624b"
+        "Ref": "LambdaLayerVersionf2171a53"
       }
     }
   }

@@ -1,5 +1,6 @@
 import logger from '../logger';
-import { CompanyInfo, CompanyInfoResponse } from '../nasdaq/types';
+import { CompanyInfoResponse } from '../types';
+import { CompanyInfo } from '/opt/nodejs/types';
 import chromium from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
 
@@ -15,7 +16,7 @@ const getBrowser = async () => {
   });
 };
 
-export const getCompanyInfo = async (
+export const getCompaniesInfo = async (
   pageUrl: string
 ): Promise<CompanyInfo[]> => {
   const browser = await getBrowser();
@@ -33,7 +34,7 @@ export const getCompanyInfo = async (
 
   const {
     data: {
-      table: { rows },
+      table: { rows: companies },
     },
   }: CompanyInfoResponse = await response.json();
 
@@ -41,5 +42,5 @@ export const getCompanyInfo = async (
 
   await browser.close();
 
-  return rows;
+  return companies.map(({ name, symbol }) => ({ name, symbol }));
 };

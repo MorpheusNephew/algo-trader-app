@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scan = exports.deleteItem = exports.query = exports.updateItem = exports.getItem = exports.putItem = void 0;
+exports.updateItem = exports.scan = exports.query = exports.putItem = exports.getItem = exports.deleteItem = exports.batchWriteItem = void 0;
 
 var _config = require("./config");
 
@@ -27,53 +27,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const client = (0, _awsXraySdk.captureAWSv3Client)(new _clientDynamodb.DynamoDBClient({}));
 
-const putItem = input => {
-  _logger.default.info('putItem', {
-    input
+const batchWriteItem = putRequests => {
+  _logger.default.info('batchWriteItem', {
+    putRequests
   });
 
-  return runCommand(tableName => new _clientDynamodb.PutItemCommand(_objectSpread({
-    TableName: tableName
-  }, input)));
-};
-
-exports.putItem = putItem;
-
-const getItem = input => {
-  _logger.default.info('getItem', {
-    input
+  return runCommand(tableName => {
+    const requestItems = {
+      [tableName]: putRequests.map(putRequest => ({
+        PutRequest: putRequest
+      }))
+    };
+    const batchWriteItemInput = {
+      RequestItems: requestItems
+    };
+    return new _clientDynamodb.BatchWriteItemCommand(batchWriteItemInput);
   });
-
-  return runCommand(tableName => new _clientDynamodb.GetItemCommand(_objectSpread({
-    TableName: tableName
-  }, input)));
 };
 
-exports.getItem = getItem;
-
-const updateItem = input => {
-  _logger.default.info('updateItem', {
-    input
-  });
-
-  return runCommand(tableName => new _clientDynamodb.UpdateItemCommand(_objectSpread({
-    TableName: tableName
-  }, input)));
-};
-
-exports.updateItem = updateItem;
-
-const query = input => {
-  _logger.default.info('query', {
-    input
-  });
-
-  return runCommand(tableName => new _clientDynamodb.QueryCommand(_objectSpread({
-    TableName: tableName
-  }, input)));
-};
-
-exports.query = query;
+exports.batchWriteItem = batchWriteItem;
 
 const deleteItem = input => {
   _logger.default.info('deleteItem', {
@@ -87,6 +59,42 @@ const deleteItem = input => {
 
 exports.deleteItem = deleteItem;
 
+const getItem = input => {
+  _logger.default.info('getItem', {
+    input
+  });
+
+  return runCommand(tableName => new _clientDynamodb.GetItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.getItem = getItem;
+
+const putItem = input => {
+  _logger.default.info('putItem', {
+    input
+  });
+
+  return runCommand(tableName => new _clientDynamodb.PutItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.putItem = putItem;
+
+const query = input => {
+  _logger.default.info('query', {
+    input
+  });
+
+  return runCommand(tableName => new _clientDynamodb.QueryCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.query = query;
+
 const scan = input => {
   _logger.default.info('scan', {
     input
@@ -98,6 +106,18 @@ const scan = input => {
 };
 
 exports.scan = scan;
+
+const updateItem = input => {
+  _logger.default.info('updateItem', {
+    input
+  });
+
+  return runCommand(tableName => new _clientDynamodb.UpdateItemCommand(_objectSpread({
+    TableName: tableName
+  }, input)));
+};
+
+exports.updateItem = updateItem;
 
 const performOperation = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* (operation) {
