@@ -21,19 +21,44 @@ import {
   UpdateItemCommandInput,
   UpdateItemCommandOutput,
   UpdateItemCommand,
+  BatchWriteItemCommandInput,
+  BatchWriteItemCommandOutput,
+  BatchWriteItemCommand,
+  PutRequest,
+  WriteRequest,
 } from '@aws-sdk/client-dynamodb';
 
 const client = captureAWSv3Client(new DynamoDBClient({}));
 
-export type TPutItemInput = Omit<PutItemCommandInput, 'TableName'>;
+export const batchWriteItem = (
+  putRequests: PutRequest[]
+): Promise<BatchWriteItemCommandOutput> => {
+  logger.info('batchWriteItem', { putRequests });
 
-export const putItem = (
-  input: TPutItemInput
-): Promise<PutItemCommandOutput> => {
-  logger.info('putItem', { input });
+  return runCommand((tableName) => {
+    const requestItems: Record<string, WriteRequest[]> = {
+      [tableName]: putRequests.map((putRequest) => ({
+        PutRequest: putRequest,
+      })),
+    };
+
+    const batchWriteItemInput: BatchWriteItemCommandInput = {
+      RequestItems: requestItems,
+    };
+
+    return new BatchWriteItemCommand(batchWriteItemInput);
+  });
+};
+
+export type TDeleteItemInput = Omit<DeleteItemCommandInput, 'TableName'>;
+
+export const deleteItem = (
+  input: TDeleteItemInput
+): Promise<DeleteItemCommandOutput> => {
+  logger.info('deleteItem', { input });
 
   return runCommand(
-    (tableName) => new PutItemCommand({ TableName: tableName, ...input })
+    (tableName) => new DeleteItemCommand({ TableName: tableName, ...input })
   );
 };
 
@@ -49,15 +74,15 @@ export const getItem = (
   );
 };
 
-export type TUpdateItemInput = Omit<UpdateItemCommandInput, 'TableName'>;
+export type TPutItemInput = Omit<PutItemCommandInput, 'TableName'>;
 
-export const updateItem = (
-  input: TUpdateItemInput
-): Promise<UpdateItemCommandOutput> => {
-  logger.info('updateItem', { input });
+export const putItem = (
+  input: TPutItemInput
+): Promise<PutItemCommandOutput> => {
+  logger.info('putItem', { input });
 
   return runCommand(
-    (tableName) => new UpdateItemCommand({ TableName: tableName, ...input })
+    (tableName) => new PutItemCommand({ TableName: tableName, ...input })
   );
 };
 
@@ -71,18 +96,6 @@ export const query = (input: TQueryInput): Promise<QueryCommandOutput> => {
   );
 };
 
-export type TDeleteItemInput = Omit<DeleteItemCommandInput, 'TableName'>;
-
-export const deleteItem = (
-  input: TDeleteItemInput
-): Promise<DeleteItemCommandOutput> => {
-  logger.info('deleteItem', { input });
-
-  return runCommand(
-    (tableName) => new DeleteItemCommand({ TableName: tableName, ...input })
-  );
-};
-
 export type TScanInput = Omit<ScanCommandInput, 'TableName'>;
 
 export const scan = (input: TScanInput): Promise<ScanCommandOutput> => {
@@ -93,17 +106,23 @@ export const scan = (input: TScanInput): Promise<ScanCommandOutput> => {
   );
 };
 
-type TDynamoDbResponse =
-  | PutItemCommandOutput
-  | GetItemCommandOutput
-  | QueryCommandOutput
-  | DeleteItemCommandOutput
-  | ScanCommandOutput
-  | UpdateItemCommandOutput;
+export type TUpdateItemInput = Omit<UpdateItemCommandInput, 'TableName'>;
 
-type TDynamoDbFunction = (tableName: string) => Promise<TDynamoDbResponse>;
+export const updateItem = (
+  input: TUpdateItemInput
+): Promise<UpdateItemCommandOutput> => {
+  logger.info('updateItem', { input });
 
-const performOperation = async (operation: TDynamoDbFunction) => {
+  return runCommand(
+    (tableName) => new UpdateItemCommand({ TableName: tableName, ...input })
+  );
+};
+
+type TDynamoDbFunction = (tableName: string) => Promise<any>;
+
+const performOperation = async <T>(
+  operation: TDynamoDbFunction
+): Promise<T> => {
   const { algoTraderTableDbName } = await Config.getConfig();
 
   return operation(algoTraderTableDbName);
@@ -111,9 +130,7 @@ const performOperation = async (operation: TDynamoDbFunction) => {
 
 type TCommandFunction = (tableName: string) => any;
 
-const runCommand = async (
-  generateCommand: TCommandFunction
-): Promise<TDynamoDbResponse> => {
+const runCommand = async <T>(generateCommand: TCommandFunction): Promise<T> => {
   return performOperation((tableName: string) => {
     const command = generateCommand(tableName);
 
