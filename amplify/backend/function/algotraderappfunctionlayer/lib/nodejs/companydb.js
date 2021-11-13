@@ -13,8 +13,6 @@ var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 
 var _lodash = require("lodash");
 
-var _pMap = _interopRequireDefault(require("p-map"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -35,9 +33,10 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator(function* (companies) {
         const putRequest = companies.map(company => ({
           Item: (0, _utilDynamodb.marshall)({
-            id: `company:${company.symbol}`,
+            id: `company`,
             sortName: company.symbol,
-            companyName: company.name
+            companyName: company.name,
+            rowType: `company:${company.symbol}`
           })
         }));
         return (0, _dynamodb.batchWriteItem)(putRequest);
@@ -48,7 +47,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
       };
     }();
 
-    return (0, _pMap.default)(companiesInfoChunks, upsertCompaniesInfoMapper);
+    return Promise.all(companiesInfoChunks.map(upsertCompaniesInfoMapper));
   });
 
   return function upsertCompaniesInfo(_x) {
