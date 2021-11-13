@@ -22,6 +22,8 @@ export const upsertCompaniesInfo = async (companiesInfo: CompanyInfo[]) => {
       }),
     }));
 
+    logger.info('Batch writing companies', { companies });
+
     return batchWriteItem(putRequest);
   };
 

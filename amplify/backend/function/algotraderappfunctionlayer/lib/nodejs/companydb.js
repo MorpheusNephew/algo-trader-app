@@ -39,6 +39,11 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
             rowType: `company:${company.symbol}`
           })
         }));
+
+        _logger.default.info('Batch writing companies', {
+          companies
+        });
+
         return (0, _dynamodb.batchWriteItem)(putRequest);
       });
 
