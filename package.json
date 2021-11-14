@@ -30,7 +30,7 @@
     "eject": "react-scripts eject",
     "buildLambdas": "yarn buildLayers && yarn buildApi && yarn buildTdRefreshTokenRefresher && yarn buildSymbolsRetriever",
     "buildLayers": "yarn buildFunctionLayer",
-    "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/lib/typescript && yarn build && cd -",
+    "buildFunctionLayer": "cd amplify/backend/function/algotraderappfunctionlayer/typescript && yarn build && cd -",
     "buildSymbolsRetriever": "cd amplify/backend/function/symbolsretriever/lib && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
     "buildTdRefreshTokenRefresher": "cd amplify/backend/function/tdrefreshtokenrefresher/lib && yarn build && cd -",
