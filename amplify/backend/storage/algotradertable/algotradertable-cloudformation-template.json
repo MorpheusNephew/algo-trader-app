@@ -55,6 +55,7 @@
                   } 
                   
                 ],
+                "BillingMode": "PAY_PER_REQUEST",
                 "KeySchema": [
                   
                   {
@@ -68,10 +69,6 @@
                   } 
                   
                 ],
-                "ProvisionedThroughput": {
-                    "ReadCapacityUnits": "5",
-                    "WriteCapacityUnits": "5"
-                },
                 "StreamSpecification": {
                     "StreamViewType": "NEW_IMAGE"
                 },
@@ -113,10 +110,6 @@
                         ],
                         "Projection": {
                             "ProjectionType": "ALL"
-                        },
-                        "ProvisionedThroughput": {
-                            "ReadCapacityUnits": "5",
-                            "WriteCapacityUnits": "5"
                         }
                     } 
                   
