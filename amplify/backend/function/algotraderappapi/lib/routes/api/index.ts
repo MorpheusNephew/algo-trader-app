@@ -1,15 +1,12 @@
-import checkUser from '../../middleware/checkUser';
+import { loadUser } from '../../middleware/loadUser';
 import { AppContext } from '../../types';
-import configurationRouter from './configurationRouter';
 import connectionsRouter from './connections';
 import { tdRouter } from './td';
 import Router from '@koa/router';
 import { Next } from 'koa';
-import bodyParser from 'koa-bodyparser';
 
 const apiRouter = new Router({ prefix: '/api' })
-  .use(bodyParser())
-  .use(checkUser)
+  .use(loadUser)
   .get('greeting', '/', async (ctx: AppContext, next: Next) => {
     ctx.status = 200;
     ctx.body = JSON.stringify(
@@ -18,7 +15,6 @@ const apiRouter = new Router({ prefix: '/api' })
 
     await next();
   })
-  .use(configurationRouter.routes())
   .use(connectionsRouter.routes())
   .use(tdRouter.routes());
 

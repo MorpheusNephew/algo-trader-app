@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "storage": {
+      "algotradertable": [
+        "create",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:25"
+    },
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappdependencieslayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    },
+    {
+      "type": "ProjectLayer",
+      "resourceName": "algotraderappfunctionlayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ],
+  "secretNames": []
+}

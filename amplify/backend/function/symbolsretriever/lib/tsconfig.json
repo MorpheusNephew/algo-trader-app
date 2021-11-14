@@ -4,5 +4,8 @@
     "module": "commonjs",
     "noEmit": true,
     "esModuleInterop": true,
+    "paths": {
+      "/opt/nodejs/*": ["../../algotraderappfunctionlayer/typescript/*"]
+    }
   }
 }

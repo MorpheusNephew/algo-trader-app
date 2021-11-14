@@ -10,27 +10,42 @@ import {
   updateConnectionTokens,
 } from '/opt/nodejs/connectiondb';
 
+const loggerOptions = {
+  fileName: 'loadTdAmeritradeClient.ts',
+};
+
 export const loadTdAmeritradeClient = async (ctx: AppContext, next: Next) => {
   const { redirectUrl } = ctx.query;
   const {
     authenticatedUser: { username },
+    logger,
   } = ctx.state;
+
+  logger.info('Loading TD Ameritrade client', loggerOptions);
+  logger.info('Initializing TD Ameritrade client', loggerOptions);
 
   const tdAmeritradeClient = new TdAmeritradeClient({
     clientId: ctx.state.config.tdConsumerKey,
     redirectUri: redirectUrl as string,
   });
 
+  logger.info('TD Ameritrade client initialized', loggerOptions);
+  logger.info('Getting user TD connection', { ...loggerOptions, username });
+
   const { accessToken } = await getUserTdConnection(
     tdAmeritradeClient,
     username
   );
 
+  logger.info('TD connection retrieved', loggerOptions);
+
   if (accessToken) {
+    logger.info('Setting access token', loggerOptions);
     tdAmeritradeClient.accessToken = accessToken;
   }
 
   ctx.state.tdAmeritradeClient = tdAmeritradeClient;
+  logger.info('TD Ameritrade client loaded', loggerOptions);
 
   await next();
 };

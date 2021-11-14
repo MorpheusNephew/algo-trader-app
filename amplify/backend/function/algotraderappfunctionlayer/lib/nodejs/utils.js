@@ -28,7 +28,7 @@ const getCryptr = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
     const {
       cognitoUserPoolId
-    } = yield _config.Config.getConfig();
+    } = yield (0, _config.getConfig)();
     return new _cryptr.default(cognitoUserPoolId);
   });
 

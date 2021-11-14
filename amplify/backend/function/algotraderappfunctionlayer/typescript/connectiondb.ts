@@ -1,4 +1,5 @@
 import { IConnection, TConnection } from './connectionTypes';
+import logger from './logger';
 import { decryptItem, encryptItem } from './utils';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEmpty } from 'lodash';
@@ -23,6 +24,8 @@ export const saveConnection = async (
   username: string,
   connectionToSave: IConnection
 ): Promise<PutItemCommandOutput> => {
+  logger.info('Save connection for user', { username });
+
   const {
     accessToken,
     accessTokenExpiration,
@@ -66,11 +69,12 @@ export const getConnections = async (
 };
 
 const queryConnections = async (params: IQueryConnectionsOptions) => {
+  logger.info('Query connections', { params });
+
   const username = params!.username;
   const connectionType = params?.connectionType;
 
   let connectionAttributeValue: any = { ':connectionType': 'connection' };
-  const filterExpression = 'begins_with (rowType, :connectionType)';
 
   if (connectionType) {
     connectionAttributeValue = {
@@ -83,8 +87,9 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
       ':id': username,
       ...connectionAttributeValue,
     }),
-    KeyConditionExpression: 'id = :id',
-    FilterExpression: filterExpression,
+    IndexName: 'IdRowTypeIndex',
+    KeyConditionExpression:
+      'id = :id AND begins_with (rowType, :connectionType)',
   };
 
   const { Items } = await query(input);
@@ -96,6 +101,8 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
 };
 
 const scanConnections = async (params: IScanConnectionsOptions) => {
+  logger.info('Scan connections', { params });
+
   const connectionType = params?.connectionType;
 
   let input: TScanInput = null;
@@ -121,6 +128,8 @@ export const getConnection = async (
   username: string,
   connectionId: string
 ): Promise<IConnection> => {
+  logger.info('Get connection', { username, connectionId });
+
   const input: TQueryInput = {
     ExpressionAttributeValues: marshall({
       ':connectionId': connectionId,
@@ -143,6 +152,8 @@ export const deleteConnection = async (
   username: string,
   connectionId: string
 ): Promise<DeleteItemCommandOutput> => {
+  logger.info('Delete connection', { username, connectionId });
+
   const input: TDeleteItemInput = {
     Key: marshall({ id: username }),
     ExpressionAttributeValues: marshall({ ':connectionId': connectionId }),
@@ -165,6 +176,8 @@ export const updateConnectionTokens = async (
   connectionId: string,
   tokensInformation: IConnectionTokens
 ) => {
+  logger.info('Update connection token', { username, connectionId });
+
   const {
     accessToken,
     accessTokenExpiration,

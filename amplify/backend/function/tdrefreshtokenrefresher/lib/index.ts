@@ -1,5 +1,6 @@
+import logger from './logger';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
-import { Config } from '/opt/nodejs/config';
+import { getConfig } from '/opt/nodejs/config';
 import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
@@ -20,7 +21,7 @@ export const handler = async (_event: any) => {
     const daysDiff = differenceInCalendarDays(tokenExpirationDate, currentDate);
 
     if (daysDiff < 2) {
-      const { tdConsumerKey } = await Config.getConfig();
+      const { tdConsumerKey } = await getConfig();
       const { connectionId, refreshToken, username } = connection;
 
       const client = new TdAmeritradeClient({
@@ -28,7 +29,7 @@ export const handler = async (_event: any) => {
         clientId: tdConsumerKey,
       });
 
-      console.log(`Updating refresh token for: ${username}`);
+      logger.info('Updated refresh token for user', { username, connectionId });
 
       const { data: tokenResponse } = await client.auth.refreshRefreshToken();
 
@@ -40,7 +41,10 @@ export const handler = async (_event: any) => {
 
       await updateConnectionTokens(username, connectionId, connectionToUpdate);
 
-      console.log(`Refresh token for ${username} has been updated`);
+      logger.info('Refresh token for user has been updated', {
+        username,
+        connectionId,
+      });
     }
 
     return true;

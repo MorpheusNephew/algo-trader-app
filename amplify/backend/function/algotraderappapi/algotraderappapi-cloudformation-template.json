@@ -147,7 +147,10 @@
             "Ref": "functionalgotraderappfunctionlayerArn"
           }
         ],
-        "Timeout": 25
+        "Timeout": 25,
+        "TracingConfig": {
+          "Mode": "Active"
+        }
       }
     },
     "LambdaExecutionRole": {
@@ -318,6 +321,19 @@
                     ]
                   ]
                 }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+              ],
+              "Resource": [
+                "*"
               ]
             }
           ]
