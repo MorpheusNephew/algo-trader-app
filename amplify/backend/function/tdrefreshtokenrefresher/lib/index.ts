@@ -1,6 +1,6 @@
 import logger from './logger';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
-import { Config } from '/opt/nodejs/config';
+import { getConfig } from '/opt/nodejs/config';
 import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
@@ -21,7 +21,7 @@ export const handler = async (_event: any) => {
     const daysDiff = differenceInCalendarDays(tokenExpirationDate, currentDate);
 
     if (daysDiff < 2) {
-      const { tdConsumerKey } = await Config.getConfig();
+      const { tdConsumerKey } = await getConfig();
       const { connectionId, refreshToken, username } = connection;
 
       const client = new TdAmeritradeClient({

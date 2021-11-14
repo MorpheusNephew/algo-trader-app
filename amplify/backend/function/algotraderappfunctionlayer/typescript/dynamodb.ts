@@ -1,4 +1,4 @@
-import { Config } from './config';
+import { getConfig } from './config';
 import logger from './logger';
 import { captureAWSv3Client } from 'aws-xray-sdk';
 import {
@@ -123,7 +123,7 @@ type TDynamoDbFunction = (tableName: string) => Promise<any>;
 const performOperation = async <T>(
   operation: TDynamoDbFunction
 ): Promise<T> => {
-  const { algoTraderTableDbName } = await Config.getConfig();
+  const { algoTraderTableDbName } = await getConfig(false);
 
   return operation(algoTraderTableDbName);
 };

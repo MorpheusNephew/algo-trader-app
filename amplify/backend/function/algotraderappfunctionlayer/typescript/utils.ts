@@ -1,4 +1,4 @@
-import { Config } from './config';
+import { getConfig } from './config';
 import Cryptr from 'cryptr';
 import { addSeconds, formatISO } from 'date-fns';
 
@@ -9,7 +9,7 @@ export const getDateSecondsFromNow = (seconds: number): string => {
 };
 
 const getCryptr = async () => {
-  const { cognitoUserPoolId } = await Config.getConfig();
+  const { cognitoUserPoolId } = await getConfig();
 
   return new Cryptr(cognitoUserPoolId);
 };

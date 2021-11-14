@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Config = void 0;
+exports.getConfig = void 0;
 
 var _logger = _interopRequireDefault(require("./logger"));
 
@@ -29,17 +29,8 @@ const secretKeys = {
 const ssmKeys = Object.keys(secretKeys);
 const client = (0, _awsXraySdk.captureAWSv3Client)(new _clientSsm.SSMClient({}));
 
-const _getConfig = /*#__PURE__*/function () {
+const _getSecrets = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
-    const config = {
-      tdConsumerKey: null,
-      cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
-      lambdaEnv: process.env.ENV,
-      lambdaRegion: process.env.REGION,
-      algoTraderTableDbArn: process.env.STORAGE_ALGOTRADERTABLE_ARN,
-      algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
-      algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN
-    };
     const command = new _clientSsm.GetParametersCommand({
       Names: ssmKeys.map(secretName => process.env[secretName]),
       WithDecryption: true
@@ -62,30 +53,34 @@ const _getConfig = /*#__PURE__*/function () {
       return acc;
     };
 
-    const ssmConfig = Parameters.reduce(secretsReducer, {});
-    return _objectSpread(_objectSpread({}, config), ssmConfig);
+    return Parameters.reduce(secretsReducer, {});
   });
 
-  return function _getConfig() {
+  return function _getSecrets() {
     return _ref.apply(this, arguments);
   };
 }();
 
-let configInstance = null;
+const getConfig = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* (getSecrets = true) {
+    _logger.default.info('Getting config');
 
-class Config {
-  static getConfig() {
-    return _asyncToGenerator(function* () {
-      if (!configInstance) {
-        _logger.default.info('Initialize config');
+    const config = {
+      tdConsumerKey: null,
+      cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
+      lambdaEnv: process.env.ENV,
+      lambdaRegion: process.env.REGION,
+      algoTraderTableDbArn: process.env.STORAGE_ALGOTRADERTABLE_ARN,
+      algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
+      algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN
+    };
+    const ssmConfig = getSecrets ? _getSecrets() : {};
+    return _objectSpread(_objectSpread({}, config), ssmConfig);
+  });
 
-        configInstance = yield _getConfig();
-      }
+  return function getConfig() {
+    return _ref2.apply(this, arguments);
+  };
+}();
 
-      return configInstance;
-    })();
-  }
-
-}
-
-exports.Config = Config;
+exports.getConfig = getConfig;

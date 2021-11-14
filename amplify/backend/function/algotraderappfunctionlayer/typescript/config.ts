@@ -24,17 +24,7 @@ export interface IConfig {
   tdConsumerKey: string;
 }
 
-const _getConfig = async (): Promise<IConfig> => {
-  const config = {
-    tdConsumerKey: null,
-    cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
-    lambdaEnv: process.env.ENV,
-    lambdaRegion: process.env.REGION,
-    algoTraderTableDbArn: process.env.STORAGE_ALGOTRADERTABLE_ARN,
-    algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
-    algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN,
-  };
-
+const _getSecrets = async () => {
   const command = new GetParametersCommand({
     Names: ssmKeys.map((secretName) => process.env[secretName]),
     WithDecryption: true,
@@ -57,20 +47,25 @@ const _getConfig = async (): Promise<IConfig> => {
     return acc;
   };
 
-  const ssmConfig = Parameters.reduce(secretsReducer, {});
+  return Parameters.reduce(secretsReducer, {});
+};
+
+export const getConfig = async (
+  getSecrets: boolean = true
+): Promise<IConfig> => {
+  logger.info('Getting config');
+
+  const config = {
+    tdConsumerKey: null,
+    cognitoUserPoolId: process.env.AUTH_ALGOTRADERAPP7860B9F7_USERPOOLID,
+    lambdaEnv: process.env.ENV,
+    lambdaRegion: process.env.REGION,
+    algoTraderTableDbArn: process.env.STORAGE_ALGOTRADERTABLE_ARN,
+    algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
+    algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN,
+  };
+
+  const ssmConfig = getSecrets ? _getSecrets() : {};
 
   return { ...config, ...ssmConfig };
 };
-
-let configInstance = null;
-
-export class Config {
-  static async getConfig(): Promise<IConfig> {
-    if (!configInstance) {
-      logger.info('Initialize config');
-      configInstance = await _getConfig();
-    }
-
-    return configInstance;
-  }
-}

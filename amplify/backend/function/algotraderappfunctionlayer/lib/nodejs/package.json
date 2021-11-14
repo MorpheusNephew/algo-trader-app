@@ -4,11 +4,11 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -p ./tsconfig.json",
-    "cleanDir": "rimraf ../nodejs",
-    "babel": "babel . --out-dir ../nodejs --extensions '.ts' -D",
+    "cleanDir": "rimraf ../lib/nodejs",
+    "babel": "babel . --out-dir ../lib/nodejs --extensions '.ts' -D",
     "prebuild": "yarn && yarn cleanDir && yarn tsc",
-    "build": "yarn babel && cd ../nodejs && yarn install --prod",
-    "postbuild": "rimraf ../nodejs/babel.config.json && rimraf ../nodejs/tsconfig.json"
+    "build": "yarn babel && cd ../lib/nodejs && yarn install --prod",
+    "postbuild": "rimraf ../lib/nodejs/babel.config.json && rimraf ../lib/nodejs/tsconfig.json"
   },
   "dependencies": {},
   "devDependencies": {

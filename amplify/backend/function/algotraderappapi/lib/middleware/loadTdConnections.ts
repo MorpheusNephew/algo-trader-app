@@ -13,7 +13,6 @@ export const loadTdConnections = async (ctx: AppContext, next: Next) => {
   } = ctx.state;
 
   logger.info('Loading TD connections', loggerOptions);
-  logger.info('Getting TD connections', loggerOptions);
 
   const connections = await getConnections({
     username,

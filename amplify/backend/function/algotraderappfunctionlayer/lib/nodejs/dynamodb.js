@@ -123,7 +123,7 @@ const performOperation = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* (operation) {
     const {
       algoTraderTableDbName
-    } = yield _config.Config.getConfig();
+    } = yield (0, _config.getConfig)(false);
     return operation(algoTraderTableDbName);
   });
 

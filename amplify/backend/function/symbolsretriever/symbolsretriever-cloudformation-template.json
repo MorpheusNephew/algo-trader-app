@@ -226,7 +226,9 @@
               "Action": [
                 "dynamodb:Put*",
                 "dynamodb:Create*",
-                "dynamodb:BatchWriteItem"
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*"
               ],
               "Resource": [
                 {
