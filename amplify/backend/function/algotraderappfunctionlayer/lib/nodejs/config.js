@@ -63,7 +63,9 @@ const _getSecrets = /*#__PURE__*/function () {
 
 const getConfig = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(function* (getSecrets = true) {
-    _logger.default.info('Getting config');
+    _logger.default.info('Getting config', {
+      getSecrets
+    });
 
     const config = {
       tdConsumerKey: null,
@@ -74,7 +76,7 @@ const getConfig = /*#__PURE__*/function () {
       algoTraderTableDbName: process.env.STORAGE_ALGOTRADERTABLE_NAME,
       algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN
     };
-    const ssmConfig = getSecrets ? _getSecrets() : {};
+    const ssmConfig = getSecrets ? yield _getSecrets() : {};
     return _objectSpread(_objectSpread({}, config), ssmConfig);
   });
 

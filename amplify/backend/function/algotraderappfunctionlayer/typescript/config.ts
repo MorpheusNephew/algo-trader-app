@@ -53,7 +53,7 @@ const _getSecrets = async () => {
 export const getConfig = async (
   getSecrets: boolean = true
 ): Promise<IConfig> => {
-  logger.info('Getting config');
+  logger.info('Getting config', { getSecrets });
 
   const config = {
     tdConsumerKey: null,
@@ -65,7 +65,7 @@ export const getConfig = async (
     algoTraderTableDbStreamArn: process.env.STORAGE_ALGOTRADERTABLE_STREAMARN,
   };
 
-  const ssmConfig = getSecrets ? _getSecrets() : {};
+  const ssmConfig = getSecrets ? await _getSecrets() : {};
 
   return { ...config, ...ssmConfig };
 };
