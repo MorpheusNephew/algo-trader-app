@@ -87,7 +87,6 @@ const queryConnections = /*#__PURE__*/function () {
     let connectionAttributeValue = {
       ':connectionType': 'connection'
     };
-    const filterExpression = 'begins_with (rowType, :connectionType)';
 
     if (connectionType) {
       connectionAttributeValue = {
@@ -99,8 +98,8 @@ const queryConnections = /*#__PURE__*/function () {
       ExpressionAttributeValues: (0, _utilDynamodb.marshall)(_objectSpread({
         ':id': username
       }, connectionAttributeValue)),
-      KeyConditionExpression: 'id = :id',
-      FilterExpression: filterExpression
+      IndexName: 'IdRowTypeIndex',
+      KeyConditionExpression: 'id = :id AND begins_with (rowType, :connectionType)'
     };
     const {
       Items

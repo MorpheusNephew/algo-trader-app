@@ -75,7 +75,6 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
   const connectionType = params?.connectionType;
 
   let connectionAttributeValue: any = { ':connectionType': 'connection' };
-  const filterExpression = 'begins_with (rowType, :connectionType)';
 
   if (connectionType) {
     connectionAttributeValue = {
@@ -88,8 +87,9 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
       ':id': username,
       ...connectionAttributeValue,
     }),
-    KeyConditionExpression: 'id = :id',
-    FilterExpression: filterExpression,
+    IndexName: 'IdRowTypeIndex',
+    KeyConditionExpression:
+      'id = :id AND begins_with (rowType, :connectionType)',
   };
 
   const { Items } = await query(input);

@@ -11,22 +11,21 @@
         "env": {
             "Type": "String"
         },
-        
+
         "sortKeyName": {
             "Type": "String"
         },
         "sortKeyType": {
             "Type": "String"
         },
-        
+
         "tableName": {
             "Type": "String"
         }
     },
     "Conditions": {
         "ShouldNotCreateEnvResources": {
-            "Fn::Equals": [
-                {
+            "Fn::Equals": [{
                     "Ref": "env"
                 },
                 "NONE"
@@ -38,36 +37,36 @@
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "AttributeDefinitions": [
-                  
-                  {
-                      "AttributeName": "id",
-                      "AttributeType": "S"
-                  }  , 
-                  
-                  {
-                      "AttributeName": "sortName",
-                      "AttributeType": "S"
-                  }  , 
-                  
-                  {
-                      "AttributeName": "rowType",
-                      "AttributeType": "S"
-                  } 
-                  
+
+                    {
+                        "AttributeName": "id",
+                        "AttributeType": "S"
+                    },
+
+                    {
+                        "AttributeName": "sortName",
+                        "AttributeType": "S"
+                    },
+
+                    {
+                        "AttributeName": "rowType",
+                        "AttributeType": "S"
+                    }
+
                 ],
                 "BillingMode": "PAY_PER_REQUEST",
                 "KeySchema": [
-                  
-                  {
-                    "AttributeName": "id",
-                    "KeyType": "HASH"
-                  }  , 
-                  
-                  {
-                    "AttributeName": "sortName",
-                    "KeyType": "RANGE"
-                  } 
-                  
+
+                    {
+                        "AttributeName": "id",
+                        "KeyType": "HASH"
+                    },
+
+                    {
+                        "AttributeName": "sortName",
+                        "KeyType": "RANGE"
+                    }
+
                 ],
                 "StreamSpecification": {
                     "StreamViewType": "NEW_IMAGE"
@@ -76,45 +75,65 @@
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
                         {
-                           "Ref": "tableName"
-                        }, 
+                            "Ref": "tableName"
+                        },
                         {
 
                             "Fn::Join": [
                                 "",
-                                [
-                                  {
-                                    "Ref": "tableName"
-                                  },
-                                  "-",
-                                  {
-                                    "Ref": "env"
-                                  }
+                                [{
+                                        "Ref": "tableName"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "env"
+                                    }
                                 ]
                             ]
                         }
                     ]
                 }
-                
-                ,"GlobalSecondaryIndexes": [
-                  
+
+                ,
+                "GlobalSecondaryIndexes": [
+
                     {
-                        "IndexName": "RowTypeIndex",
+                        "IndexName": "IdRowTypeIndex",
                         "KeySchema": [
-                            
+
+                            {
+                                "AttributeName": "id",
+                                "KeyType": "HASH"
+                            },
+
                             {
                                 "AttributeName": "rowType",
-                                "KeyType": "HASH"
-                            } 
-                            
+                                "KeyType": "RANGE"
+                            }
+
                         ],
                         "Projection": {
                             "ProjectionType": "ALL"
                         }
-                    } 
-                  
+                    },
+
+                    {
+                        "IndexName": "RowTypeIndex",
+                        "KeySchema": [
+
+                            {
+                                "AttributeName": "rowType",
+                                "KeyType": "HASH"
+                            }
+
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        }
+                    }
+
                 ]
-                
+
             }
         }
     },
@@ -150,7 +169,7 @@
                 "Ref": "partitionKeyType"
             }
         },
-        
+
         "SortKeyName": {
             "Value": {
                 "Ref": "sortKeyName"
@@ -161,7 +180,7 @@
                 "Ref": "sortKeyType"
             }
         },
-        
+
         "Region": {
             "Value": {
                 "Ref": "AWS::Region"
