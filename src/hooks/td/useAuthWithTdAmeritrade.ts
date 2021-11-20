@@ -1,4 +1,4 @@
-import API from '@aws-amplify/api';
+import { connectRequest } from '../../clients/td';
 import qs from 'query-string';
 import { Dispatch, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -43,15 +43,6 @@ interface IConnectonMethodParams {
   setResult: Dispatch<any>;
   setError: Dispatch<any>;
 }
-
-const connectRequest = (redirectUrl: string, code?: string) => () => {
-  return API.get('algoappapi', '/api/connections/td/connect', {
-    queryStringParameters: {
-      redirectUrl,
-      code,
-    },
-  });
-};
 
 const handleConnection = (params: IConnectonMethodParams) => {
   const { method, setError, setResult } = params;

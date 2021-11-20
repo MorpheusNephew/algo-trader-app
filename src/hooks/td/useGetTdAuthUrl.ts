@@ -1,7 +1,7 @@
 import { API } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 
-const useGetTdAuthUrl = (redirectUrl: string) => {
+export const useGetTdAuthUrl = (redirectUrl: string) => {
   const [tdAuthUrl, setTdAuthUrl] = useState('');
 
   useEffect(() => {
@@ -12,5 +12,3 @@ const useGetTdAuthUrl = (redirectUrl: string) => {
 
   return tdAuthUrl;
 };
-
-export default useGetTdAuthUrl;
