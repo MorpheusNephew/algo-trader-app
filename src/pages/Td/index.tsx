@@ -1,4 +1,5 @@
 import { AccountInformation } from '../../components/td/AccountInformation';
+import { Movers } from '../../components/td/Movers';
 import { useGetBrokerageConnections } from '../../hooks/useGetBrokerageConnections';
 import { Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
@@ -33,6 +34,7 @@ const TdAmeritrade = () => {
           <div>Td connected</div>
         )}
       <AccountInformation hasConnection={!isEmpty(tdConnections)} />
+      <Movers />
     </div>
   );
 };
