@@ -1,5 +1,5 @@
-import { IConnection, TConnection } from './connectionTypes';
 import logger from './logger';
+import { IConnection, TBrokerage } from './types';
 import { decryptItem, encryptItem } from './utils';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEmpty } from 'lodash';
@@ -52,12 +52,12 @@ export const saveConnection = async (
 };
 
 export interface IScanConnectionsOptions {
-  connectionType?: TConnection;
+  brokerage?: TBrokerage;
 }
 
 export interface IQueryConnectionsOptions {
   username?: string;
-  connectionType?: TConnection;
+  brokerage?: TBrokerage;
 }
 
 export const getConnections = async (
@@ -72,13 +72,13 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
   logger.info('Query connections', { params });
 
   const username = params!.username;
-  const connectionType = params?.connectionType;
+  const brokerage = params?.brokerage;
 
   let connectionAttributeValue: any = { ':connectionType': 'connection' };
 
-  if (connectionType) {
+  if (brokerage) {
     connectionAttributeValue = {
-      ':connectionType': `connection:${connectionType}`,
+      ':connectionType': `connection:${brokerage}`,
     };
   }
 
@@ -103,14 +103,14 @@ const queryConnections = async (params: IQueryConnectionsOptions) => {
 const scanConnections = async (params: IScanConnectionsOptions) => {
   logger.info('Scan connections', { params });
 
-  const connectionType = params?.connectionType;
+  const brokerage = params?.brokerage;
 
   let input: TScanInput = null;
 
-  if (connectionType) {
+  if (brokerage) {
     input = {
       ExpressionAttributeValues: marshall({
-        ':sortName': connectionType,
+        ':sortName': brokerage,
       }),
       FilterExpression: 'sortName = :sortName',
     };
@@ -168,7 +168,7 @@ export interface IConnectionTokens {
   accessTokenExpiration: string;
   refreshToken: string;
   refreshTokenExpiration: string;
-  type: TConnection;
+  type: TBrokerage;
 }
 
 export const updateConnectionTokens = async (
@@ -213,6 +213,6 @@ const convertDbConnectionToIConnection = async (
     username: result.id,
     accessToken: await decryptItem(result.accessToken),
     refreshToken: await decryptItem(result.refreshToken),
-    type: result?.rowType?.split(':')[1] as TConnection,
+    type: result?.rowType?.split(':')[1] as TBrokerage,
   } as IConnection;
 };

@@ -1,14 +1,14 @@
 import API from '@aws-amplify/api';
 import { useEffect, useState } from 'react';
 
-export const useGetBrokerageConnections = (connectionType?: string) => {
+export const useGetBrokerageConnections = (brokerage?: string) => {
   const [brokerageConnections, setBrokerageConnections] = useState(null);
   const [loadingBrokerageConnections, setLoadingBrokerageConnections] =
     useState(true);
 
   useEffect(() => {
-    const endpoint = connectionType
-      ? `/api/connections/${connectionType}`
+    const endpoint = brokerage
+      ? `/api/connections/${brokerage}`
       : '/api/connections';
 
     API.get('algoappapi', endpoint, null)
@@ -21,7 +21,7 @@ export const useGetBrokerageConnections = (connectionType?: string) => {
       .finally(() => {
         setLoadingBrokerageConnections(false);
       });
-  }, [connectionType]);
+  }, [brokerage]);
 
   return [brokerageConnections, loadingBrokerageConnections];
 };

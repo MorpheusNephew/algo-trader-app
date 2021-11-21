@@ -1,6 +1,6 @@
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
 import { IConfig } from '/opt/nodejs/config';
-import { IConnection } from '/opt/nodejs/connectionTypes';
+import { IConnection } from '/opt/nodejs/types';
 import { Context, DefaultState } from 'koa';
 import winston from 'winston';
 

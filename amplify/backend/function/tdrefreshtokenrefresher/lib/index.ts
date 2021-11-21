@@ -1,18 +1,18 @@
 import logger from './logger';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
 import { getConfig } from '/opt/nodejs/config';
-import { IConnection, TConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
+import { IConnection, TBrokerage } from '/opt/nodejs/types';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
 import {
   getConnections,
   updateConnectionTokens,
 } from '/opt/nodejs/connectiondb';
 
-const connectionType: TConnection = 'td';
+const brokerage: TBrokerage = 'td';
 
 export const handler = async (_event: any) => {
-  const connections = await getConnections({ connectionType });
+  const connections = await getConnections({ brokerage });
 
   const mapper = async (connection: IConnection) => {
     const currentDate = new Date();
@@ -35,7 +35,7 @@ export const handler = async (_event: any) => {
 
       const connectionToUpdate = await convertTokenToIConnection(
         tokenResponse,
-        connectionType,
+        brokerage,
         connectionId
       );
 

@@ -16,7 +16,7 @@ export const loadTdConnections = async (ctx: AppContext, next: Next) => {
 
   const connections = await getConnections({
     username,
-    connectionType: 'td',
+    brokerage: 'td',
   });
 
   if (connections) {
