@@ -37,6 +37,7 @@
     "buildSymbolsRetriever": "cd amplify/backend/function/symbolsretriever/lib && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
     "buildTdRefreshTokenRefresher": "cd amplify/backend/function/tdrefreshtokenrefresher/lib && yarn build && cd -",
+    "deployApi": "yarn buildLambdas && amplify push -y",
     "amplify:algotraderappapi": "yarn buildApi",
     "amplify:tdrefreshtokenrefresher": "yarn buildTdRefreshTokenRefresher",
     "amplify:symbolsretriever": "yarn buildSymbolsRetriever",
