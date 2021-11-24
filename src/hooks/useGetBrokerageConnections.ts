@@ -1,7 +1,8 @@
+import { TBrokerage } from '../types';
 import API from '@aws-amplify/api';
 import { useEffect, useState } from 'react';
 
-export const useGetBrokerageConnections = (brokerage?: string) => {
+export const useGetBrokerageConnections = (brokerage?: TBrokerage) => {
   const [brokerageConnections, setBrokerageConnections] = useState(null);
   const [loadingBrokerageConnections, setLoadingBrokerageConnections] =
     useState(true);
