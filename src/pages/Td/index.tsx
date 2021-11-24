@@ -31,10 +31,12 @@ const TdAmeritrade = () => {
       </Typography>
       {(loadingTdConnections && <div>Loading...</div>) ||
         (isEmpty(tdConnections) && <ConnectButton />) || (
-          <div>Td connected</div>
+          <div>
+            <div>Td connected</div>
+            <AccountInformation hasConnection={!isEmpty(tdConnections)} />
+            <Movers />
+          </div>
         )}
-      <AccountInformation hasConnection={!isEmpty(tdConnections)} />
-      <Movers />
     </div>
   );
 };
