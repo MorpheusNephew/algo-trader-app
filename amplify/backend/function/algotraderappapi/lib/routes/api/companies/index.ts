@@ -15,6 +15,12 @@ const companiesRouter = new Router({ prefix: '/companies' }).get(
     const loggerOptions = getLoggerOptions(ctx);
 
     logger.info('Retrieving companies', { ...loggerOptions });
+
+    ctx.status = 200;
+    ctx.body = [
+      { name: 'American Airlines', symbol: 'AA' },
+      { name: 'Apple', symbol: 'AAPL' },
+    ];
   }
 );
 
