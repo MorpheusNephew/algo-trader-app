@@ -31,7 +31,7 @@ export const AccountInformation = (params: IInput) => {
   return (
     <div>
       <Typography>Account Information</Typography>
-      {account && <Typography>{JSON.stringify(account)}</Typography>}
+      {account && <Typography>{account.accountId}</Typography>}
     </div>
   );
 };
