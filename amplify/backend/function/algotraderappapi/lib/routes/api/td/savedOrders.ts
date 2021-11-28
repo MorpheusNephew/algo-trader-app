@@ -26,7 +26,7 @@ export const tdSavedOrdersRouter = new Router({ prefix: '/saved-orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Saved order created', updatedLoggerOptions);
     }
@@ -50,7 +50,7 @@ export const tdSavedOrdersRouter = new Router({ prefix: '/saved-orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Saved orders retrieved', updatedLoggerOptions);
     }
@@ -79,7 +79,7 @@ export const tdSavedOrdersRouter = new Router({ prefix: '/saved-orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Saved order retrieved', updatedLoggerOptions);
     }
@@ -111,7 +111,7 @@ export const tdSavedOrdersRouter = new Router({ prefix: '/saved-orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Saved order replaced', updatedLoggerOptions);
     }
@@ -140,7 +140,7 @@ export const tdSavedOrdersRouter = new Router({ prefix: '/saved-orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Saved order deleted', updatedLoggerOptions);
     }

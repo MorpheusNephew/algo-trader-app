@@ -24,7 +24,7 @@ export const tdMoversRouter = new Router({ prefix: '/movers' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Movers retrieved', updatedLoggerOptions);
   });

@@ -19,7 +19,7 @@ export const tdQuotesRouter = new Router({ prefix: '/quotes' })
       await ctx.state.tdAmeritradeClient.quotes.getQuotes(symbol as any);
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Quotes retrieved', updatedLoggerOptions);
   })
@@ -38,7 +38,7 @@ export const tdQuotesRouter = new Router({ prefix: '/quotes' })
     );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Quote retrieved', updatedLoggerOptions);
   });

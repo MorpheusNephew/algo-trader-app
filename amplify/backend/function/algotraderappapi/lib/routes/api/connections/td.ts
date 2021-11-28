@@ -64,9 +64,7 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
         logger.info('Connection saved', loggerOptions);
 
         ctx.status = status;
-        ctx.body = JSON.stringify(
-          convertIConnectionToIConnectionResponse(connectionToSave)
-        );
+        ctx.body = convertIConnectionToIConnectionResponse(connectionToSave);
       } else {
         const tdAuthUrl = getAuthUrl({
           client_id: ctx.state.config.tdConsumerKey,
@@ -94,9 +92,7 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       const loggerOptions = getLoggerOptions(ctx);
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(
-        connections.map(convertIConnectionToIConnectionResponse)
-      );
+      ctx.body = connections.map(convertIConnectionToIConnectionResponse);
 
       logger.info('Returning TD connections for user', {
         ...loggerOptions,
@@ -112,9 +108,7 @@ const tdConnectionsRouter = new Router({ prefix: '/td' })
       const { connection } = ctx.state;
 
       ctx.status = 200;
-      ctx.body = JSON.stringify(
-        convertIConnectionToIConnectionResponse(connection)
-      );
+      ctx.body = convertIConnectionToIConnectionResponse(connection);
     }
   )
   .del(

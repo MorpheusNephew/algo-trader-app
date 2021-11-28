@@ -17,7 +17,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         await ctx.state.tdAmeritradeClient.watchlist.getMultipleAccountsWatchlists();
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('All user linked watchlists retrieved', loggerOptions);
     }
@@ -47,7 +47,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlist created', updatedLoggerOptions);
     }
@@ -71,7 +71,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlists for account retrieved', updatedLoggerOptions);
     }
@@ -96,7 +96,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlist deleted', updatedLoggerOptions);
     }
@@ -128,7 +128,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlist replaced', updatedLoggerOptions);
     }
@@ -160,7 +160,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlist updated', updatedLoggerOptions);
     }
@@ -185,7 +185,7 @@ export const tdWatchList = new Router({ prefix: '/watchlist' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Watchlist retrieved', updatedLoggerOptions);
     }

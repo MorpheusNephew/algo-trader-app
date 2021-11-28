@@ -24,7 +24,7 @@ export const tdInstrumentsRouter = new Router({ prefix: '/instruments' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Instruments for symbol retrieved', {
       ...loggerOptions,
@@ -47,7 +47,7 @@ export const tdInstrumentsRouter = new Router({ prefix: '/instruments' })
       await ctx.state.tdAmeritradeClient.instruments.getInstrument(cusip);
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Instrument for cusip retrieved', {
       ...loggerOptions,

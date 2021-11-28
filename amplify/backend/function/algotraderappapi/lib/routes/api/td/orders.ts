@@ -23,7 +23,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Orders by query retrieved', updatedLoggerOptions);
   })
@@ -53,7 +53,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Orders by path retrieved', updatedLoggerOptions);
     }
@@ -76,7 +76,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Order placed', updatedLoggerOptions);
   })
@@ -97,7 +97,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
         await ctx.state.tdAmeritradeClient.orders.getOrder(accountId, orderId);
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Order retrieved', updatedLoggerOptions);
     }
@@ -129,7 +129,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Order replaced', updatedLoggerOptions);
     }
@@ -154,7 +154,7 @@ export const tdOrdersRouter = new Router({ prefix: '/orders' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Order canceled', updatedLoggerOptions);
     }

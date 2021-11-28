@@ -36,7 +36,7 @@ export const tdTransactionsRouter = new Router({ prefix: '/transactions' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Account transactions retrieved', updatedLoggerOptions);
     }
@@ -65,7 +65,7 @@ export const tdTransactionsRouter = new Router({ prefix: '/transactions' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Transaction retrieved', updatedLoggerOptions);
     }
