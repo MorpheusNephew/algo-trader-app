@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.upsertCompaniesInfo = void 0;
+exports.upsertCompaniesInfo = exports.getCompaniesInfo = void 0;
 
 var _dynamodb = require("./dynamodb");
 
@@ -21,8 +21,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 const CHUNK = 25;
 
+const getCompaniesInfo = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(function* () {
+    _logger.default.info('Getting companies info');
+
+    const input = {
+      ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
+        ':id': 'company'
+      }),
+      KeyConditionExpression: 'id = :id'
+    };
+    const {
+      Items
+    } = yield (0, _dynamodb.query)(input);
+    return Items.map(item => {
+      const {
+        companyName,
+        sortName
+      } = (0, _utilDynamodb.unmarshall)(item);
+      return {
+        name: companyName,
+        symbol: sortName
+      };
+    });
+  });
+
+  return function getCompaniesInfo() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.getCompaniesInfo = getCompaniesInfo;
+
 const upsertCompaniesInfo = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator(function* (companiesInfo) {
+  var _ref2 = _asyncToGenerator(function* (companiesInfo) {
     _logger.default.info('Upserting companies info', {
       companiesInfo
     });
@@ -30,7 +62,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
     const companiesInfoChunks = (0, _lodash.chunk)(companiesInfo, CHUNK);
 
     const upsertCompaniesInfoMapper = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator(function* (companies) {
+      var _ref3 = _asyncToGenerator(function* (companies) {
         const putRequest = companies.map(company => ({
           Item: (0, _utilDynamodb.marshall)({
             id: `company`,
@@ -48,7 +80,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
       });
 
       return function upsertCompaniesInfoMapper(_x2) {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
 
@@ -56,7 +88,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
   });
 
   return function upsertCompaniesInfo(_x) {
-    return _ref.apply(this, arguments);
+    return _ref2.apply(this, arguments);
   };
 }();
 
