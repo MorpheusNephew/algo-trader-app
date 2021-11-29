@@ -1,5 +1,6 @@
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
+import { getCompaniesInfo } from '/opt/nodejs/companydb';
 import { Next } from 'koa';
 
 const getLoggerOptions = ({ method, path }: AppContext) => {
@@ -16,11 +17,12 @@ const companiesRouter = new Router({ prefix: '/companies' }).get(
 
     logger.info('Retrieving companies', { ...loggerOptions });
 
+    const companiesInfo = await getCompaniesInfo();
+
+    logger.info('Companies info', { ...loggerOptions, companiesInfo });
+
     ctx.status = 200;
-    ctx.body = [
-      { name: 'American Airlines', symbol: 'AA' },
-      { name: 'Apple', symbol: 'AAPL' },
-    ];
+    ctx.body = companiesInfo;
   }
 );
 
