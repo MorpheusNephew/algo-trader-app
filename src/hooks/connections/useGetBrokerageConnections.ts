@@ -1,4 +1,4 @@
-import { TBrokerage } from '../types';
+import { TBrokerage } from '../../types';
 import API from '@aws-amplify/api';
 import { useEffect, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { useGetBrokerageConnections } from '../hooks/useGetBrokerageConnections';
+import { useGetBrokerageConnections } from '../hooks/connections/useGetBrokerageConnections';
 
 const ConnectedBrokerages = (props: any) => {
   const [brokerageConnections, loadingBrokerageConnections] =
