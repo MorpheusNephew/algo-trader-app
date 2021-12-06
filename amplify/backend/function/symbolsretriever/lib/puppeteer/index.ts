@@ -1,5 +1,6 @@
 import logger from '../logger';
 import { CompanyInfoResponse } from '../types';
+import { isAlpha } from '../utils';
 import { CompanyInfo } from '/opt/nodejs/types';
 import chromium from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
@@ -30,6 +31,11 @@ export const getCompaniesInfo = async (
 
   const response = await page.goto(pageUrl);
 
+  logger.info('Response', {
+    status: response.status,
+    statusText: response.statusText,
+  });
+
   logger.info('Getting symbols from JSON');
 
   const {
@@ -42,5 +48,7 @@ export const getCompaniesInfo = async (
 
   await browser.close();
 
-  return companies.map(({ name, symbol }) => ({ name, symbol }));
+  return companies
+    .map(({ name, symbol }) => ({ name, symbol }))
+    .filter(({ symbol }) => isAlpha(symbol));
 };

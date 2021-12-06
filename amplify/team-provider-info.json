@@ -41,7 +41,7 @@
         },
         "symbolsretriever": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/symbolsretriever-577971724253485a4c34-build.zip"
+          "s3Key": "amplify-builds/symbolsretriever-63664d67394247764533-build.zip"
         }
       }
     }
