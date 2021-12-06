@@ -1511,17 +1511,17 @@
     methods "^1.1.2"
     path-to-regexp "^6.1.0"
 
-"@morpheusnephew/td-ameritrade-models@0.12.8":
-  version "0.12.8"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.8.tgz#956927f688f9dcc22799282c9a2bff4167daaf93"
-  integrity sha512-d4ft2pY+gOQGOBrKAoK28WCiP3sOQ0+GFUi/HLTPAgR/hEtkY+xLxuY4OR3Ad3GO7FjcfcZ4vN47s33qqpVigQ==
+"@morpheusnephew/td-ameritrade-models@^0.12.9":
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.9.tgz#0d59353983fbcad45ce741236eedce0d49b8f8eb"
+  integrity sha512-1Q1MyA8jIl1Gjl30ktulip1tYMxLvtK+axwpVS57DGXEM1DTYEsyTIzPxZjDv4fe+jw1A+Wpfc/E69WMfrjHXA==
 
-"@morpheusnephew/td-ameritrade@0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.7.tgz#4cea462fe80522425c7316dabfa807487cde8d78"
-  integrity sha512-JiND2pEHuT0tR+eB3kbvB0EZa19FJRF7PZC3qddlXkCb67CXcNiuFBRAlfPPtqaa9mkZzdTf6X1V6Sw0YSHhkA==
+"@morpheusnephew/td-ameritrade@0.4.8":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-0.4.8.tgz#aa308720687162a855cd0261a063072f2a525b9a"
+  integrity sha512-0dWpWXCtiQpmxpFLsj2UJGBeXPYt2rqa/k4BfNjlz+Fi1353PRklNdhLRU/Pb2jAWcZ3N3eOxDA+V8TqafuBkA==
   dependencies:
-    "@morpheusnephew/td-ameritrade-models" "0.12.8"
+    "@morpheusnephew/td-ameritrade-models" "^0.12.9"
     axios "^0.21.1"
     qs "^6.9.4"
 
