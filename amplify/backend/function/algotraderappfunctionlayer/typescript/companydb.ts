@@ -1,11 +1,33 @@
-import { batchWriteItem, query, TQueryInput } from './dynamodb';
 import logger from './logger';
 import { CompanyInfo } from './types';
 import { PutRequest } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { chunk } from 'lodash';
+import {
+  batchWriteItem,
+  deleteItem,
+  query,
+  TDeleteItemInput,
+  TQueryInput,
+} from './dynamodb';
 
 const CHUNK = 25;
+
+export const deleteAllCompaniesInfo = async (): Promise<void> => {
+  const companies = await getCompaniesInfo();
+
+  logger.info('Deleting all companies info');
+
+  await Promise.all(
+    companies.map(({ symbol }) => {
+      const input: TDeleteItemInput = {
+        Key: marshall({ id: 'company', sortName: symbol }),
+      };
+
+      return deleteItem(input);
+    })
+  );
+};
 
 export const getCompaniesInfo = async (): Promise<CompanyInfo[]> => {
   logger.info('Getting companies info');

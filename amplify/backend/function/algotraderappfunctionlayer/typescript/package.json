@@ -22,7 +22,7 @@
     "@morpheusnephew/td-ameritrade": "0.4.8",
     "@types/cryptr": "^4.0.1",
     "@types/uuid": "^8.3.1",
-    "aws-xray-sdk": "^3.3.3",
+    "aws-xray-sdk": "^3.3.4",
     "cryptr": "^6.0.2",
     "date-fns": "^2.24.0",
     "lodash": "^4.17.21",

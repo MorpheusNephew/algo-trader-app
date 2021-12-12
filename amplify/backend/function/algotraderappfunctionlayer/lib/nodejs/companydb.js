@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.upsertCompaniesInfo = exports.getCompaniesInfo = void 0;
-
-var _dynamodb = require("./dynamodb");
+exports.upsertCompaniesInfo = exports.getCompaniesInfo = exports.deleteAllCompaniesInfo = void 0;
 
 var _logger = _interopRequireDefault(require("./logger"));
 
 var _utilDynamodb = require("@aws-sdk/util-dynamodb");
 
 var _lodash = require("lodash");
+
+var _dynamodb = require("./dynamodb");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21,8 +21,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 const CHUNK = 25;
 
-const getCompaniesInfo = /*#__PURE__*/function () {
+const deleteAllCompaniesInfo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(function* () {
+    const companies = yield getCompaniesInfo();
+
+    _logger.default.info('Deleting all companies info');
+
+    yield Promise.all(companies.map(({
+      symbol
+    }) => {
+      const input = {
+        Key: (0, _utilDynamodb.marshall)({
+          id: 'company',
+          sortName: symbol
+        })
+      };
+      return (0, _dynamodb.deleteItem)(input);
+    }));
+  });
+
+  return function deleteAllCompaniesInfo() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.deleteAllCompaniesInfo = deleteAllCompaniesInfo;
+
+const getCompaniesInfo = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(function* () {
     _logger.default.info('Getting companies info');
 
     const input = {
@@ -47,14 +73,14 @@ const getCompaniesInfo = /*#__PURE__*/function () {
   });
 
   return function getCompaniesInfo() {
-    return _ref.apply(this, arguments);
+    return _ref2.apply(this, arguments);
   };
 }();
 
 exports.getCompaniesInfo = getCompaniesInfo;
 
 const upsertCompaniesInfo = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(function* (companiesInfo) {
+  var _ref3 = _asyncToGenerator(function* (companiesInfo) {
     _logger.default.info('Upserting companies info', {
       companiesInfo
     });
@@ -62,7 +88,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
     const companiesInfoChunks = (0, _lodash.chunk)(companiesInfo, CHUNK);
 
     const upsertCompaniesInfoMapper = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator(function* (companies) {
+      var _ref4 = _asyncToGenerator(function* (companies) {
         const putRequest = companies.map(company => ({
           Item: (0, _utilDynamodb.marshall)({
             id: `company`,
@@ -80,7 +106,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
       });
 
       return function upsertCompaniesInfoMapper(_x2) {
-        return _ref3.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       };
     }();
 
@@ -88,7 +114,7 @@ const upsertCompaniesInfo = /*#__PURE__*/function () {
   });
 
   return function upsertCompaniesInfo(_x) {
-    return _ref2.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 
