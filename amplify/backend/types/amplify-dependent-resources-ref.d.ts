@@ -56,5 +56,9 @@ export type AmplifyDependentResourcesAttributes = {
       SortKeyType: 'string';
       Region: 'string';
     };
+    AlgoTraderAppBucket: {
+      BucketName: 'string';
+      Region: 'string';
+    };
   };
 };
