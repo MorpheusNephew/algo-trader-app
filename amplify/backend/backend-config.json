@@ -150,6 +150,21 @@
     "algotradertable": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
+    },
+    "AlgoTraderAppBucket": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "symbolsretriever",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
     }
   }
 }
