@@ -19,11 +19,7 @@ export const AccountInformation = (params: IInput) => {
       getAccountsInformation().then((data) => {
         const { securitiesAccount } = data[0];
 
-        if (securitiesAccount?.type === 'CASH') {
-          setAccount(securitiesAccount as CashAccount);
-        } else if (securitiesAccount?.type === 'MARGIN') {
-          setAccount(securitiesAccount as MarginAccount);
-        }
+        setAccount(securitiesAccount);
       });
     }
   }, [hasConnection]);
@@ -31,7 +27,11 @@ export const AccountInformation = (params: IInput) => {
   return (
     <div>
       <Typography>Account Information</Typography>
-      {account && <Typography>{account.accountId}</Typography>}
+      {account && (
+        <Typography>
+          {account.accountId} - {account.type} account
+        </Typography>
+      )}
     </div>
   );
 };
