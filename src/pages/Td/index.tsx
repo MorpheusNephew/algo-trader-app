@@ -1,6 +1,5 @@
 import { getUserPrincipal } from '../../clients/td';
-import { getLoginRequest } from '../../clients/td/stream';
-import { getOptionsRequest } from '../../clients/td/stream/options';
+import { TOptionField } from '../../clients/td/stream/types';
 import { AccountInformation } from '../../components/td/AccountInformation';
 import { Movers } from '../../components/td/Movers';
 import { useGetCompanyOptions } from '../../hooks/companies/useGetCompanyOptions';
@@ -10,6 +9,7 @@ import { Add } from '@material-ui/icons';
 import { UserPrincipal } from '@morpheusnephew/td-ameritrade-models';
 import { isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 // import { SymbolSelector } from '../../components/td/SymbolSelector';
 
 const openAuthWindow = (_event: any, authUrl: string) => {
@@ -25,8 +25,6 @@ const ConnectButton = () => (
 
 const TdAmeritrade = () => {
   const [userPrincipal, setUserPrincipal] = useState<UserPrincipal>();
-  const [tdSocket, setTdSocket] = useState<WebSocket>();
-  const [streamLoggedIn, setStreamLoggedIn] = useState(false);
 
   const [tdConnections, loadingTdConnections] =
     useGetBrokerageConnections('td');
@@ -34,78 +32,43 @@ const TdAmeritrade = () => {
   const companyOptions = useGetCompanyOptions();
 
   useEffect(() => {
-    if (!companyOptions) {
+    if (!tdConnections) {
       return;
     }
 
     getUserPrincipal().then((principal) => {
       setUserPrincipal(principal);
-      setTdSocket(
-        new WebSocket(
-          'wss://' + principal.streamerInfo!.streamerSocketUrl + '/ws'
-        )
-      );
     });
-  }, [companyOptions]);
+  }, [tdConnections]);
 
   useEffect(() => {
-    if (!tdSocket || !userPrincipal || !companyOptions) {
+    if (!userPrincipal || isEmpty(companyOptions)) {
       return;
     }
 
-    const loginRequest = getLoginRequest(userPrincipal);
+    const tickerSymbols = companyOptions.map(({ value }) => value).slice(0, 10);
+    const optionFields: TOptionField[] = [
+      'symbol',
+      'askPrice',
+      'bidPrice',
+      'contractType',
+      'daysToExpiration',
+      'highPrice',
+      'lowPrice',
+      'lastPrice',
+    ];
 
-    console.log('Login Request', loginRequest);
+    const socket = io('ws://localhost:3000');
+    socket.on('td-logged-in', (message) => {
+      console.log('message', message);
 
-    const request = {
-      requests: [loginRequest],
-    };
+      socket.emit('sub-options', tickerSymbols, optionFields);
+    });
 
-    const tdJSONRequest = JSON.stringify(request);
+    socket.emit('td-login', userPrincipal);
+  }, [userPrincipal, companyOptions]);
 
-    tdSocket.onopen = (evt) => {
-      console.log('Socket opened', evt);
-
-      tdSocket.send(tdJSONRequest);
-    };
-
-    tdSocket.onmessage = (evt) => {
-      const { response } = JSON.parse(evt.data);
-
-      console.log('response', response);
-
-      if (
-        response?.[0]?.command === 'LOGIN' &&
-        response?.[0]?.content.code === 0
-      ) {
-        console.log('Logged in successfully');
-        setStreamLoggedIn(true);
-      }
-
-      console.log(evt.data);
-    };
-
-    tdSocket.onclose = () => {
-      console.log('CLOSED');
-    };
-  }, [userPrincipal, tdSocket, companyOptions]);
-
-  useEffect(() => {
-    if (!streamLoggedIn || !companyOptions || !userPrincipal || !tdSocket) {
-      return;
-    }
-
-    const optionsRequest = getOptionsRequest(
-      userPrincipal,
-      companyOptions.map(({ value }) => value)
-    );
-
-    const request = {
-      requests: [optionsRequest],
-    };
-
-    tdSocket.send(JSON.stringify(request));
-  }, [streamLoggedIn, tdSocket, companyOptions, userPrincipal]);
+  (window as any).io = io;
 
   return (
     <div>
