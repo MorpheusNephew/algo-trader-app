@@ -22,7 +22,7 @@ export const tdOptionChainsRouter = new Router({
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Option chain retrieved', updatedLoggerOptions);
   });

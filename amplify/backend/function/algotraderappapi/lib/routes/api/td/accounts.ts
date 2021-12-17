@@ -17,7 +17,7 @@ export const tdAccountsRouter = new Router({ prefix: '/accounts' })
       await ctx.state.tdAmeritradeClient.accounts.getAllAccounts(fields as any);
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Accounts retrieved', loggerOptions);
   })
@@ -37,7 +37,7 @@ export const tdAccountsRouter = new Router({ prefix: '/accounts' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('Account retrieved', { ...loggerOptions, accountId });
   });

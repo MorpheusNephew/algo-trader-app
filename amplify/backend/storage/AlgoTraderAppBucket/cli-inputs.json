@@ -1,0 +1,14 @@
+{
+  "resourceName": "AlgoTraderAppBucket",
+  "policyUUID": "c60d75eb",
+  "bucketName": "algotraderappbucket",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "symbolsretriever",
+  "groupAccess": {}
+}

@@ -3,7 +3,9 @@
     "storage": {
       "algotradertable": [
         "create",
-        "update"
+        "read",
+        "update",
+        "delete"
       ]
     }
   },

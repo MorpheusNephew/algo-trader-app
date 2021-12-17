@@ -33,7 +33,7 @@ export const tdPriceHistoryRouter = new Router({
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Price history for symbol retrieved', updatedLoggerOptions);
     }

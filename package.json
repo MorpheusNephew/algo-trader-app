@@ -6,7 +6,7 @@
     "@aws-amplify/ui-react": "^1.2.8",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
-    "@morpheusnephew/td-ameritrade-models": "^0.12.8",
+    "@morpheusnephew/td-ameritrade-models": "^0.12.9",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -22,7 +22,10 @@
     "react-hook-form": "^7.20.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-select": "^5.2.1",
+    "socket.io-client": "^4.4.0",
     "typescript": "^4.1.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -36,6 +39,7 @@
     "buildSymbolsRetriever": "cd amplify/backend/function/symbolsretriever/lib && yarn build && cd -",
     "buildApi": "cd amplify/backend/function/algotraderappapi/lib && yarn build && cd -",
     "buildTdRefreshTokenRefresher": "cd amplify/backend/function/tdrefreshtokenrefresher/lib && yarn build && cd -",
+    "deployApi": "yarn buildLambdas && amplify push -y",
     "amplify:algotraderappapi": "yarn buildApi",
     "amplify:tdrefreshtokenrefresher": "yarn buildTdRefreshTokenRefresher",
     "amplify:symbolsretriever": "yarn buildSymbolsRetriever",
@@ -62,6 +66,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.172",
     "@types/react-router-dom": "^5.1.8",
+    "@types/uuid": "^8.3.3",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "^2.3.2"

@@ -25,7 +25,7 @@ export const tdMarketHours = new Router({ prefix: '/market-hours' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Hours for multiple markets retrieved', updatedLoggerOptions);
     }
@@ -51,7 +51,7 @@ export const tdMarketHours = new Router({ prefix: '/market-hours' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('Hours for market retrieved', updatedLoggerOptions);
     }

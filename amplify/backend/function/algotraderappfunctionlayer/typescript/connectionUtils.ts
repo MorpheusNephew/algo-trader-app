@@ -1,15 +1,11 @@
 import { getDateSecondsFromNow } from './utils';
 import { Token } from '@morpheusnephew/td-ameritrade-models';
 import { v4 as uuid } from 'uuid';
-import {
-  IConnection,
-  IConnectionResponse,
-  TConnection,
-} from './connectionTypes';
+import { IConnection, IConnectionResponse, TBrokerage } from './types';
 
 export const convertTokenToIConnection = async (
   token: Token,
-  type: TConnection,
+  type: TBrokerage,
   connectionId?: string
 ): Promise<IConnection> => {
   const {

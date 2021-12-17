@@ -83,14 +83,14 @@ const queryConnections = /*#__PURE__*/function () {
     });
 
     const username = params.username;
-    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    const brokerage = params === null || params === void 0 ? void 0 : params.brokerage;
     let connectionAttributeValue = {
       ':connectionType': 'connection'
     };
 
-    if (connectionType) {
+    if (brokerage) {
       connectionAttributeValue = {
-        ':connectionType': `connection:${connectionType}`
+        ':connectionType': `connection:${brokerage}`
       };
     }
 
@@ -118,13 +118,13 @@ const scanConnections = /*#__PURE__*/function () {
       params
     });
 
-    const connectionType = params === null || params === void 0 ? void 0 : params.connectionType;
+    const brokerage = params === null || params === void 0 ? void 0 : params.brokerage;
     let input = null;
 
-    if (connectionType) {
+    if (brokerage) {
       input = {
         ExpressionAttributeValues: (0, _utilDynamodb.marshall)({
-          ':sortName': connectionType
+          ':sortName': brokerage
         }),
         FilterExpression: 'sortName = :sortName'
       };

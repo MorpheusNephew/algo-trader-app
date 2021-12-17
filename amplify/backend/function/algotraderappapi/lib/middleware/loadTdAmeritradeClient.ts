@@ -1,7 +1,7 @@
 import { AppContext } from '../types';
 import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
-import { IConnection } from '/opt/nodejs/connectionTypes';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
+import { IConnection } from '/opt/nodejs/types';
 import { differenceInSeconds, parseISO } from 'date-fns';
 import { Next } from 'koa';
 import { isEmpty } from 'lodash';
@@ -54,7 +54,7 @@ const getUserTdConnection = async (
   tdAmeritradeClient: TdAmeritradeClient,
   username: string
 ): Promise<IConnection> => {
-  const connections = await getConnections({ username, connectionType: 'td' });
+  const connections = await getConnections({ username, brokerage: 'td' });
 
   if (isEmpty(connections)) {
     return null;

@@ -13,13 +13,15 @@
     "postbuild": "rimraf ../src/babel.config.json && rimraf ../src/tsconfig.json"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.44.0",
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
     "@types/lodash": "^4.14.172",
-    "chrome-aws-lambda": "^10.1.0",
-    "puppeteer-core": "^10.4.0",
+    "aws-xray-sdk": "^3.3.4",
+    "csvtojson": "^2.0.10",
+    "node-fetch-commonjs": "^3.1.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.4.4",
     "winston": "^3.3.3"

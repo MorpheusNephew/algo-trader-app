@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-algotraderapp-dev-212017-unauthRole",
       "StackName": "amplify-algotraderapp-dev-212017",
       "StackId": "arn:aws:cloudformation:us-east-1:014477660743:stack/amplify-algotraderapp-dev-212017/24595880-f4c2-11eb-a9af-0a9fb25362c3",
-      "AmplifyAppId": "d2z6wj1fnu5msl"
+      "AmplifyAppId": "d2z6wj1fnu5msl",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-algotraderapp-dev-212017-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "hosting": {
@@ -24,24 +25,24 @@
       "function": {
         "algotraderappapi": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappapi-2f495637446156363477-build.zip"
+          "s3Key": "amplify-builds/algotraderappapi-756172365348746e4439-build.zip"
         },
         "algotraderappdependencieslayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersionf158547f-build.zip"
+          "s3Key": "amplify-builds/algotraderappdependencieslayer-LambdaLayerVersion853f4875-build.zip"
         },
         "algotraderappfunctionlayer": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersionba74771a-build.zip"
+          "s3Key": "amplify-builds/algotraderappfunctionlayer-LambdaLayerVersion82f66e3f-build.zip"
         },
         "tdrefreshtokenrefresher": {
           "secretsPathAmplifyAppId": "d2z6wj1fnu5msl",
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/tdrefreshtokenrefresher-564e4b5272704b2b6d64-build.zip"
+          "s3Key": "amplify-builds/tdrefreshtokenrefresher-7337324f6d5164467064-build.zip"
         },
         "symbolsretriever": {
           "deploymentBucketName": "amplify-algotraderapp-dev-212017-deployment",
-          "s3Key": "amplify-builds/symbolsretriever-577971724253485a4c34-build.zip"
+          "s3Key": "amplify-builds/symbolsretriever-6b4e4a31474e67765436-build.zip"
         }
       }
     }

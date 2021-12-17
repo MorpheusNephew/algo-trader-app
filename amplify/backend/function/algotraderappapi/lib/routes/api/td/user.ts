@@ -21,7 +21,7 @@ export const tdUserRouter = new Router({ prefix: '/user' })
       );
 
     ctx.status = status;
-    ctx.body = JSON.stringify(data);
+    ctx.body = data;
 
     logger.info('User details retreived', updatedLoggerOptions);
   })
@@ -62,11 +62,11 @@ export const tdUserRouter = new Router({ prefix: '/user' })
 
       logger.info('Getting user preferences', updatedLoggerOptions);
 
-      const { data: preferences, status } =
+      const { data, status } =
         await ctx.state.tdAmeritradeClient.userInfo.getPreferences(accountId);
 
       ctx.status = status;
-      ctx.body = JSON.stringify(preferences);
+      ctx.body = data;
 
       logger.info('User preferences retrieved', updatedLoggerOptions);
     }
@@ -96,7 +96,7 @@ export const tdUserRouter = new Router({ prefix: '/user' })
         );
 
       ctx.status = status;
-      ctx.body = JSON.stringify(data);
+      ctx.body = data;
 
       logger.info('User preferences updated', updatedLoggerOptions);
     }
