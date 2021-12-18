@@ -1,20 +1,20 @@
-import { IRequest, OptionFieldEnum } from '../types';
+import { IRequest, QuoteFieldEnum } from '../types';
 import { UserPrincipal } from '@morpheusnephew/td-ameritrade-models';
 import { v4 as uuid } from 'uuid';
 
-export const getOptionsRequest = (
+export const getQuotesRequest = (
   userPrincipal: UserPrincipal,
   tickerSymbols: string[],
-  optionFields: OptionFieldEnum[]
+  quoteFields: QuoteFieldEnum[]
 ): IRequest => {
   const keys = tickerSymbols.join(',');
-  const fields = optionFields.join(',');
+  const fields = quoteFields.join(',');
 
-  console.log('getOptionsRequest keys:', keys);
-  console.log('getOptionsRequest fields', fields);
+  console.log('getQuotesRequest keys:', keys);
+  console.log('getQuotesRequest fields', fields);
 
   return {
-    service: 'OPTION',
+    service: 'QUOTE',
     command: 'SUBS',
     account: userPrincipal.accounts![0].accountId!,
     source: userPrincipal.streamerInfo!.appId!,

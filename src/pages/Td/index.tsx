@@ -1,5 +1,5 @@
 import { getUserPrincipal } from '../../clients/td';
-import { TOptionField } from '../../clients/td/stream/types';
+import { OptionFieldEnum, QuoteFieldEnum } from '../../clients/td/stream/types';
 import { AccountInformation } from '../../components/td/AccountInformation';
 import { Movers } from '../../components/td/Movers';
 import { useGetCompanyOptions } from '../../hooks/companies/useGetCompanyOptions';
@@ -47,22 +47,35 @@ const TdAmeritrade = () => {
     }
 
     const tickerSymbols = companyOptions.map(({ value }) => value).slice(0, 10);
-    const optionFields: TOptionField[] = [
-      'symbol',
-      'askPrice',
-      'bidPrice',
-      'contractType',
-      'daysToExpiration',
-      'highPrice',
-      'lowPrice',
-      'lastPrice',
+    const optionFields: OptionFieldEnum[] = [
+      OptionFieldEnum.symbol,
+      OptionFieldEnum.description,
+      OptionFieldEnum.bidPrice,
+      OptionFieldEnum.askPrice,
+      OptionFieldEnum.lastPrice,
+      OptionFieldEnum.highPrice,
+      OptionFieldEnum.lowPrice,
+      OptionFieldEnum.closePrice,
+      OptionFieldEnum.totalVolume,
+      OptionFieldEnum.openInterest,
+      OptionFieldEnum.volatility,
+    ];
+
+    const quoteFields: QuoteFieldEnum[] = [
+      QuoteFieldEnum.askPrice,
+      QuoteFieldEnum.bidPrice,
+      QuoteFieldEnum.fiftyTwoWeekHigh,
+      QuoteFieldEnum.fiftyTwoWeekLow,
+      QuoteFieldEnum.openPrice,
+      QuoteFieldEnum.closePrice,
+      QuoteFieldEnum.volatility,
+      QuoteFieldEnum.totalVolume,
     ];
 
     const socket = io('ws://localhost:3000');
-    socket.on('td-logged-in', (message) => {
-      console.log('message', message);
-
+    socket.on('td-logged-in', () => {
       socket.emit('sub-options', tickerSymbols, optionFields);
+      socket.emit('sub-quotes', tickerSymbols, quoteFields);
     });
 
     socket.emit('td-login', userPrincipal);

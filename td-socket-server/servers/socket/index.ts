@@ -1,7 +1,11 @@
 import { getTdAmeritradeSocket } from '../../clients';
-import { TOptionField } from '../../clients/td-ameritrade/types';
+import { getQuotesRequest } from '../../clients/td-ameritrade/requests/quotesRequest';
 import { UserPrincipal } from '@morpheusnephew/td-ameritrade-models';
 import { Server } from 'socket.io';
+import {
+  OptionFieldEnum,
+  QuoteFieldEnum,
+} from '../../clients/td-ameritrade/types';
 import {
   getLoginRequest,
   getLoginUrl,
@@ -17,8 +21,6 @@ socketServer.on('connection', (socket) => {
 
   socket.on('td-login', (userPrincipal: UserPrincipal) => {
     socketToTdUserPrincipal[socket.id] = userPrincipal;
-
-    console.log('socketToTdUserPrincipal', socketToTdUserPrincipal);
 
     const tdSocketUrl = getLoginUrl(userPrincipal);
     const loginRequest = getLoginRequest(userPrincipal);
@@ -55,7 +57,7 @@ socketServer.on('connection', (socket) => {
 
     socket.on(
       'sub-options',
-      (tickerSymbols: string[], optionFields: TOptionField[]) => {
+      (tickerSymbols: string[], optionFields: OptionFieldEnum[]) => {
         const optionRequest = getOptionsRequest(
           socketToTdUserPrincipal[socket.id],
           tickerSymbols,
@@ -68,7 +70,28 @@ socketServer.on('connection', (socket) => {
 
         const stringifiedRequest = JSON.stringify(request);
 
-        console.log('sub-options: request', stringifiedRequest);
+        console.log('Sub-options request:', request);
+
+        tdSocket.send(stringifiedRequest);
+      }
+    );
+
+    socket.on(
+      'sub-quotes',
+      (tickerSymbols: string[], quoteFields: QuoteFieldEnum[]) => {
+        const optionRequest = getQuotesRequest(
+          socketToTdUserPrincipal[socket.id],
+          tickerSymbols,
+          quoteFields
+        );
+
+        const request = {
+          requests: [optionRequest],
+        };
+
+        const stringifiedRequest = JSON.stringify(request);
+
+        console.log('Sub-quotes request:', request);
 
         tdSocket.send(stringifiedRequest);
       }
