@@ -166,5 +166,11 @@
         }
       ]
     }
+  },
+  "custom": {
+    "tdsocketserver": {
+      "service": "customCDK",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
