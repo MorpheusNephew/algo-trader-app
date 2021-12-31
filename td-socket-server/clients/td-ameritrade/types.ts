@@ -141,7 +141,7 @@ type TService =
   | 'TIMESALE_OPTIONS';
 
 export interface IRequest {
-  service: TService;
+  service: string;
   requestid: string;
   command: TCommand;
   account: string;

@@ -1,5 +1,5 @@
 import { getUserPrincipal } from '../../clients/td';
-import { OptionFieldEnum, QuoteFieldEnum } from '../../clients/td/stream/types';
+import { QuoteFieldEnum } from '../../clients/td/stream/types';
 import { AccountInformation } from '../../components/td/AccountInformation';
 import { Movers } from '../../components/td/Movers';
 import { useGetCompanyOptions } from '../../hooks/companies/useGetCompanyOptions';
@@ -7,7 +7,7 @@ import { useGetBrokerageConnections } from '../../hooks/connections/useGetBroker
 import { Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { UserPrincipal } from '@morpheusnephew/td-ameritrade-models';
-import { isEmpty } from 'lodash';
+import { isEmpty, range } from 'lodash';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 // import { SymbolSelector } from '../../components/td/SymbolSelector';
@@ -46,39 +46,24 @@ const TdAmeritrade = () => {
       return;
     }
 
-    const tickerSymbols = companyOptions.map(({ value }) => value).slice(0, 10);
-    const optionFields: OptionFieldEnum[] = [
-      OptionFieldEnum.symbol,
-      OptionFieldEnum.description,
-      OptionFieldEnum.bidPrice,
-      OptionFieldEnum.askPrice,
-      OptionFieldEnum.lastPrice,
-      OptionFieldEnum.highPrice,
-      OptionFieldEnum.lowPrice,
-      OptionFieldEnum.closePrice,
-      OptionFieldEnum.totalVolume,
-      OptionFieldEnum.openInterest,
-      OptionFieldEnum.volatility,
-    ];
+    const tickerSymbols = companyOptions.map(({ value }) => value);
 
     const quoteFields: QuoteFieldEnum[] = [
-      QuoteFieldEnum.askPrice,
-      QuoteFieldEnum.bidPrice,
-      QuoteFieldEnum.fiftyTwoWeekHigh,
-      QuoteFieldEnum.fiftyTwoWeekLow,
-      QuoteFieldEnum.openPrice,
-      QuoteFieldEnum.closePrice,
+      QuoteFieldEnum.symbol,
       QuoteFieldEnum.volatility,
-      QuoteFieldEnum.totalVolume,
     ];
+
+    const optionFields: number[] = range(42).map((_val, index) => index);
 
     const socket = io('ws://localhost:3000');
     socket.on('td-logged-in', () => {
+      // socket.emit('sub-quotes', tickerSymbols, quoteFields);
       socket.emit('sub-options', tickerSymbols, optionFields);
-      socket.emit('sub-quotes', tickerSymbols, quoteFields);
     });
 
     socket.emit('td-login', userPrincipal);
+
+    (window as any).socket = socket;
   }, [userPrincipal, companyOptions]);
 
   (window as any).io = io;
