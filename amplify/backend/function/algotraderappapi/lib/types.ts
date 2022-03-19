@@ -1,4 +1,4 @@
-import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
+import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/clients';
 import { IConfig } from '/opt/nodejs/config';
 import { IConnection } from '/opt/nodejs/types';
 import { Context, DefaultState } from 'koa';

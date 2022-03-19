@@ -1,7 +1,7 @@
 import { loadLoggerOptions } from '../../../middleware/loadLoggerOptions';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
-import { PriceHistoryOptions } from '@morpheusnephew/td-ameritrade/dist/clients/price-history-client';
+import { PriceHistoryOptions } from '@morpheusnephew/td-ameritrade/clients/price-history-client';
 import { Next } from 'koa';
 
 export const tdPriceHistoryRouter = new Router({
