@@ -1,5 +1,5 @@
 import logger from './logger';
-import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
+import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/clients';
 import { getConfig } from '/opt/nodejs/config';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
 import { IConnection, TBrokerage } from '/opt/nodejs/types';

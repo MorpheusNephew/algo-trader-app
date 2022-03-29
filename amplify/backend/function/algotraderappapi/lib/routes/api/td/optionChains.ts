@@ -1,7 +1,7 @@
 import { loadLoggerOptions } from '../../../middleware/loadLoggerOptions';
 import { AppContext } from '../../../types';
 import Router from '@koa/router';
-import { OptionChainOptions } from '@morpheusnephew/td-ameritrade/dist/clients/option-chains-client';
+import { OptionChainOptions } from '@morpheusnephew/td-ameritrade/clients/option-chains-client';
 import { Next } from 'koa';
 
 export const tdOptionChainsRouter = new Router({

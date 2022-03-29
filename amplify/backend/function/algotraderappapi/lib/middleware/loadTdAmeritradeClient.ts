@@ -1,5 +1,5 @@
 import { AppContext } from '../types';
-import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/dist/clients';
+import TdAmeritradeClient from '@morpheusnephew/td-ameritrade/clients';
 import { convertTokenToIConnection } from '/opt/nodejs/connectionUtils';
 import { IConnection } from '/opt/nodejs/types';
 import { differenceInSeconds, parseISO } from 'date-fns';

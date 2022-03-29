@@ -5,7 +5,7 @@ import { Next } from 'koa';
 import {
   IOrdersByPathOptions,
   IOrdersByQueryOptions,
-} from '@morpheusnephew/td-ameritrade/dist/clients/orders-client';
+} from '@morpheusnephew/td-ameritrade/clients/orders-client';
 
 export const tdOrdersRouter = new Router({ prefix: '/orders' })
   .use(loadLoggerOptions('td/orders.ts'))
