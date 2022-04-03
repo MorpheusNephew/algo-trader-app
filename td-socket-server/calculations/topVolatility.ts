@@ -66,6 +66,10 @@ export default class TopVolatility {
       return;
     }
 
+    if (!entry.volatility) {
+      return;
+    }
+
     if (this.currentCount < this.maxCount) {
       this.increaseCurrentCount();
       this.updateEntry(entry);
@@ -80,11 +84,12 @@ export default class TopVolatility {
       return;
     }
 
+    const lowestSymbol = this.lowestSymbolToVolility.symbol;
     this.removeLowestFromSymbolToVolatility();
     this.updateEntry(entry);
     console.log(
       `Added symbol: ${entry.symbol} with volatility of ${entry.volatility}`
     );
-    console.log(`Removed symbol ${this.lowestSymbolToVolility.symbol}`);
+    console.log(`Removed symbol ${lowestSymbol}`);
   };
 }
