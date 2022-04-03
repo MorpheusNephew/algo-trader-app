@@ -1,5 +1,5 @@
 import { getUserPrincipal } from '../../clients/td';
-import { QuoteFieldEnum } from '../../clients/td/stream/types';
+import { OptionFieldEnum } from '../../clients/td/stream/types';
 import { AccountInformation } from '../../components/td/AccountInformation';
 import { Movers } from '../../components/td/Movers';
 import { useGetCompanyOptions } from '../../hooks/companies/useGetCompanyOptions';
@@ -46,18 +46,14 @@ const TdAmeritrade = () => {
       return;
     }
 
-    const tickerSymbols = companyOptions.map(({ value }) => value);
+    const tickerSymbols = ['AAPL_040822C177.5']; // companyOptions.map(({ value }) => value).slice(0, 3)
 
-    const quoteFields: QuoteFieldEnum[] = [
-      QuoteFieldEnum.symbol,
-      QuoteFieldEnum.volatility,
-    ];
-
-    const optionFields: number[] = range(42).map((_val, index) => index);
+    const optionFields: OptionFieldEnum[] = range(42).map(
+      (_val, index) => index
+    );
 
     const socket = io('ws://localhost:3000');
     socket.on('td-logged-in', () => {
-      // socket.emit('sub-quotes', tickerSymbols, quoteFields);
       socket.emit('sub-options', tickerSymbols, optionFields);
     });
 
