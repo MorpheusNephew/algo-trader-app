@@ -57,7 +57,7 @@ socketServer.on('connection', (socket) => {
         const message = 'TD Logged in successfully';
         socket.emit('td-logged-in', message);
         console.log('Login message', message);
-        socketToUser[socket.id].topVol = new TopVolatility(10);
+        socketToUser[socket.id].topVol = new TopVolatility(30);
       }
 
       if (
