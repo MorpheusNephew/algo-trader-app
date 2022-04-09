@@ -1,6 +1,6 @@
 import { getAccountsInformation } from '../../clients/td';
 import { Typography } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   CashAccount,
   MarginAccount,
@@ -10,9 +10,8 @@ interface IInput {
   hasConnection: boolean;
 }
 
-export const AccountInformation = (params: IInput) => {
+export const AccountInformation: FC<IInput> = ({ hasConnection }) => {
   const [account, setAccount] = useState<CashAccount | MarginAccount>();
-  const { hasConnection } = params;
 
   useEffect(() => {
     if (hasConnection) {

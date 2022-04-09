@@ -12,13 +12,13 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 // import { SymbolSelector } from '../../components/td/SymbolSelector';
 
-const openAuthWindow = (_event: any, authUrl: string) => {
+const openAuthWindow = (authUrl: string) => {
   window.open(authUrl, 'Auth', 'width=500,height=500');
   return false;
 };
 
 const ConnectButton = () => (
-  <div onClick={(event) => openAuthWindow(event, '/connect/td')}>
+  <div onClick={() => openAuthWindow('/connect/td')}>
     <Add />
   </div>
 );
