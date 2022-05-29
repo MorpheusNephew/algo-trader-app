@@ -918,17 +918,17 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
-"@morpheusnephew/td-ameritrade-models@^0.12.9":
-  version "0.12.9"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.9.tgz#0d59353983fbcad45ce741236eedce0d49b8f8eb"
-  integrity sha512-1Q1MyA8jIl1Gjl30ktulip1tYMxLvtK+axwpVS57DGXEM1DTYEsyTIzPxZjDv4fe+jw1A+Wpfc/E69WMfrjHXA==
+"@morpheusnephew/td-ameritrade-models@^0.12.14":
+  version "0.12.14"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.14.tgz#1780ce0404e4ec00a9148cb0ec5035d0193ab8cf"
+  integrity sha512-3twuxhOGCQjgigEU/Kindmu0ud0ilOqPfQ46nz+eMoStGm6EdQm0FVj4Gsjx94W7eGD+LzRibWJ2L9jD409JVA==
 
-"@morpheusnephew/td-ameritrade@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-1.0.1.tgz#9f8f8662093bd1ca328eb1de6d211b483d4e6912"
-  integrity sha512-rrdcquzIbLWIl0wAMf0puLcF2zqK8ZBPCfxsD4SnBslOW4fk57b4BUTw0JMOz97VIlGm3fNLdLjD6w/oxnHQrw==
+"@morpheusnephew/td-ameritrade@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-1.0.3.tgz#8c7e1a3cb016f420bd5f3744fd71fee34595183a"
+  integrity sha512-z2QOZO5ieylwNrA/0U5DF9OHraGUvbZDtbtvd1OjyToSWi10AgsTUwkm+rmikHHFgxLnS/uBc0kKMluBtKQ2Hw==
   dependencies:
-    "@morpheusnephew/td-ameritrade-models" "^0.12.9"
+    "@morpheusnephew/td-ameritrade-models" "^0.12.14"
     axios "^0.21.1"
     qs "^6.9.4"
 

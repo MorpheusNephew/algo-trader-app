@@ -17,7 +17,7 @@
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
-    "@morpheusnephew/td-ameritrade": "1.0.1",
+    "@morpheusnephew/td-ameritrade": "1.0.3",
     "@types/node": "^16.9.2",
     "date-fns": "^2.24.0",
     "rimraf": "^3.0.2",
