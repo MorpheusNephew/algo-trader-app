@@ -2886,10 +2886,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@morpheusnephew/td-ameritrade-models@^0.12.14":
-  version "0.12.14"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.14.tgz#1780ce0404e4ec00a9148cb0ec5035d0193ab8cf"
-  integrity sha512-3twuxhOGCQjgigEU/Kindmu0ud0ilOqPfQ46nz+eMoStGm6EdQm0FVj4Gsjx94W7eGD+LzRibWJ2L9jD409JVA==
+"@morpheusnephew/td-ameritrade-models@latest":
+  version "0.12.15"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.15.tgz#9df708cfe0e5b7c53a5ae642adf354e13ca0f0c4"
+  integrity sha512-xS8ctIVPrE13RmcGiVpLT21R7y9ux6gMjU6dYH/OeHoAJkCQwnGUkgPWGYDpgdP29oAtbyOOHreZsYAY9S7KvA==
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -4777,9 +4777,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001181:
-  version "1.0.30001251"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001251.tgz"
-  integrity sha512-HOe1r+9VkU4TFmnU70z+r7OLmtR+/chB1rdcJUeQlAinjEeb0cKL20tlAtOagNZhbrtLnCvV19B4FmF1rgzl6A==
+  version "1.0.30001356"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001356.tgz"
+  integrity sha512-/30854bktMLhxtjieIxsrJBfs2gTM1pel6MXKF3K+RdIVJZcsn2A2QdhsuR4/p9+R204fZw0zCBBhktX8xWuyQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"

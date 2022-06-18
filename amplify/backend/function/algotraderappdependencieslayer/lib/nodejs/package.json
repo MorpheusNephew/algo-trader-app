@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.31.0",
     "@aws-sdk/client-dynamodb": "^3.31.0",
@@ -10,7 +11,7 @@
     "@aws-sdk/lib-dynamodb": "^3.31.0",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.1",
-    "@morpheusnephew/td-ameritrade": "1.0.3",
+    "@morpheusnephew/td-ameritrade": "latest",
     "aws-xray-sdk": "^3.3.4",
     "axios": "^0.23.0",
     "cryptr": "^6.0.2",

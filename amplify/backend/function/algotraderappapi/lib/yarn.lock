@@ -1511,17 +1511,17 @@
     methods "^1.1.2"
     path-to-regexp "^6.1.0"
 
-"@morpheusnephew/td-ameritrade-models@^0.12.14":
-  version "0.12.14"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.14.tgz#1780ce0404e4ec00a9148cb0ec5035d0193ab8cf"
-  integrity sha512-3twuxhOGCQjgigEU/Kindmu0ud0ilOqPfQ46nz+eMoStGm6EdQm0FVj4Gsjx94W7eGD+LzRibWJ2L9jD409JVA==
+"@morpheusnephew/td-ameritrade-models@^0.12.15":
+  version "0.12.15"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade-models/-/td-ameritrade-models-0.12.15.tgz#9df708cfe0e5b7c53a5ae642adf354e13ca0f0c4"
+  integrity sha512-xS8ctIVPrE13RmcGiVpLT21R7y9ux6gMjU6dYH/OeHoAJkCQwnGUkgPWGYDpgdP29oAtbyOOHreZsYAY9S7KvA==
 
-"@morpheusnephew/td-ameritrade@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-1.0.3.tgz#8c7e1a3cb016f420bd5f3744fd71fee34595183a"
-  integrity sha512-z2QOZO5ieylwNrA/0U5DF9OHraGUvbZDtbtvd1OjyToSWi10AgsTUwkm+rmikHHFgxLnS/uBc0kKMluBtKQ2Hw==
+"@morpheusnephew/td-ameritrade@latest":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@morpheusnephew/td-ameritrade/-/td-ameritrade-1.0.4.tgz#8c32b33450324bad1962bcaf3b03945ca8c9ee5b"
+  integrity sha512-yPZbckgUo3YX/PeZTl/rZs3cxV3STYuS7IfWEfnaUC8phAYMKkTHWVL11JqgXnwEa5bd0piSVM/L/c4pePrzkg==
   dependencies:
-    "@morpheusnephew/td-ameritrade-models" "^0.12.14"
+    "@morpheusnephew/td-ameritrade-models" "^0.12.15"
     axios "^0.21.1"
     qs "^6.9.4"
 
@@ -2002,9 +2002,9 @@ call-bind@^1.0.0:
     get-intrinsic "^1.0.2"
 
 caniuse-lite@^1.0.30001248:
-  version "1.0.30001249"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001249.tgz#90a330057f8ff75bfe97a94d047d5e14fabb2ee8"
-  integrity sha512-vcX4U8lwVXPdqzPWi6cAJ3FnQaqXbBqy/GZseKNQzRj37J7qZdGcBtxq/QLFNLLlfsoXLUdHw8Iwenri86Tagw==
+  version "1.0.30001356"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001356.tgz"
+  integrity sha512-/30854bktMLhxtjieIxsrJBfs2gTM1pel6MXKF3K+RdIVJZcsn2A2QdhsuR4/p9+R204fZw0zCBBhktX8xWuyQ==
 
 chalk@^2.0.0:
   version "2.4.2"
