@@ -8,4 +8,5 @@ export const typeDefs = mergeTypeDefs([
       info: String!
     }
   `,
+  authTypeDefs,
 ]);

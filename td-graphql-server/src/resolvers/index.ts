@@ -7,4 +7,5 @@ export const resolvers = mergeResolvers([
       info: () => 'My info',
     },
   },
+  authResolvers,
 ]);
