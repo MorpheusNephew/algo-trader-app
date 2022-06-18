@@ -1,5 +1,5 @@
 import { mergeResolvers } from '@graphql-tools/merge';
-import { authResolvers } from './auth';
+import { authResolvers } from '../auth/resolvers';
 
 export const resolvers = mergeResolvers([
   {
