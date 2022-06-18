@@ -19,8 +19,4 @@ export const authTypeDefs = gql`
     """
     logout(username: String!): String!
   }
-
-  type Subscription {
-    userLoggedIn
-  }
 `;
