@@ -19,4 +19,11 @@ export const authTypeDefs = gql`
     """
     logout(username: String!): String!
   }
+
+  type Subscription {
+    """
+    Subscription for all logged in users
+    """
+    loggedInUsers: [String!]!
+  }
 `;
