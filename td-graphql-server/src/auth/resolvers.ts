@@ -6,6 +6,12 @@ enum AuthEvents {
 
 const loggedInUsers: Record<string, string> = {};
 
+const publishLoggedInUsers = (usersToPublish: Record<string, string>) => {
+  pubSub.publish(AuthEvents.LOGGED_IN_USERS, {
+    loggedInUsers: Object.values(usersToPublish),
+  });
+};
+
 export const authResolvers = {
   Query: {
     loggedIn: () => false,
@@ -19,9 +25,7 @@ export const authResolvers = {
         loggedInUsers[args.username] = args.username;
       }
 
-      pubSub.publish(AuthEvents.LOGGED_IN_USERS, {
-        loggedInUsers: Object.values(loggedInUsers),
-      });
+      publishLoggedInUsers(loggedInUsers);
 
       return loginMessage;
     },
@@ -33,9 +37,7 @@ export const authResolvers = {
         delete loggedInUsers[args.username];
       }
 
-      pubSub.publish(AuthEvents.LOGGED_IN_USERS, {
-        loggedInUsers: Object.values(loggedInUsers),
-      });
+      publishLoggedInUsers(loggedInUsers);
 
       return logoutMessage;
     },
