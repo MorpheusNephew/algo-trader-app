@@ -1,43 +1,100 @@
-export type TOptionField =
-  | 'symbol'
-  | 'description'
-  | 'bidPrice'
-  | 'askPrice'
-  | 'lastPrice'
-  | 'highPrice'
-  | 'lowPrice'
-  | 'closePrice'
-  | 'totalVolume'
-  | 'openInterest'
-  | 'volatility'
-  | 'quoteTime'
-  | 'tradeTime'
-  | 'moneyIntrinsicValue'
-  | 'quoteDay'
-  | 'tradeDay'
-  | 'expirationYear'
-  | 'multiplier'
-  | 'digits'
-  | 'openPrice'
-  | 'bidSize'
-  | 'askSize'
-  | 'lastSize'
-  | 'netChange'
-  | 'strikePrice'
-  | 'contractType'
-  | 'underlying'
-  | 'expirationMonth'
-  | 'deliverables'
-  | 'timeValue'
-  | 'expirationDay'
-  | 'daysToExpiration'
-  | 'delta'
-  | 'gamma'
-  | 'theta'
-  | 'vega'
-  | 'rho'
-  | 'securityStatus'
-  | 'theoreticalOptionValue'
-  | 'underlyingPrice'
-  | 'uvExpirationType'
-  | 'mark';
+export enum OptionFieldEnum {
+  symbol = 0,
+  description,
+  bidPrice,
+  askPrice,
+  lastPrice,
+  highPrice,
+  lowPrice,
+  closePrice,
+  totalVolume,
+  openInterest,
+  volatility,
+  quoteTime,
+  tradeTime,
+  moneyIntrinsicValue,
+  quoteDay,
+  tradeDay,
+  expirationYear,
+  multiplier,
+  digits,
+  openPrice,
+  bidSize,
+  askSize,
+  lastSize,
+  netChange,
+  strikePrice,
+  contractType,
+  underlying,
+  expirationMonth,
+  deliverables,
+  timeValue,
+  expirationDay,
+  daysToExpiration,
+  delta,
+  gamma,
+  theta,
+  vega,
+  rho,
+  securityStatus,
+  theoreticalOptionValue,
+  underlyingPrice,
+  uvExpirationType,
+  mark,
+}
+
+export enum QuoteFieldEnum {
+  symbol = 0,
+  bidPrice,
+  askPrice,
+  lastPrice,
+  bidSize,
+  askSize,
+  askId,
+  bidId,
+  totalVolume,
+  lastSize,
+  tradeTime,
+  quoteTime,
+  highPrice,
+  lowPrice,
+  bidTick,
+  closePrice,
+  exchangeId,
+  marginable,
+  shortable,
+  islandBid,
+  islandAsk,
+  islandVolume,
+  quoteDay,
+  tradeDay,
+  volatility,
+  description,
+  lastId,
+  digits,
+  openPrice,
+  netChange,
+  fiftyTwoWeekHigh,
+  fiftyTwoWeekLow,
+  peRatio,
+  dividendAmount,
+  dividendYield,
+  islandBidSize,
+  islandAskSize,
+  nav,
+  fundPrice,
+  exchangeName,
+  dividendDate,
+  regularMarketQuote,
+  regularMarketTrade,
+  regularMarketLastPrice,
+  regularMarketLastSize,
+  regularMarketTradeTime,
+  regularMarketTradeDay,
+  regularMarketNetChange,
+  securityStatus,
+  mark,
+  quoteTimeInLong,
+  tradeTimeInLong,
+  regularMarketTradeTimeInLong,
+}

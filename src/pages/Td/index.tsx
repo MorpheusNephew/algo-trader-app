@@ -1,5 +1,5 @@
 import { getUserPrincipal } from '../../clients/td';
-import { TOptionField } from '../../clients/td/stream/types';
+import { OptionFieldEnum } from '../../clients/td/stream/types';
 import { AccountInformation } from '../../components/td/AccountInformation';
 import { Movers } from '../../components/td/Movers';
 import { useGetCompanyOptions } from '../../hooks/companies/useGetCompanyOptions';
@@ -7,7 +7,7 @@ import { useGetBrokerageConnections } from '../../hooks/connections/useGetBroker
 import { Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { UserPrincipal } from '@morpheusnephew/td-ameritrade-models';
-import { isEmpty } from 'lodash';
+import { isEmpty, range } from 'lodash';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 // import { SymbolSelector } from '../../components/td/SymbolSelector';
@@ -46,26 +46,20 @@ const TdAmeritrade = () => {
       return;
     }
 
-    const tickerSymbols = companyOptions.map(({ value }) => value).slice(0, 10);
-    const optionFields: TOptionField[] = [
-      'symbol',
-      'askPrice',
-      'bidPrice',
-      'contractType',
-      'daysToExpiration',
-      'highPrice',
-      'lowPrice',
-      'lastPrice',
-    ];
+    const tickerSymbols = ['AAPL_040822C177.5']; // companyOptions.map(({ value }) => value).slice(0, 3)
+
+    const optionFields: OptionFieldEnum[] = range(42).map(
+      (_val, index) => index
+    );
 
     const socket = io('ws://localhost:3000');
-    socket.on('td-logged-in', (message) => {
-      console.log('message', message);
-
+    socket.on('td-logged-in', () => {
       socket.emit('sub-options', tickerSymbols, optionFields);
     });
 
     socket.emit('td-login', userPrincipal);
+
+    (window as any).socket = socket;
   }, [userPrincipal, companyOptions]);
 
   (window as any).io = io;

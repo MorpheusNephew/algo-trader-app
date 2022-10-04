@@ -27,9 +27,17 @@ export const AccountInformation: FC<IInput> = ({ hasConnection }) => {
     <div>
       <Typography>Account Information</Typography>
       {account && (
-        <Typography>
-          {account.accountId} - {account.type} account
-        </Typography>
+        <div>
+          <Typography>
+            {account.accountId} - {account.type} account
+          </Typography>
+          <Typography>
+            Current balances {account.currentBalances?.cashBalance}
+          </Typography>
+          <Typography>
+            Projected balances {account.projectedBalances?.cashBalance}
+          </Typography>
+        </div>
       )}
     </div>
   );
